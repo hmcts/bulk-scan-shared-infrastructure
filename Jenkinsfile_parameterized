@@ -1,4 +1,6 @@
 #!groovy
+import uk.gov.hmcts.contino.Subscription
+
 //noinspection GroovyUnusedAssignment
 @Library("Infrastructure") _
 
@@ -9,6 +11,8 @@ properties([
   ])
 ])
 
+Subscription subscription = new Subscription(env)
+
 def product = 'bulk-scan'
 
-sharedInfrastructurePipeline(product, params.ENVIRONMENT, 'sandbox')
+sharedInfrastructurePipeline(product, params.ENVIRONMENT, subscription.nonProdName)

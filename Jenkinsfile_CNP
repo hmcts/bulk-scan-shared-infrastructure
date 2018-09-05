@@ -1,20 +1,22 @@
 #!groovy
+import uk.gov.hmcts.contino.Environment
+import uk.gov.hmcts.contino.Subscription
+
 //noinspection GroovyUnusedAssignment
 @Library("Infrastructure") _
 
-import uk.gov.hmcts.contino.Environment
-
 Environment environment = new Environment(env)
+Subscription subscription = new Subscription(env)
 
 def product = 'bulk-scan'
 
 onMaster {
-  sharedInfrastructurePipeline(product, environment.previewName, 'nonprod')
-  sharedInfrastructurePipeline(product, environment.nonProdName, 'nonprod')
-  sharedInfrastructurePipeline(product, environment.demoName, 'nonprod')
-  sharedInfrastructurePipeline(product, environment.prodName, 'prod')
+  sharedInfrastructurePipeline(product, environment.previewName, subscription.nonProdName)
+  sharedInfrastructurePipeline(product, environment.nonProdName, subscription.nonProdName)
+  sharedInfrastructurePipeline(product, environment.demoName, subscription.nonProdName)
+  sharedInfrastructurePipeline(product, environment.prodName, subscription.prodName)
 }
 
 onPR {
-  sharedInfrastructurePipeline(product, environment.previewName, 'nonprod')
+  sharedInfrastructurePipeline(product, environment.previewName, subscription.nonProdName)
 }
