@@ -11,6 +11,7 @@ Subscription subscription = new Subscription(env)
 def product = 'bulk-scan'
 
 onMaster {
+  echo 'in on master'
   sharedInfrastructurePipeline(product, environment.previewName, subscription.nonProdName)
   sharedInfrastructurePipeline(product, environment.nonProdName, subscription.nonProdName)
   sharedInfrastructurePipeline(product, environment.demoName, subscription.nonProdName)
@@ -18,5 +19,8 @@ onMaster {
 }
 
 onPR {
+  echo 'in on PR'
   sharedInfrastructurePipeline(product, environment.previewName, subscription.nonProdName)
 }
+
+echo 'at end'
