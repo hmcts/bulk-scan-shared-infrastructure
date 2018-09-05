@@ -10,6 +10,8 @@ Subscription subscription = new Subscription(env)
 
 def product = 'bulk-scan'
 
+env.TF_LOG = 'trace'
+
 onMaster {
   sharedInfrastructurePipeline(product, environment.previewName, subscription.nonProdName)
   sharedInfrastructurePipeline(product, environment.nonProdName, subscription.nonProdName)
