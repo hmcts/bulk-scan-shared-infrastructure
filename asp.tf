@@ -1,7 +1,9 @@
 locals {
   ase_name = "core-compute-${var.env}"
+
   // num of apps * 1 to save cost where we can, * 2 in prod like environments
   asp_capacity = "${var.env == "prod" || var.env == "sprod" || var.env == "aat" ? 4 : 2}"
+
   // I2 in prod like env, I1 everywhere else
   sku_size = "${var.env == "prod" || var.env == "sprod" || var.env == "aat" ? "I2" : "I1"}"
 }
