@@ -26,4 +26,4 @@ The following parameters are optional
 
 ### Testing
 
-Changes to this project will be run against the preview environment if a PR is open
+Changes to this project will be run against the preview environment if a PR is open and the PR is prefixed with [PREVIEW]
