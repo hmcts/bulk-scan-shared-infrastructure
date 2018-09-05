@@ -9,7 +9,12 @@ Environment environment = new Environment(env)
 def product = 'bulk-scan'
 
 onMaster {
+  sharedInfrastructurePipeline(product, environment.previewName, 'nonprod')
   sharedInfrastructurePipeline(product, environment.nonProdName, 'nonprod')
   sharedInfrastructurePipeline(product, environment.demoName, 'nonprod')
   sharedInfrastructurePipeline(product, environment.prodName, 'prod')
+}
+
+onPR {
+  sharedInfrastructurePipeline(product, environment.previewName, 'nonprod')
 }

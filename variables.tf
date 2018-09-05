@@ -42,10 +42,6 @@ variable "team_contact" {
   default = "#rpe"
 }
 
-variable "asp_capacity" {
-  default = 2
-}
-
 variable "common_tags" {
   type = "map"
 }
