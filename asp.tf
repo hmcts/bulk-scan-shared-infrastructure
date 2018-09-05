@@ -9,7 +9,7 @@ locals {
 }
 
 module "asp" {
-  source              = "git@github.com:hmcts/cnp-module-app-service-plan?ref=feature/remove-unused-functionality"
+  source              = "git@github.com:hmcts/cnp-module-app-service-plan?ref=master"
   location            = "${var.location}"
   env                 = "${var.env}"
   resource_group_name = "${azurerm_resource_group.rg.name}"
