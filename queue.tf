@@ -11,3 +11,7 @@ module "queue" {
   namespace_name      = "${module.queue-namespace.name}"
   resource_group_name = "${azurerm_resource_group.rg.name}"
 }
+
+output "queue_primary_listen_connection_string" {
+  value = "${module.queue.primary_listen_connection_string}"
+}
