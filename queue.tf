@@ -15,3 +15,7 @@ module "queue" {
 output "queue_primary_listen_connection_string" {
   value = "${module.queue.primary_listen_connection_string}"
 }
+
+output "queue_primary_send_connection_string" {
+  value = "${module.queue.primary_send_connection_string}"
+}
