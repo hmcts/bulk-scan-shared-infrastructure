@@ -63,7 +63,7 @@ If you want to change the role pass in appropriate role while executing the scri
 ####  CCD definition
 
 In order to upload new definition file, put the definition file at location 
-'docker/ccd-definition-import/data/CCD_Definition_BULK_SCAN.template.xlsx'
+`docker/ccd-definition-import/data/CCD_Definition_BULK_SCAN.template.xlsx`
 
 Make sure caseworker created in above step is configured in the UserProfile tab of the definition file and has correct roles.
 
@@ -94,10 +94,12 @@ To publish message to queue follow below steps.
   ```
   
 namespace : namespace of the service bus for e.g on AAT namespace would be `bulk-scan-servicebus-aat`
+
 entityPath : name of the queue for e.g envelopes(this will not change with environment)
+
 SharedAccessSignature: For details check [Service Bus SAS](https://docs.microsoft.com/en-us/azure/service-bus-messaging/service-bus-sas)
 
-To generate Shared signature you can use below code.
+To generate Shared signature locally you can use below code snippet.
 
 ```java
 import java.net.URLEncoder;
