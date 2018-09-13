@@ -93,11 +93,11 @@ To publish message to queue follow below steps.
   $ curl -X POST https://<namespace>-<env>.servicebus.windows.net/<entityPath>/messages -H "Authorization: <SharedAccessSignature>" -H "Content-Type:application/json" -d "{"envelopeId":"12344"}" -i
   ```
   
-namespace : namespace of the service bus for e.g on AAT namespace would be `bulk-scan-servicebus-aat`
+_**namespace**_ : namespace of the service bus for e.g on AAT namespace would be `bulk-scan-servicebus-aat`
 
-entityPath : name of the queue for e.g envelopes(this will not change with environment)
+_**entityPath**_ : name of the queue for e.g envelopes(this will not change with environment)
 
-SharedAccessSignature : For details check [Service Bus SAS](https://docs.microsoft.com/en-us/azure/service-bus-messaging/service-bus-sas)
+_**SharedAccessSignature**_ : For details check [Service Bus SAS](https://docs.microsoft.com/en-us/azure/service-bus-messaging/service-bus-sas)
 
 To generate Shared signature locally you can use below code snippet.
 
@@ -141,8 +141,8 @@ public class GetSASToken {
 }
 ```
 
-* Service Bus URI : URI of the service bus for e.g on AAT it will be `https://bulk-scan-servicebus-aat.servicebus.windows.net/`
-* Key name and Key Value : Needs to be retrieved from portal.
+* **_Service Bus URI_** : URI of the service bus for e.g on AAT it will be `https://bulk-scan-servicebus-aat.servicebus.windows.net/`
+* **_Key name and Key Value_** : Needs to be retrieved from portal.
 Search for service bus namespace in portal and then navigate to the queue where message needs to be sent.
 Click on shared access policies and then select the policy(key for e.g SendSharedAccessKey) where claim is configured to have value Send. 
 
