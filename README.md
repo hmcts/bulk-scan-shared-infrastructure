@@ -82,6 +82,68 @@ $ ./bin/upload-ccd-spreadsheet.sh -v
 #### Login into CCD
 Open management web page http://localhost:3451 and login with user created above
 
+### Publishing message to Service Bus Queue
+Azure does not provide emulator to spin up Service Bus Queue locally, hence you will have to always use an instance deployed on one of the environments(Sandbox, Demo or AAT)
+
+To publish message to queue follow below steps.
+
+* Make a curl request in below format.
+
+  ```bash
+  $ curl -X POST https://<namespace>-<env>.servicebus.windows.net/<entityPath>/messages -H "Authorization: <SharedAccessSignature>" -H "Content-Type:application/json" -d "{"envelopeId":"12344"}" -i
+  ```
+  
+namespace : namespace of the service bus for e.g on AAT namespace would be `bulk-scan-servicebus-aat`
+entityPath : name of the queue for e.g envelopes(this will not change with environment)
+SharedAccessSignature: For details check [Service Bus SAS](https://docs.microsoft.com/en-us/azure/service-bus-messaging/service-bus-sas)
+
+To generate Shared signature you can use below code.
+
+```java
+import java.net.URLEncoder;
+import java.util.Base64;
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
+
+public class GetSASToken {
+
+    public static void main(String[] args) throws Exception {
+
+        String sas = getSASToken("<Service Bus URI>",
+            "<Key Name>",
+            "<Key Value>");
+
+        System.out.println(sas);
+    }
+
+    private static String getSASToken(String resourceUri, String keyName, String key) throws Exception {
+        long epoch = System.currentTimeMillis() / 1000L;
+        int week = 60 * 60 * 24 * 7;
+        String expiry = Long.toString(epoch + week);
+
+        String stringToSign = URLEncoder.encode(resourceUri, "UTF-8") + "\n" + expiry;
+        String signature = getHMAC256(key, stringToSign);
+        return "SharedAccessSignature sr=" + URLEncoder.encode(resourceUri, "UTF-8") + "&sig=" +
+            URLEncoder.encode(signature, "UTF-8") + "&se=" + expiry + "&skn=" + keyName;
+    }
+
+
+    public static String getHMAC256(String key, String input) throws Exception {
+        Mac sha256HMAC = Mac.getInstance("HmacSHA256");
+        SecretKeySpec secretKey = new SecretKeySpec(key.getBytes(), "HmacSHA256");
+        sha256HMAC.init(secretKey);
+        Base64.Encoder encoder = Base64.getEncoder();
+
+        return new String(encoder.encode(sha256HMAC.doFinal(input.getBytes("UTF-8"))));
+    }
+}
+```
+
+* Service Bus URI : URI of the service bus for e.g on AAT it will be `https://bulk-scan-servicebus-aat.servicebus.windows.net/`
+* Key name and Key Value : Needs to be retrieved from portal.
+Search for service bus namespace in portal and then navigate to the queue where message needs to be sent.
+Click on shared access policies and then select the policy(key for e.g SendSharedAccessKey) where claim is configured to have value Send. 
+
 #### Some nice things to know
 * Allocate enough memory to docker to spin up all the containers. 4 GB would be recommended.
 
@@ -105,13 +167,13 @@ Open management web page http://localhost:3451 and login with user created above
   
 * To list all volumes created run below command.
 
-```
+```bash
   $ docker volume ls
-  ```
+ ```
   
 * In case you want to remove docker volumes to destroy database volume mount run below command.
 
- ```
+ ```bash
   $ docker volume rm <volume name>
   ```
  
