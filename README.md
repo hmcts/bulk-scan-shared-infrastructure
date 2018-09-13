@@ -97,7 +97,7 @@ namespace : namespace of the service bus for e.g on AAT namespace would be `bulk
 
 entityPath : name of the queue for e.g envelopes(this will not change with environment)
 
-SharedAccessSignature: For details check [Service Bus SAS](https://docs.microsoft.com/en-us/azure/service-bus-messaging/service-bus-sas)
+SharedAccessSignature : For details check [Service Bus SAS](https://docs.microsoft.com/en-us/azure/service-bus-messaging/service-bus-sas)
 
 To generate Shared signature locally you can use below code snippet.
 
