@@ -45,3 +45,6 @@ variable "team_contact" {
 variable "common_tags" {
   type = "map"
 }
+
+variable "external_cert_vault_uri" {}
+variable "external_cert_name" {}
