@@ -48,6 +48,8 @@ services:
         - REFORM_ENVIRONMENT=test
         - IDAM_BSO_SYSTEMUPDATE_USER=bulkscanorchestrator+systemupdate@gmail.com
         - IDAM_BSO_SYSTEMUPDATE_PASSWORD=Password12
+        - IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_BSP=123456
+        - IDAM_BSP_WHITELIST=https://localhost/receiver
       mem_limit: 512m
       memswap_limit: 0
       depends_on:
