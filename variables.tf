@@ -48,3 +48,4 @@ variable "common_tags" {
 
 variable "external_cert_vault_uri" {}
 variable "external_cert_name" {}
+variable "external_hostname" {}

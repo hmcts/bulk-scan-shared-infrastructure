@@ -13,7 +13,6 @@ module "appGw" {
   team_name = "${var.team_name}"
   team_contact = "${var.team_contact}"
   destroy_me = "false"
-  ilbIp = "${var.ilbIp}"
 
   # vNet connections
   gatewayIpConfigurations = [
@@ -50,7 +49,7 @@ module "appGw" {
 
       backendAddresses = [
         {
-          fqdn = "${var.ilbIp}"
+          fqdn = "10.100.1.83" // TODO get this as an output from palo / blob storage
         },
       ]
     },
@@ -91,7 +90,7 @@ module "appGw" {
       unhealthyThreshold = 5
       pickHostNameFromBackendHttpSettings = "false"
       backendHttpSettings = "backend-443"
-      host = "${var.citizen_external_hostname}"
+      host = "${var.external_hostname}"
     }
   ]
 }
