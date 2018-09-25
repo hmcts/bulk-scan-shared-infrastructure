@@ -162,7 +162,7 @@ services:
         - DATA_STORE_IDAM_KEY=AAAAAAAAAAAAAAAA
         - SPRING_DATASOURCE_URL=jdbc:postgresql://shared-database-v10:5432/ccd_data_store?stringtype=unspecified
         - DATA_STORE_TOKEN_SECRET=sdsadahjsadhgaskjhdhasghgkjasd
-        - DATA_STORE_S2S_AUTHORISED_SERVICES=cmc_claim_store,ccd_gw
+        - DATA_STORE_S2S_AUTHORISED_SERVICES=bulk_scan_orchestrator,ccd_gw
         - DEFINITION_STORE_HOST=http://ccd-definition-store-api:4451
         - USER_PROFILE_HOST=http://ccd-user-profile-api:4453
         - IDAM_USER_URL=http://idam-api:8080
