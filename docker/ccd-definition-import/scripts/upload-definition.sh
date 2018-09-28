@@ -24,7 +24,7 @@ export BULK_SCAN_ORCHESTRATOR_BASE_URL=http://bulk-scan-orchestrator:5000 # Serv
 userToken=$(sh ./scripts/idam-authenticate.sh ${IMPORTER_USERNAME} ${IMPORTER_PASSWORD} ${IDAM_URI} ${REDIRECT_URI} ${CLIENT_SECRET})
 
 # add ccd role
-/scripts/add-ccd-role.sh "caseworker-sscs" "PUBLIC" "${userToken}"
+/scripts/add-ccd-role.sh "caseworker-bulkscan" "PUBLIC" "${userToken}"
 /scripts/add-ccd-role.sh "caseworker-sscs-systemupdate" "PUBLIC" "${userToken}"
 /scripts/add-ccd-role.sh "caseworker-sscs-callagent" "PUBLIC" "${userToken}"
 
