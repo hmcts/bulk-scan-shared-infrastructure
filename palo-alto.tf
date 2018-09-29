@@ -1,8 +1,9 @@
 module "palo_alto" {
-  source      = "git@github.com:hmcts/cnp-module-palo-alto.git"
-  env         = "${var.env}"
-  product     = "${var.product}"
-  common_tags = "${var.common_tags}"
+  source       = "git@github.com:hmcts/cnp-module-palo-alto.git"
+  subscription = "${var.subscription}"
+  env          = "${var.env}"
+  product      = "${var.product}"
+  common_tags  = "${var.common_tags}"
 
   untrusted_vnet_name           = "core-infra-vnet-${var.env}"
   untrusted_vnet_resource_group = "core-infra-${var.env}"
