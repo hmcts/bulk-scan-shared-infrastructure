@@ -10,6 +10,7 @@ INSERT INTO user_group_roles(user_group_name, roles_name)
 VALUES
   ('caseworker-bulkscan', 'caseworker-bulkscan');
 
+-- NOTE: password needs to be retrieved from vault
 INSERT INTO registered_user (id, account_locked, continue_url, forename, surname, login_failures, email, password, 
    activation_date, user_group_name, level_of_access, password_change_date) 
 VALUES
