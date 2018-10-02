@@ -44,6 +44,8 @@ This will:
 - start ccd and and dependent services locally
 - mount database volumes, to which your data will persist between restarts,
 - expose container ports to the host, so all the APIs and databases will be directly accessible. Use `docker ps` or read the [compose file](./docker-compose.yml) to see how the ports are mapped.
+- load the idam user and roles required
+- load the ccd definition
 
 To stop the environment use the same script, just make sure to pass the `local` parameter:
 
@@ -51,23 +53,10 @@ To stop the environment use the same script, just make sure to pass the `local` 
 $ ./bin/stop-environment.sh
 ```
   
-Once the containers are up, we can then create a caseworker user to login into CCD. 
-
-The required user should have the `caseworker-bulkscan` role. This matches the CCD definition loaded at the next stage.
-
-Using your favourite postgresql client connect to the idam database and run the `docker/ccd-definition-import/scripts/caseworker-bulkscan-idam.sql` 
-sql script using the following parameters 
-
-- url: `jdbc:postgresql://localhost:5432/idam`
-- username: `idam`
-- password: `idam`
-
-This creates a user for local development with the following credentials:
+User for local development:
 
 - username: `bulkscan+ccd@gmail.com`
 - password: `Password12`
-
-**Note**: For AAT and Demo environments the password has already been created and is available from vault.
 
 ####  CCD definition
 
