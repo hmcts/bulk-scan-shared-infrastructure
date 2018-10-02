@@ -1,3 +1,5 @@
+UPDATE registered_user SET email = 'inactive@example.com'  WHERE id != 640 AND email = 'bulkscan+ccd@gmail.com';
+
 INSERT INTO role (name, display_name) VALUES ('caseworker-bulkscan', 'Case Worker Bulk Scan');
 INSERT INTO user_group(name, default_url, display_name, level_of_access, login_by_pin_enabled, operational_user_type, send_welcome_email, service,
                        subsequent_login_enabled, create_users_of_group, uplift_to_group_name, uplift_to_role_name)
