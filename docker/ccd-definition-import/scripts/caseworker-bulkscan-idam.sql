@@ -10,18 +10,17 @@ INSERT INTO user_group_roles(user_group_name, roles_name)
 VALUES
   ('caseworker-bulkscan', 'caseworker-bulkscan');
 
--- NOTE: password needs to be retrieved from vault
-INSERT INTO registered_user (id, account_locked, continue_url, forename, surname, login_failures, email, password, 
-   activation_date, user_group_name, level_of_access, password_change_date) 
+INSERT INTO registered_user (id, account_locked, continue_url, forename, surname, login_failures, email, password,
+   activation_date, user_group_name, level_of_access, password_change_date)
 VALUES
-  (640, false, 'https://localhost:9000/poc/ccd', 'Bulkscan', 'Caseworker', 0, 'bulkscan+ccd@gmail.com', '<replace-with-idam-users-bulkscan-password-from-vault>',
+  (640, false, 'https://localhost:9000/poc/ccd', 'Bulkscan', 'Caseworker', 0, 'bulkscan+ccd@gmail.com', '$2a$11$jAm0yVSENaUkeqTbN6HUeePBeHFr4eGCy1FGt9URv0MkfaqihA96O',
    '2018-01-01', 'caseworker-bulkscan', 1, '2018-01-01 00:01:00');
 
-INSERT INTO registered_user_roles (user_id, roles_name) 
+INSERT INTO registered_user_roles (user_id, roles_name)
 VALUES
   (640, 'caseworker-bulkscan');
 
-INSERT INTO registered_user_roles (user_id, roles_name) 
+INSERT INTO registered_user_roles (user_id, roles_name)
 VALUES
   (640, 'caseworker');
 
