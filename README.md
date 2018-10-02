@@ -39,6 +39,11 @@ Execute below script to start ccd locally.
   ```bash
   $ ./bin/start-ccd-web.sh
   ```
+  
+After doing any git pull on this repo you should rebuild the containers:
+```bash
+ $ docker-compose build
+```
 
 This will:
 - start ccd and and dependent services locally
