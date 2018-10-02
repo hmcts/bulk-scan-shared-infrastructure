@@ -197,7 +197,7 @@ services:
       image: hmcts/idam-importer
       depends_on:
         idam-api:
-          condition: service_started
+          condition: service_healthy
 
     ccd-case-management-web:
       image: hmcts/ccd-case-management-web:latest
