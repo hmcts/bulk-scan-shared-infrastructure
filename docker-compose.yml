@@ -191,6 +191,14 @@ services:
         VERBOSE: ${VERBOSE:-false}
         WAIT_HOSTS_TIMEOUT: 300
 
+    idam-importer:
+      build:
+        context: docker/idam-importer
+      image: hmcts/idam-importer
+      depends_on:
+        idam-api:
+          condition: service_started
+
     ccd-case-management-web:
       image: hmcts/ccd-case-management-web:latest
       environment:
