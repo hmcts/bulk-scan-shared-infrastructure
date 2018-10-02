@@ -25,8 +25,6 @@ userToken=$(sh ./scripts/idam-authenticate.sh ${IMPORTER_USERNAME} ${IMPORTER_PA
 
 # add ccd role
 /scripts/add-ccd-role.sh "caseworker-bulkscan" "PUBLIC" "${userToken}"
-/scripts/add-ccd-role.sh "caseworker-sscs-systemupdate" "PUBLIC" "${userToken}"
-/scripts/add-ccd-role.sh "caseworker-sscs-callagent" "PUBLIC" "${userToken}"
 
 # upload definition file
 /scripts/import-definition.sh "/definition.xlsx" "${userToken}"
