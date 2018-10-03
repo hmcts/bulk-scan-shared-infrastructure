@@ -46,8 +46,8 @@ services:
         - https_proxy
         - no_proxy
         - REFORM_ENVIRONMENT=test
-        - IDAM_BSO_SYSTEMUPDATE_USER=bulkscanorchestrator+systemupdate@gmail.com
-        - IDAM_BSO_SYSTEMUPDATE_PASSWORD=Password12
+        - IDAM_BSP_SYSTEMUPDATE_USER=bulkscanorchestrator+systemupdate@gmail.com
+        - IDAM_BSP_SYSTEMUPDATE_PASSWORD=Password12
         - IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_BSP=123456
         - IDAM_BSP_WHITELIST=https://localhost/receiver
       mem_limit: 512m
@@ -162,7 +162,7 @@ services:
         - DATA_STORE_IDAM_KEY=AAAAAAAAAAAAAAAA
         - SPRING_DATASOURCE_URL=jdbc:postgresql://shared-database-v10:5432/ccd_data_store?stringtype=unspecified
         - DATA_STORE_TOKEN_SECRET=sdsadahjsadhgaskjhdhasghgkjasd
-        - DATA_STORE_S2S_AUTHORISED_SERVICES=cmc_claim_store,ccd_gw
+        - DATA_STORE_S2S_AUTHORISED_SERVICES=bulk_scan_orchestrator,ccd_gw
         - DEFINITION_STORE_HOST=http://ccd-definition-store-api:4451
         - USER_PROFILE_HOST=http://ccd-user-profile-api:4453
         - IDAM_USER_URL=http://idam-api:8080
@@ -190,6 +190,14 @@ services:
         WAIT_HOSTS: ccd-user-profile-api:4453, ccd-definition-store-api:4451, service-auth-provider-api:8080, ccd-api-gateway:3453, idam-api:8080
         VERBOSE: ${VERBOSE:-false}
         WAIT_HOSTS_TIMEOUT: 300
+
+    idam-importer:
+      build:
+        context: docker/idam-importer
+      image: hmcts/idam-importer
+      depends_on:
+        idam-api:
+          condition: service_healthy
 
     ccd-case-management-web:
       image: hmcts/ccd-case-management-web:latest

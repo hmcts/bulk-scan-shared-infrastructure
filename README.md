@@ -39,11 +39,18 @@ Execute below script to start ccd locally.
   ```bash
   $ ./bin/start-ccd-web.sh
   ```
+  
+After doing any git pull on this repo you should rebuild the containers:
+```bash
+ $ docker-compose build
+```
 
 This will:
 - start ccd and and dependent services locally
 - mount database volumes, to which your data will persist between restarts,
 - expose container ports to the host, so all the APIs and databases will be directly accessible. Use `docker ps` or read the [compose file](./docker-compose.yml) to see how the ports are mapped.
+- load the idam user and roles required
+- load the ccd definition
 
 To stop the environment use the same script, just make sure to pass the `local` parameter:
 
@@ -51,14 +58,10 @@ To stop the environment use the same script, just make sure to pass the `local` 
 $ ./bin/stop-environment.sh
 ```
   
-Once the containers are up, we can then create caseworker user to login into CCD. 
+User for local development:
 
-By default `caseworker-sscs` role is assigned to the user.
-If you want to change the role pass in appropriate role while executing the script. User role should exists in Idam.
-
-  ```bash
-   $ ./bin/create-case-worker.sh
-  ```
+- username: `bulkscan+ccd@gmail.com`
+- password: `Password12`
 
 ####  CCD definition
 
