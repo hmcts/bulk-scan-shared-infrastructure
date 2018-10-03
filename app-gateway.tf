@@ -53,13 +53,12 @@ module "appGw" {
 
   backendHttpSettingsCollection = [
     {
-      name                           = "backend-443"
-      port                           = 443
-      Protocol                       = "Https"
+      name                           = "backend"
+      port                           = 80
+      Protocol                       = "Http"
       CookieBasedAffinity            = "Disabled"
-      AuthenticationCertificates     = "ilbCert"
       probeEnabled                   = "True"
-      probe                          = "https-probe"
+      probe                          = "http-probe"
       PickHostNameFromBackendAddress = "False"
       Host                           = "${var.external_hostname}"
     },
@@ -68,24 +67,24 @@ module "appGw" {
   # Request routing rules
   requestRoutingRules = [
     {
-      name                = "https"
+      name                = "http"
       RuleType            = "Basic"
-      httpListener        = "https-listener"
+      httpListener        = "http-listener"
       backendAddressPool  = "${var.product}-${var.env}"
-      backendHttpSettings = "backend-443"
+      backendHttpSettings = "backend"
     },
   ]
 
   probes = [
     {
-      name                                = "https-probe"
-      protocol                            = "Https"
+      name                                = "http-probe"
+      protocol                            = "Http"
       path                                = "/"
       interval                            = 30
       timeout                             = 30
       unhealthyThreshold                  = 5
       pickHostNameFromBackendHttpSettings = "false"
-      backendHttpSettings                 = "backend-443"
+      backendHttpSettings                 = "backend"
       host                                = "${var.external_hostname}"
     },
   ]
