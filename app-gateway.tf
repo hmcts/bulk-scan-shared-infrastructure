@@ -56,6 +56,7 @@ module "appGw" {
       name                           = "backend"
       port                           = 80
       Protocol                       = "Http"
+      AuthenticationCertificates     = ""
       CookieBasedAffinity            = "Disabled"
       probeEnabled                   = "True"
       probe                          = "http-probe"
