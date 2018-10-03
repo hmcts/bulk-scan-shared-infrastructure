@@ -68,9 +68,9 @@ module "appGw" {
   # Request routing rules
   requestRoutingRules = [
     {
-      name                = "http"
+      name                = "https"
       RuleType            = "Basic"
-      httpListener        = "http-listener"
+      httpListener        = "https-listener"
       backendAddressPool  = "${var.product}-${var.env}"
       backendHttpSettings = "backend"
     },
