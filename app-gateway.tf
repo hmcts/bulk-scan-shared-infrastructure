@@ -47,11 +47,7 @@ module "appGw" {
     {
       name = "${var.product}-${var.env}"
 
-      backendAddresses = [
-        {
-          fqdn = "10.100.1.83" // TODO get this as an output from palo / blob storage
-        },
-      ]
+      backendAddresses = "${module.palo_alto.untrusted_ips_fqdn}"
     },
   ]
 
