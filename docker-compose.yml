@@ -96,7 +96,7 @@ services:
       mem_limit: 320m
       memswap_limit: 0
       ports:
-        - 5432:5432
+        - 5435:5432
 
     ccd-user-profile-api:
         image: hmcts/ccd-user-profile-api:latest
