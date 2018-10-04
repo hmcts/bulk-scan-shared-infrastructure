@@ -24,7 +24,7 @@ resource "azurerm_storage_account" "storage_account" {
 
   custom_domain {
     name          = "${var.external_hostname}"
-    use_subdomain = true
+    use_subdomain = false
   }
 
   tags = "${local.tags}"
