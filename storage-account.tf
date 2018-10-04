@@ -34,12 +34,10 @@ resource "azurerm_storage_container" "bulkscan_container" {
   name                  = "bulkscan"
   resource_group_name   = "${azurerm_storage_account.storage_account.resource_group_name}"
   storage_account_name  = "${azurerm_storage_account.storage_account.name}"
-  container_access_type = "blob"
 }
 
 resource "azurerm_storage_container" "sscs_container" {
   name                  = "sscs"
   resource_group_name   = "${azurerm_storage_account.storage_account.resource_group_name}"
   storage_account_name  = "${azurerm_storage_account.storage_account.name}"
-  container_access_type = "blob"
 }
