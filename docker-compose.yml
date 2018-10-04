@@ -190,6 +190,9 @@ services:
         WAIT_HOSTS: ccd-user-profile-api:4453, ccd-definition-store-api:4451, service-auth-provider-api:8080, ccd-api-gateway:3453, idam-api:8080
         VERBOSE: ${VERBOSE:-false}
         WAIT_HOSTS_TIMEOUT: 300
+      volumes:
+        - ./docker/ccd-definition-import/data/CCD_Definition_BULK_SCAN.template.xlsx:/definition-template.xlsx
+        - ./docker/ccd-definition-import/scripts:/scripts
 
     idam-importer:
       build:
@@ -218,9 +221,6 @@ services:
         disable: true
       ports:
         - 3451:3451
-      volumes:
-        - ./docker/ccd-definition-import/data/CCD_Definition_BULK_SCAN.template.xlsx:/definition-template.xlsx
-        - ./docker/ccd-definition-import/scripts:/scripts
 
     ccd-api-gateway:
       image: hmcts/ccd-api-gateway:latest
