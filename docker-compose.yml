@@ -2,6 +2,12 @@
 version: '2.1'
 
 services:
+    dockerhost:
+      image: qoomon/docker-host
+      cap_add: [ 'NET_ADMIN', 'NET_RAW' ]
+      mem_limit: 4M
+      restart: on-failure
+
     authentication-web:
       image: docker.artifactory.reform.hmcts.net/auth/authentication-web:latest
       environment:
