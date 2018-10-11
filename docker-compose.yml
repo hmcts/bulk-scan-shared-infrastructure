@@ -191,8 +191,7 @@ services:
         VERBOSE: ${VERBOSE:-false}
         WAIT_HOSTS_TIMEOUT: 300
       volumes:
-        - ./docker/ccd-definition-import/data/CCD_Definition_Exception_Record.template.xlsx:/definition-template.xlsx
-        # - ./docker/ccd-definition-import/data/CCD_Definition_BULK_SCAN.template.xlsx:/definition-template.xlsx
+        - ./docker/ccd-definition-import/data:/definitions
         - ./docker/ccd-definition-import/scripts:/scripts
 
     idam-importer:
