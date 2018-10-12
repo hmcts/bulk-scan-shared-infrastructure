@@ -34,10 +34,6 @@ variable "jenkins_AAD_objectId" {
 
 variable "subscription" {}
 
-variable "team_contact" {
-  default = "#rpe"
-}
-
 variable "common_tags" {
   type = "map"
 }

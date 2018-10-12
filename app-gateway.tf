@@ -4,15 +4,12 @@ data "azurerm_key_vault_secret" "cert" {
 }
 
 module "appGw" {
-  source            = "git@github.com:hmcts/cnp-module-waf?ref=stripDownWf"
+  source            = "git@github.com:hmcts/cnp-module-waf?ref=add-support-for-custom-health-probe"
   env               = "${var.env}"
   subscription      = "${var.subscription}"
   location          = "${var.location}"
   wafName           = "${var.product}"
   resourcegroupname = "${azurerm_resource_group.rg.name}"
-  team_name         = "${var.team_name}"
-  team_contact      = "${var.team_contact}"
-  destroy_me        = "false"
 
   # vNet connections
   gatewayIpConfigurations = [
@@ -86,7 +83,8 @@ module "appGw" {
       unhealthyThreshold                  = 5
       pickHostNameFromBackendHttpSettings = "false"
       backendHttpSettings                 = "backend"
-      host                                = "${var.external_hostname}"
+      host                                = "${var.external_hostname}",
+      healthyStatusCodes                  = "200-404" // MS returns 400 on /, allowing more codes in case they change it
     },
   ]
 }
