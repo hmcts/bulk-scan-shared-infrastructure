@@ -4,7 +4,7 @@ data "azurerm_key_vault_secret" "cert" {
 }
 
 module "appGw" {
-  source            = "git@github.com:hmcts/cnp-module-waf?ref=add-support-for-custom-health-probe"
+  source            = "git@github.com:hmcts/cnp-module-waf?ref=stripDownWf"
   env               = "${var.env}"
   subscription      = "${var.subscription}"
   location          = "${var.location}"
