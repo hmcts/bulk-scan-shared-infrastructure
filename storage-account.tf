@@ -17,10 +17,10 @@ resource "azurerm_storage_account" "storage_account" {
   account_replication_type = "LRS"
   account_kind             = "BlobStorage"
 
-  custom_domain {
-    name          = "${var.external_hostname}"
-    use_subdomain = false
-  }
+//  custom_domain {
+//    name          = "${var.external_hostname}"
+//    use_subdomain = false
+//  }
 
   tags = "${local.tags}"
 }
