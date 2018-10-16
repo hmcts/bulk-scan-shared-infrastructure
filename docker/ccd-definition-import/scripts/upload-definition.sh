@@ -25,7 +25,7 @@ userToken=$(sh ./scripts/idam-authenticate.sh ${IMPORTER_USERNAME} ${IMPORTER_PA
 # add ccd role
 /scripts/add-ccd-role.sh "caseworker-bulkscan" "PUBLIC" "${userToken}"
 
-for definition in /definitions/*.xlsx
+for definition in /definitions/C*.xlsx # use C to not process excel temp files that start with ~
 do
   echo "======== PROCESSING FILE $definition ========="
 
