@@ -16,6 +16,3 @@ onMaster {
   sharedInfrastructurePipeline(product, environment.prodName, subscription.prodName)
 }
 
-onPR {
-  sharedInfrastructurePipeline(product, environment.previewName, subscription.nonProdName)
-}
