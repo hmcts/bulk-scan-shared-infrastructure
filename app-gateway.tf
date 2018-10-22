@@ -83,8 +83,8 @@ module "appGw" {
       unhealthyThreshold                  = 5
       pickHostNameFromBackendHttpSettings = "false"
       backendHttpSettings                 = "backend"
-      host                                = "${var.external_hostname}",
-      healthyStatusCodes                  = "200-404" // MS returns 400 on /, allowing more codes in case they change it
+      host                                = "${var.external_hostname}"
+      healthyStatusCodes                  = "200-404"                  // MS returns 400 on /, allowing more codes in case they change it
     },
   ]
 }
