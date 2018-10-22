@@ -1,7 +1,7 @@
 locals {
   trusted_vnet_name           = "core-infra-vnet-${var.env}"
   trusted_vnet_resource_group = "core-infra-${var.env}"
-  trusted_vnet_subnet_name    = "palo-mgmt-${var.env}"
+  trusted_vnet_subnet_name    = "palo-trusted"
 }
 
 module "palo_alto" {
@@ -16,6 +16,6 @@ module "palo_alto" {
   untrusted_vnet_subnet_name    = "palo-untrusted"
   trusted_vnet_name             = "core-infra-vnet-${var.env}"
   trusted_vnet_resource_group   = "core-infra-${var.env}"
-  trusted_vnet_subnet_name      = "palo-trusted"
+  trusted_vnet_subnet_name      = "${local.trusted_vnet_subnet_name}"
   trusted_destination_host      = "${azurerm_storage_account.storage_account.name}.blob.core.windows.net"
 }
