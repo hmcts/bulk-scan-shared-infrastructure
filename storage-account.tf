@@ -1,3 +1,8 @@
+provider "azurerm" {
+  alias           = "mgmt"
+  subscription_id = "${var.mgmt_subscription_id}"
+}
+
 locals {
   account_name      = "${replace("${var.product}${var.env}", "-", "")}"
   mgmt_network_name = "${var.subscription == "prod" || var.subscription == "nonprod" ? "mgmt-infra-prod" : "mgmt-infra-sandbox"}"
@@ -10,6 +15,7 @@ data "azurerm_subnet" "trusted_subnet" {
 }
 
 data "azurerm_subnet" "jenkins_subnet" {
+  provider             = "azurerm.mgmt"
   name                 = "jenkins-subnet"
   virtual_network_name = "${local.mgmt_network_name}"
   resource_group_name  = "${local.mgmt_network_name}"

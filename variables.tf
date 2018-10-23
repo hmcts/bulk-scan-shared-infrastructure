@@ -33,6 +33,7 @@ variable "jenkins_AAD_objectId" {
 }
 
 variable "subscription" {}
+variable "mgmt_subscription_id" {}
 
 variable "common_tags" {
   type = "map"
