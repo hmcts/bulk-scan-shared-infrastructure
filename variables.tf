@@ -33,11 +33,12 @@ variable "jenkins_AAD_objectId" {
 }
 
 variable "subscription" {}
-
-variable "team_contact" {
-  default = "#rpe"
-}
+variable "mgmt_subscription_id" {}
 
 variable "common_tags" {
   type = "map"
 }
+
+variable "external_cert_vault_uri" {}
+variable "external_cert_name" {}
+variable "external_hostname" {}

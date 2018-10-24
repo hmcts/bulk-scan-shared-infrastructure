@@ -19,6 +19,6 @@ RUN ["chmod", "+x", "/wait"]
 RUN chmod +x /scripts/*.sh /scripts/*.py
 RUN pip3 install -r /scripts/requirements.txt
 
-COPY data/CCD_Definition_BULK_SCAN.template.xlsx /definition-template.xlsx
+COPY data/*.xlsx /definitions/
 
 CMD "/wait" && "/scripts/upload-definition.sh"
