@@ -54,3 +54,18 @@ resource "azurerm_storage_container" "sscs_container" {
   resource_group_name  = "${azurerm_storage_account.storage_account.resource_group_name}"
   storage_account_name = "${azurerm_storage_account.storage_account.name}"
 }
+
+resource "azurerm_storage_container" "divorce_container" {
+  name                 = "divorce"
+  resource_group_name  = "${azurerm_storage_account.storage_account.resource_group_name}"
+  storage_account_name = "${azurerm_storage_account.storage_account.name}"
+}
+
+output "storage_account_name" {
+  value = "${azurerm_storage_account.storage_account.name}"
+}
+
+output "storage_account_primary_key" {
+  sensitive = true
+  value     = "${azurerm_storage_account.storage_account.primary_access_key}"
+}

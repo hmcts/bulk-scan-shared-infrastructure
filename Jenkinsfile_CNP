@@ -3,7 +3,7 @@ import uk.gov.hmcts.contino.Environment
 import uk.gov.hmcts.contino.Subscription
 
 //noinspection GroovyUnusedAssignment
-@Library("Infrastructure@feature/add-mgmt-sub-id-to-env") _
+@Library("Infrastructure") _
 
 Environment environment = new Environment(env)
 Subscription subscription = new Subscription(env)

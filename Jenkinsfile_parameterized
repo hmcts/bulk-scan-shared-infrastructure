@@ -2,7 +2,7 @@
 import uk.gov.hmcts.contino.Subscription
 
 //noinspection GroovyUnusedAssignment
-@Library("Infrastructure@feature/add-mgmt-sub-id-to-env") _
+@Library("Infrastructure") _
 
 //noinspection GroovyAssignabilityCheck
 properties([
