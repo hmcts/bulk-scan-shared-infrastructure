@@ -85,6 +85,10 @@ $ ./bin/upload-ccd-spreadsheet.sh -v
 #### Login into CCD
 Open management web page http://localhost:3451 and login with user created above
 
+#### DM-Store
+Add hosts entry for dm-store 
+```127.0.0.1 dm-store```
+
 ### Publishing message to Service Bus Queue
 Azure does not provide emulator to spin up Service Bus Queue locally, hence you will have to always use an instance deployed on one of the environments(Sandbox, Demo or AAT)
 

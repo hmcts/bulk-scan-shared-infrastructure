@@ -266,7 +266,7 @@ services:
         - SPRING_DATASOURCE_PASSWORD=evidence
         - IDAM_USER_BASE_URI=http://idam-api:8080
         - IDAM_S2S_BASE_URI=http://service-auth-provider-api:8080
-        - S2S_NAMES_WHITELIST=ccd_gw,cmc,bulk_scan_orchestrator,ccd_data
+        - S2S_NAMES_WHITELIST=ccd_gw,cmc,bulk_scan_orchestrator,ccd_data,bulk_scan_processor
         - http_proxy=
         - https_proxy=
         - no_proxy=
@@ -289,10 +289,6 @@ services:
         - ENDPOINTS_HEALTH_SENSITIVE=false
         - ENDPOINTS_INFO_SENSITIVE=false
         - CASE_WORKER_ROLES=caseworker-sscs
-      environment:
-        - http_proxy=
-        - https_proxy=
-        - no_proxy=
       ports:
         - 4460:4460
 
