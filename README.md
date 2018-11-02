@@ -32,6 +32,11 @@ Changes to this project will be run against the preview environment if a PR is o
 #### Prerequisites
 
 * [Docker](https://www.docker.com/)
+* (*Optional*) To upload documents to document management store(dm-store) and allow CCD to talk to local document store add below entry in host file.
+
+```
+127.0.0.1 dm-store
+```
 
 #### Steps to start ccd management web
 Execute below script to start ccd locally.
@@ -84,10 +89,6 @@ $ ./bin/upload-ccd-spreadsheet.sh -v
 ```
 #### Login into CCD
 Open management web page http://localhost:3451 and login with user created above
-
-#### DM-Store
-Add hosts entry for dm-store 
-```127.0.0.1 dm-store```
 
 ### Publishing message to Service Bus Queue
 Azure does not provide emulator to spin up Service Bus Queue locally, hence you will have to always use an instance deployed on one of the environments(Sandbox, Demo or AAT)
