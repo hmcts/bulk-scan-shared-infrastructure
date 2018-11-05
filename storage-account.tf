@@ -6,6 +6,10 @@ provider "azurerm" {
 locals {
   account_name      = "${replace("${var.product}${var.env}", "-", "")}"
   mgmt_network_name = "${var.subscription == "prod" || var.subscription == "nonprod" ? "mgmt-infra-prod" : "mgmt-infra-sandbox"}"
+
+  // for each client service two containers are created: one named after the service
+  // and another one, named {service_name}-rejected, for storing envelopes rejected by bulk-scan
+  client_service_names   = ["bulkscan", "sscs", "divorce"]
 }
 
 data "azurerm_subnet" "trusted_subnet" {
@@ -43,22 +47,18 @@ resource "azurerm_storage_account" "storage_account" {
   tags = "${local.tags}"
 }
 
-resource "azurerm_storage_container" "bulkscan_container" {
-  name                 = "bulkscan"
+resource "azurerm_storage_container" "service_containers" {
+  name                 = "${local.client_service_names[count.index]}"
   resource_group_name  = "${azurerm_storage_account.storage_account.resource_group_name}"
   storage_account_name = "${azurerm_storage_account.storage_account.name}"
+  count                = "${length(local.client_service_names)}"
 }
 
-resource "azurerm_storage_container" "sscs_container" {
-  name                 = "sscs"
+resource "azurerm_storage_container" "service_rejected_containers" {
+  name                 = "${local.client_service_names[count.index]}-rejected"
   resource_group_name  = "${azurerm_storage_account.storage_account.resource_group_name}"
   storage_account_name = "${azurerm_storage_account.storage_account.name}"
-}
-
-resource "azurerm_storage_container" "divorce_container" {
-  name                 = "divorce"
-  resource_group_name  = "${azurerm_storage_account.storage_account.resource_group_name}"
-  storage_account_name = "${azurerm_storage_account.storage_account.name}"
+  count                = "${length(local.client_service_names)}"
 }
 
 output "storage_account_name" {

@@ -32,6 +32,11 @@ Changes to this project will be run against the preview environment if a PR is o
 #### Prerequisites
 
 * [Docker](https://www.docker.com/)
+* (*Optional*) To upload documents to document management store(dm-store) and allow CCD to talk to local document store add below entry in host file.
+
+```
+127.0.0.1 dm-store
+```
 
 #### Steps to start ccd management web
 Execute below script to start ccd locally.
