@@ -18,7 +18,7 @@ else
   export CURL_OPTS="--fail --silent"
 fi
 
-export BULK_SCAN_ORCHESTRATOR_BASE_URL=http://bulk-scan-orchestrator:5000 # Service does not exist as of now but will be added later
+export BULK_SCAN_ORCHESTRATOR_BASE_URL=http://host.docker.internal:8582
 
 userToken=$(sh ./scripts/idam-authenticate.sh ${IMPORTER_USERNAME} ${IMPORTER_PASSWORD} ${IDAM_URI} ${REDIRECT_URI} ${CLIENT_SECRET})
 
