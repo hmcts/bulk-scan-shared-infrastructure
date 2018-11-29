@@ -22,5 +22,9 @@ curl -XPOST -H 'Content-Type: application/json' http://idam-api:8080/testing-sup
     "password": "'${PASSWORD}'"
 }'
 
-echo -e "Created user with:\nUsername: ${USER_EMAIL}\nPassword:${PASSWORD}\nFirstname: ${FORENAME}\nSurname: ${SURNAME}\nUser group: ${USER_GROUP}"
-
+echo "Created user with:"
+echo "Username: ${USER_EMAIL}"
+echo "Password:${PASSWORD}"
+echo "Forename: ${FORENAME}"
+echo "Surname: ${SURNAME}"
+echo "User group: ${USER_GROUP}"

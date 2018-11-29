@@ -1,14 +1,14 @@
 #!/bin/sh
-## Import the given definition in CCD definition store.
+## Imports given definition into CCD definition store.
 ##
-## Usage: ./import-definition.sh path_to_definition [userToken]
+## Usage: ./import-definition.sh path_to_definition userToken
 ##
 ## Prerequisites:
-##  - Microservice `ccd_gw` must be authorised to call service `ccd-definition-store-api`
+##  - Microservice `bulk_scan_orchestrator` must be authorised to call service `ccd-definition-store-api`
 
 if [ -z "$1" ]
   then
-    echo "Usage: ./import-definition.sh path_to_definition [userToken]"
+    echo "Usage: ./import-definition.sh path_to_definition userToken"
     exit 1
 elif [ ! -f "$1" ]
   then

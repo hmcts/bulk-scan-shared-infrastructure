@@ -1,12 +1,13 @@
 #!/bin/sh
 ## Add user role in ccd
 ##
-## Usage: ./add-ccd-role.sh role [classification] [userToken] [serviceToken]
+## Usage: ./add-ccd-role.sh role classification userToken
 ##
 ## Options:
 ##    - role: Name of the role. Must be an existing IDAM role.
-##    - classification: Classification granted to the role; one of `PUBLIC`,
-##        `PRIVATE` or `RESTRICTED`. Default to `PUBLIC`.
+##    - classification: Classification granted to the role;
+#          one of `PUBLIC`, `PRIVATE` or `RESTRICTED`. Default to `PUBLIC`.
+##    - userToken: IDAM user auth token
 ##
 ## Add support for an IDAM role in CCD.
 
@@ -16,7 +17,13 @@ userToken=$3
 
 if [ -z "$role" ]
   then
-    echo "Usage: ./add-ccd-role.sh role [classification] [userToken]"
+    echo "Usage: ./add-ccd-role.sh role classification userToken"
+    exit 1
+fi
+
+if [ -z "$userToken" ]
+  then
+    echo "Usage: ./add-ccd-role.sh role classification userToken"
     exit 1
 fi
 
