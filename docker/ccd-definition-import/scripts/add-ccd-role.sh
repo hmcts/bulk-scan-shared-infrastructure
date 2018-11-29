@@ -15,13 +15,7 @@ role=$1
 classification=$2
 userToken=$3
 
-if [ -z "$role" ]
-  then
-    echo "Usage: ./add-ccd-role.sh role classification userToken"
-    exit 1
-fi
-
-if [ -z "$userToken" ]
+if [ "$#" -ne 3 ]
   then
     echo "Usage: ./add-ccd-role.sh role classification userToken"
     exit 1
