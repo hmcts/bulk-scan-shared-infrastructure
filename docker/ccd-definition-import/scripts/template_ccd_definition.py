@@ -1,17 +1,16 @@
 #!/usr/bin/env python3
 from openpyxl import load_workbook
-import os
 import sys
 
-if len(sys.argv) != 3:
-  print('usage: ./template_ccd_definition.py <template-file-location> <output-file-location>', file=sys.stderr)
+if len(sys.argv) != 4:
+  print('usage: ./template_ccd_definition.py <template-file-location> <output-file-location> <service-base-url>', file=sys.stderr)
   sys.exit(1)
 
 template_file_location = sys.argv[1]
 output_file_location = sys.argv[2]
+service_base_url = sys.argv[3]
 
 service_base_url_placeholder = '${BULK_SCAN_ORCHESTRATOR_BASE_URL}'
-service_base_url = os.environ['BULK_SCAN_ORCHESTRATOR_BASE_URL']
 
 def template_sheet(ws, callback_columns):
   print('Updating CCD sheet ' + ws.title)

@@ -2,10 +2,11 @@
 
 set -e
 
-USER_EMAIL=ccd-importer@server.net
+USER_EMAIL=$1
+PASSWORD=$2
+
 FORENAME=CCD
 SURNAME=Importer
-PASSWORD=Password12
 USER_GROUP=ccd-import
 
 curl -XPOST -H 'Content-Type: application/json' http://idam-api:8080/testing-support/accounts -d '{
