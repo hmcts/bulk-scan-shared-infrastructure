@@ -22,9 +22,6 @@ module "notification-queue" {
   name                = "notifications"
   namespace_name      = "${module.queue-namespace.name}"
   resource_group_name = "${azurerm_resource_group.rg.name}"
-
-  requires_duplicate_detection            = "true"
-  duplicate_detection_history_time_window = "PT1H"
 }
 
 output "queue_primary_listen_connection_string" {
