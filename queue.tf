@@ -7,7 +7,7 @@ module "queue-namespace" {
   common_tags         = "${var.common_tags}"
 }
 
-module "queue" {
+module "envelope-queue" {
   source              = "git@github.com:hmcts/terraform-module-servicebus-queue.git"
   name                = "envelopes"
   namespace_name      = "${module.queue-namespace.name}"
@@ -25,11 +25,11 @@ module "notification-queue" {
 }
 
 output "queue_primary_listen_connection_string" {
-  value = "${module.queue.primary_listen_connection_string}"
+  value = "${module.envelope-queue.primary_listen_connection_string}"
 }
 
 output "queue_primary_send_connection_string" {
-  value = "${module.queue.primary_send_connection_string}"
+  value = "${module.envelope-queue.primary_send_connection_string}"
 }
 
 output "notification_primary_listen_connection_string" {
