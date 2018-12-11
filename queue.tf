@@ -24,18 +24,28 @@ module "notification-queue" {
   resource_group_name = "${azurerm_resource_group.rg.name}"
 }
 
+# deprecated, use `envelopes_queue_primary_listen_connection_string` instead
 output "queue_primary_listen_connection_string" {
   value = "${module.envelope-queue.primary_listen_connection_string}"
 }
 
+output "envelopes_queue_primary_listen_connection_string" {
+  value = "${module.envelope-queue.primary_listen_connection_string}"
+}
+
+# deprecated, use `envelopes_queue_primary_send_connection_string` instead
 output "queue_primary_send_connection_string" {
   value = "${module.envelope-queue.primary_send_connection_string}"
 }
 
-output "notification_primary_listen_connection_string" {
+output "envelopes_queue_primary_send_connection_string" {
+  value = "${module.envelope-queue.primary_send_connection_string}"
+}
+
+output "notifications_queue_primary_listen_connection_string" {
   value = "${module.notification-queue.primary_listen_connection_string}"
 }
 
-output "notification_primary_send_connection_string" {
+output "notifications_queue_primary_send_connection_string" {
   value = "${module.notification-queue.primary_send_connection_string}"
 }
