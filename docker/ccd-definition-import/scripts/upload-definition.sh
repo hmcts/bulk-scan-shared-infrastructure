@@ -3,17 +3,6 @@ set -e
 
 chmod +x /scripts/*.sh
 
-CREATE_IMPORTER_USER=yes
-IMPORTER_USERNAME=ccd-importer@server.net
-IMPORTER_PASSWORD=Password12
-IDAM_URI=http://idam-api:8080
-REDIRECT_URI=http://localhost:3000/receiver
-CLIENT_ID=bsp
-CLIENT_SECRET=123456
-CCD_ROLE=caseworker-bulkscan
-BULK_SCAN_ORCHESTRATOR_BASE_URL=http://host.docker.internal:8582
-
-
 if [ ${VERBOSE} = "true" ]; then
   export CURL_OPTS="-v"
 else

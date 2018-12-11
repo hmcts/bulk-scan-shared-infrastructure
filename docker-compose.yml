@@ -192,6 +192,15 @@ services:
         WAIT_HOSTS: ccd-user-profile-api:4453, ccd-definition-store-api:4451, service-auth-provider-api:8080, ccd-api-gateway:3453, idam-api:8080
         VERBOSE: ${VERBOSE:-false}
         WAIT_HOSTS_TIMEOUT: 300
+        CREATE_IMPORTER_USER: yes
+        IMPORTER_USERNAME: ccd-importer@server.net
+        IMPORTER_PASSWORD: Password12
+        IDAM_URI: http://idam-api:8080
+        REDIRECT_URI: http://localhost:3000/receiver
+        CLIENT_ID: bsp
+        CLIENT_SECRET: 123456
+        CCD_ROLE: caseworker-bulkscan
+        BULK_SCAN_ORCHESTRATOR_BASE_URL: http://host.docker.internal:8582
       volumes:
         - ./docker/ccd-definition-import/data:/definitions
         - ./docker/ccd-definition-import/scripts:/scripts
