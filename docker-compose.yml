@@ -192,7 +192,7 @@ services:
         WAIT_HOSTS: ccd-user-profile-api:4453, ccd-definition-store-api:4451, service-auth-provider-api:8080, ccd-api-gateway:3453, idam-api:8080
         VERBOSE: ${VERBOSE:-false}
         WAIT_HOSTS_TIMEOUT: 300
-        CREATE_IMPORTER_USER: yes
+        CREATE_IMPORTER_USER: "yes"
         IMPORTER_USERNAME: ccd-importer@server.net
         IMPORTER_PASSWORD: Password12
         IDAM_URI: http://idam-api:8080
