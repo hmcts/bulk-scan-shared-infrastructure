@@ -15,6 +15,7 @@ module "envelope-queue" {
 
   requires_duplicate_detection            = "true"
   duplicate_detection_history_time_window = "PT1H"
+  lock_duration                           = "PT5M"
 }
 
 module "notification-queue" {
@@ -22,6 +23,7 @@ module "notification-queue" {
   name                = "notifications"
   namespace_name      = "${module.queue-namespace.name}"
   resource_group_name = "${azurerm_resource_group.rg.name}"
+  lock_duration       = "PT5M"
 }
 
 # deprecated, use `envelopes_queue_primary_listen_connection_string` instead
