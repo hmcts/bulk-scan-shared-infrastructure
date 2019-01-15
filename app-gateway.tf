@@ -15,7 +15,7 @@ module "appGw" {
   gatewayIpConfigurations = [
     {
       name     = "internalNetwork"
-      subnetId = "${data.azurerm_subnet.subnet_a.id}"
+      subnetId = "${data.azurerm_subnet.subnet_b.id}"
     },
   ]
 
