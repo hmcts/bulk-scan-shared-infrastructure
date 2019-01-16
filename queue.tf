@@ -7,7 +7,7 @@ module "queue-namespace" {
   common_tags         = "${var.common_tags}"
 }
 
-module "envelope-queue" {
+module "envelopes-queue" {
   source              = "git@github.com:hmcts/terraform-module-servicebus-queue.git"
   name                = "envelopes"
   namespace_name      = "${module.queue-namespace.name}"
@@ -18,7 +18,7 @@ module "envelope-queue" {
   lock_duration                           = "PT5M"
 }
 
-module "notification-queue" {
+module "notifications-queue" {
   source              = "git@github.com:hmcts/terraform-module-servicebus-queue.git"
   name                = "notifications"
   namespace_name      = "${module.queue-namespace.name}"
@@ -26,7 +26,7 @@ module "notification-queue" {
   lock_duration       = "PT5M"
 }
 
-module "processed-envelope-queue" {
+module "processed-envelopes-queue" {
   source              = "git@github.com:hmcts/terraform-module-servicebus-queue.git"
   name                = "processed-envelopes"
   namespace_name      = "${module.queue-namespace.name}"
@@ -36,34 +36,34 @@ module "processed-envelope-queue" {
 
 # deprecated, use `envelopes_queue_primary_listen_connection_string` instead
 output "queue_primary_listen_connection_string" {
-  value = "${module.envelope-queue.primary_listen_connection_string}"
+  value = "${module.envelopes-queue.primary_listen_connection_string}"
 }
 
 output "envelopes_queue_primary_listen_connection_string" {
-  value = "${module.envelope-queue.primary_listen_connection_string}"
+  value = "${module.envelopes-queue.primary_listen_connection_string}"
 }
 
 # deprecated, use `envelopes_queue_primary_send_connection_string` instead
 output "queue_primary_send_connection_string" {
-  value = "${module.envelope-queue.primary_send_connection_string}"
+  value = "${module.envelopes-queue.primary_send_connection_string}"
 }
 
 output "envelopes_queue_primary_send_connection_string" {
-  value = "${module.envelope-queue.primary_send_connection_string}"
+  value = "${module.envelopes-queue.primary_send_connection_string}"
 }
 
 output "notifications_queue_primary_listen_connection_string" {
-  value = "${module.notification-queue.primary_listen_connection_string}"
+  value = "${module.notifications-queue.primary_listen_connection_string}"
 }
 
 output "notifications_queue_primary_send_connection_string" {
-  value = "${module.notification-queue.primary_send_connection_string}"
+  value = "${module.notifications-queue.primary_send_connection_string}"
 }
 
 output "processed_envelopes_queue_primary_listen_connection_string" {
-  value = "${module.processed-envelope-queue.primary_listen_connection_string}"
+  value = "${module.processed-envelopes-queue.primary_listen_connection_string}"
 }
 
 output "processed_envelopes_queue_primary_send_connection_string" {
-  value = "${module.processed-envelope-queue.primary_send_connection_string}"
+  value = "${module.processed-envelopes-queue.primary_send_connection_string}"
 }
