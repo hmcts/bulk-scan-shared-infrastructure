@@ -26,6 +26,14 @@ module "notification-queue" {
   lock_duration       = "PT5M"
 }
 
+module "processed-envelope-queue" {
+  source              = "git@github.com:hmcts/terraform-module-servicebus-queue.git"
+  name                = "processed-envelopes"
+  namespace_name      = "${module.queue-namespace.name}"
+  resource_group_name = "${azurerm_resource_group.rg.name}"
+  lock_duration       = "PT5M"
+}
+
 # deprecated, use `envelopes_queue_primary_listen_connection_string` instead
 output "queue_primary_listen_connection_string" {
   value = "${module.envelope-queue.primary_listen_connection_string}"
@@ -50,4 +58,12 @@ output "notifications_queue_primary_listen_connection_string" {
 
 output "notifications_queue_primary_send_connection_string" {
   value = "${module.notification-queue.primary_send_connection_string}"
+}
+
+output "processed_envelopes_queue_primary_listen_connection_string" {
+  value = "${module.processed-envelope-queue.primary_listen_connection_string}"
+}
+
+output "processed_envelopes_queue_primary_send_connection_string" {
+  value = "${module.processed-envelope-queue.primary_send_connection_string}"
 }
