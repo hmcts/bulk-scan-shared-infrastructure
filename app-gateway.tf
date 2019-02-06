@@ -4,7 +4,7 @@ data "azurerm_key_vault_secret" "cert" {
 }
 
 module "appGw" {
-  source            = "git@github.com:hmcts/cnp-module-waf?ref=stripDownWf"
+  source            = "git@github.com:hmcts/cnp-module-waf?ref=master"
   env               = "${var.env}"
   subscription      = "${var.subscription}"
   location          = "${var.location}"
