@@ -57,7 +57,7 @@ module "appGw" {
       CookieBasedAffinity            = "Disabled"
       probeEnabled                   = "True"
       probe                          = "http-probe"
-      PickHostNameFromBackendAddress = "False"
+      PickHostNameFromBackendAddress = "True"
       HostName                       = "${var.external_hostname}"
     },
   ]
