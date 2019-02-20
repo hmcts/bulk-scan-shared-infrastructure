@@ -1,5 +1,5 @@
 module "bulk-scan-processor-liveness-alert" {
-  source            = "git@github.com:hmcts/cnp-module-metric-alert"
+  source            = "git@github.com:hmcts/cnp-module-metric-alert?ref=feature/parameterise-enabled-field"
   location          = "${azurerm_application_insights.appinsights.location}"
   app_insights_name = "${azurerm_application_insights.appinsights.name}"
 
@@ -24,7 +24,7 @@ EOF
 }
 
 module "bulk-scan-orchestrator-liveness-alert" {
-  source            = "git@github.com:hmcts/cnp-module-metric-alert"
+  source            = "git@github.com:hmcts/cnp-module-metric-alert?ref=feature/parameterise-enabled-field"
   location          = "${azurerm_application_insights.appinsights.location}"
   app_insights_name = "${azurerm_application_insights.appinsights.name}"
 
