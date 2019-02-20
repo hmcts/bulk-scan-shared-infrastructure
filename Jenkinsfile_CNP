@@ -11,8 +11,8 @@ Subscription subscription = new Subscription(env)
 def product = 'bulk-scan'
 
 onMaster {
- // sharedInfrastructurePipeline(product, environment.nonProdName, subscription.nonProdName)
-  //sharedInfrastructurePipeline(product, environment.demoName, subscription.nonProdName)
+  sharedInfrastructurePipeline(product, environment.nonProdName, subscription.nonProdName)
+  sharedInfrastructurePipeline(product, environment.demoName, subscription.nonProdName)
   sharedInfrastructurePipeline(product, environment.prodName, subscription.prodName)
 }
 
