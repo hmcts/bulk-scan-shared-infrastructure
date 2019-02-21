@@ -5,7 +5,7 @@ module "bulk-scan-exception-alert" {
   app_insights_name = "${azurerm_application_insights.appinsights.name}"
 
   enabled    = "${var.env == "prod"}"
-  alert_name = "Bulk Scan exception - BSP"
+  alert_name = "Bulk_Scan_exception_-_BSP"
   alert_desc = "Triggers when bulk scan services receive at least one exception within a 15 minutes window timeframe."
 
   app_insights_query = "exceptions"

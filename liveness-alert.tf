@@ -4,7 +4,7 @@ module "bulk-scan-processor-liveness-alert" {
   app_insights_name = "${azurerm_application_insights.appinsights.name}"
 
   enabled    = "${var.env == "prod"}"
-  alert_name = "Bulk Scan Processor liveness - BSP"
+  alert_name = "Bulk_Scan_Processor_liveness_-_BSP"
   alert_desc = "Triggers when bulk scan processor looks like being down within a 30 minutes window timeframe."
 
   app_insights_query = <<EOF
@@ -29,7 +29,7 @@ module "bulk-scan-orchestrator-liveness-alert" {
   app_insights_name = "${azurerm_application_insights.appinsights.name}"
 
   enabled    = "${var.env == "prod"}"
-  alert_name = "Bulk Scan Orchestrator liveness - BSP"
+  alert_name = "Bulk_Scan_Orchestrator_liveness_-_BSP"
   alert_desc = "Triggers when bulk scan orchestrator looks like being down within a 30 minutes window timeframe."
 
   app_insights_query = <<EOF
