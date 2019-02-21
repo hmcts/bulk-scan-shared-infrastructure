@@ -10,6 +10,7 @@ module "appGw" {
   location          = "${var.location}"
   wafName           = "${var.product}"
   resourcegroupname = "${azurerm_resource_group.rg.name}"
+  common_tags       = "${var.common_tags}"
 
   # vNet connections
   gatewayIpConfigurations = [
@@ -44,7 +45,7 @@ module "appGw" {
     {
       name = "${var.product}-${var.env}"
 
-      backendAddresses = "${module.palo_alto.untrusted_ips_fqdn}"
+      backendAddresses = "${module.palo_alto.untrusted_ips_ip_address}"
     },
   ]
 
