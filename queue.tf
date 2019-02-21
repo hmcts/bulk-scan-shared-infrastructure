@@ -25,6 +25,7 @@ module "notifications-queue" {
   namespace_name      = "${module.queue-namespace.name}"
   resource_group_name = "${azurerm_resource_group.rg.name}"
   lock_duration       = "PT5M"
+  max_delivery_count  = "288"
 }
 
 module "processed-envelopes-queue" {
