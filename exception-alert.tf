@@ -11,7 +11,7 @@ module "bulk-scan-exception-alert" {
   app_insights_query = "exceptions"
 
   frequency_in_minutes       = 15
-  time_window_in_minutes     = 16 // just for some unnecessary overlapping magically may appearing while executing the query
+  time_window_in_minutes     = 15
   severity_level             = "1"
   action_group_name          = "${module.alert-action-group.action_group_name}"
   custom_email_subject       = "Bulk Scan exception"
