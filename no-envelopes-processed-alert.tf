@@ -29,7 +29,7 @@ EOF
 
   frequency_in_minutes       = 30
   time_window_in_minutes     = 60 // does not matter - set in query
-  severity_level             = "2"
+  severity_level             = "4"
   action_group_name          = "${module.alert-action-group.action_group_name}"
   custom_email_subject       = "Bulk Scan - no envelopes processed"
   trigger_threshold_operator = "GreaterThan"
