@@ -27,7 +27,7 @@ traces
 | filter files_are_processed == false
 EOF
 
-  frequency_in_minutes       = 30
+  frequency_in_minutes       = 60
   time_window_in_minutes     = 60 // does not matter - set in query
   severity_level             = "4"
   action_group_name          = "${module.alert-action-group.action_group_name}"
