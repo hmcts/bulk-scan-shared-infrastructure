@@ -16,7 +16,7 @@ module "envelopes-queue" {
   requires_duplicate_detection            = "true"
   duplicate_detection_history_time_window = "PT1H"
   lock_duration                           = "PT5M"
-  max_delivery_count                      = "288" // To retry processing the message for 24hours
+  max_delivery_count                      = "${var.envelope_queue_delivery_count}"
 }
 
 module "notifications-queue" {
@@ -68,4 +68,8 @@ output "processed_envelopes_queue_primary_listen_connection_string" {
 
 output "processed_envelopes_queue_primary_send_connection_string" {
   value = "${module.processed-envelopes-queue.primary_send_connection_string}"
+}
+
+output "envelopes_queue_max_delivery_count" {
+  value = "${var.envelope_queue_delivery_count}"
 }
