@@ -8,7 +8,10 @@ module "bulk-scan-exception-alert" {
   alert_name = "Bulk_Scan_exception_-_BSP"
   alert_desc = "Triggers when bulk scan services receive at least one exception within a 15 minutes window timeframe."
 
-  app_insights_query = "exceptions"
+  app_insights_query = <<EOF
+union exceptions, traces
+| where severityLevel == 3
+EOF
 
   frequency_in_minutes       = 15
   time_window_in_minutes     = 15
