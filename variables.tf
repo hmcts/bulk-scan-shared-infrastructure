@@ -41,7 +41,7 @@ variable "common_tags" {
 
 variable "envelope_queue_delivery_count" {
   type        = "string"
-  default     = "300"
+  default     = "10" // same as module's config
   description = "Envelope queue message max delivery counter. Extracted to variable so it can be assigned to application environment."
 }
 
