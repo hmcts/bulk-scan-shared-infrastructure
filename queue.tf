@@ -25,7 +25,7 @@ module "notifications-queue" {
   namespace_name      = "${module.queue-namespace.name}"
   resource_group_name = "${azurerm_resource_group.rg.name}"
   lock_duration       = "PT5M"
-  max_delivery_count  = "288" // To retry processing the message for 24hours
+  max_delivery_count  = "${var.notification_queue_delivery_count}"
 }
 
 module "processed-envelopes-queue" {

@@ -45,6 +45,12 @@ variable "envelope_queue_delivery_count" {
   description = "Envelope queue message max delivery counter. Extracted to variable so it can be assigned to application environment."
 }
 
+variable "notification_queue_delivery_count" {
+  type        = "string"
+  default     = "10" // same as module's config
+  description = "Notification queue message max delivery counter. Extracted to variable so it can be overridden per environment."
+}
+
 variable "external_cert_vault_uri" {}
 variable "external_cert_name" {}
 variable "external_hostname" {}
