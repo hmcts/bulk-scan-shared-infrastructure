@@ -8,10 +8,11 @@ module "no-envelopes-processed-alert" {
   alert_desc = "Triggers when bulk scan processor did not process single envelope in last hour within SLA."
 
   app_insights_query = <<EOF
+let range_end = bin(now(), 1h);
 traces
-| where timestamp > ago(1h)
+| where timestamp > ago(2h)
 | where message startswith "Processing zip file"
-| make-series count(message) default=0 on timestamp in range(ago(1h), now(), 1m)
+| make-series count(message) default=0 on timestamp in range(range_end - 1h, range_end, 1m)
 | mvexpand count_message, timestamp
 | project files = toint(count_message), event_time = todatetime(timestamp)
 | summarize ["# files"] = sum(files), last_event = max(event_time)
