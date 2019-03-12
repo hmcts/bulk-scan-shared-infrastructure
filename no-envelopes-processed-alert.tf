@@ -20,7 +20,7 @@ traces
 | project ["# files"],
     interval_start = last_event_time > datetime("2018-02-02 09:59:00"),
     interval_end = last_event_time < datetime("2018-02-02 17:01:00"),
-    is_weekend = day_of_week == 0 and day_of_week == 6
+    is_weekend = day_of_week == 0 or day_of_week == 6
 | project files_are_processed = ["# files"] > 0
     or not (interval_start and interval_end)
     or is_weekend
