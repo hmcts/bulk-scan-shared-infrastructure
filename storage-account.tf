@@ -36,7 +36,7 @@ resource "azurerm_storage_account" "storage_account" {
 
   custom_domain {
     name          = "${var.external_hostname}"
-    use_subdomain = false
+    use_subdomain = "false"
   }
 
   network_rules {
@@ -66,6 +66,6 @@ output "storage_account_name" {
 }
 
 output "storage_account_primary_key" {
-  sensitive = true
+  sensitive = "true"
   value     = "${azurerm_storage_account.storage_account.primary_access_key}"
 }
