@@ -3,7 +3,7 @@ module "no-envelopes-processed-alert" {
   location          = "${azurerm_application_insights.appinsights.location}"
   app_insights_name = "${azurerm_application_insights.appinsights.name}"
 
-  enabled    = "${var.env == "prod" || var.env == "demo"}"
+  enabled    = "${var.env == "prod"}"
   alert_name = "No_envelopes_processed_-_BSP"
   alert_desc = "Triggers when bulk scan processor did not process single envelope in last hour within SLA."
 
