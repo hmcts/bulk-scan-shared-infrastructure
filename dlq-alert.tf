@@ -1,11 +1,11 @@
 // single alert to minify unnecessary cost because threshold used in here is minimal
-module "bulk-scan-exception-alert" {
+module "bulk-scan-dlq-alert" {
   source            = "git@github.com:hmcts/cnp-module-metric-alert"
   location          = "${azurerm_application_insights.appinsights.location}"
   app_insights_name = "${azurerm_application_insights.appinsights.name}"
 
   enabled    = "${var.env != "prod"}"
-  alert_name = "Bulk_Scan_DLQ_-_BSP"
+  alert_name = "Bulk_Scan_DLQ_-_BSP_${var.env}"
   alert_desc = "Triggers when bulk scan services record at least one dead lettered message within a 15 minutes window timeframe."
 
   app_insights_query = <<EOF
