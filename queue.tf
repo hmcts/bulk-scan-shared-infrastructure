@@ -36,6 +36,44 @@ module "processed-envelopes-queue" {
   lock_duration       = "PT5M"
 }
 
+# region connection strings as Key Vault secrets
+resource "azurerm_key_vault_secret" "envelopes_queue_send_conn_str" {
+  name      = "envelopes-queue-send-connection-string"
+  value     = "${module.envelopes-queue.primary_send_connection_string}"
+  vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
+}
+
+resource "azurerm_key_vault_secret" "envelopes_queue_listen_conn_str" {
+  name      = "envelopes-queue-listen-connection-string"
+  value     = "${module.envelopes-queue.primary_listen_connection_string}"
+  vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
+}
+
+resource "azurerm_key_vault_secret" "notifications_queue_send_conn_str" {
+  name      = "notifications-queue-send-connection-string"
+  value     = "${module.notifications-queue.primary_send_connection_string}"
+  vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
+}
+
+resource "azurerm_key_vault_secret" "notifications_queue_listen_conn_str" {
+  name      = "notifications-queue-listen-connection-string"
+  value     = "${module.notifications-queue.primary_listen_connection_string}"
+  vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
+}
+
+resource "azurerm_key_vault_secret" "processed_envelopes_queue_send_conn_str" {
+  name      = "processed-envelopes-queue-send-connection-string"
+  value     = "${module.processed-envelopes-queue.primary_send_connection_string}"
+  vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
+}
+
+resource "azurerm_key_vault_secret" "processed_envelopes_queue_listen_conn_str" {
+  name      = "processed-envelopes-queue-listen-connection-string"
+  value     = "${module.processed-envelopes-queue.primary_listen_connection_string}"
+  vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
+}
+# endregion
+
 # deprecated, use `envelopes_queue_primary_listen_connection_string` instead
 output "queue_primary_listen_connection_string" {
   value = "${module.envelopes-queue.primary_listen_connection_string}"

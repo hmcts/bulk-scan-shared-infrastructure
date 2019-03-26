@@ -10,6 +10,11 @@ module "vault" {
   common_tags             = "${var.common_tags}"
 }
 
+data "azurerm_key_vault" "key_vault" {
+  name = "${module.vault.key_vault_name}"
+  resource_group_name = "${azurerm_resource_group.rg.name}"
+}
+
 output "vaultName" {
   value = "${module.vault.key_vault_name}"
 }

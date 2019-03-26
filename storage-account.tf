@@ -62,6 +62,18 @@ resource "azurerm_storage_container" "service_rejected_containers" {
   count                = "${length(local.client_service_names)}"
 }
 
+resource "azurerm_key_vault_secret" "storage_account_name" {
+  name      = "storage-account-name"
+  value     = "${azurerm_storage_account.storage_account.name}"
+  vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
+}
+
+resource "azurerm_key_vault_secret" "storage_account_primary_key" {
+  name      = "storage-account-primary-key"
+  value     = "${azurerm_storage_account.storage_account.primary_access_key}"
+  vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
+}
+
 output "storage_account_name" {
   value = "${azurerm_storage_account.storage_account.name}"
 }
