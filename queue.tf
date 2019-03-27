@@ -36,7 +36,7 @@ module "processed-envelopes-queue" {
   lock_duration       = "PT5M"
 }
 
-# region connection strings as Key Vault secrets
+# region connection strings and other shared queue information as Key Vault secrets
 resource "azurerm_key_vault_secret" "envelopes_queue_send_conn_str" {
   name      = "envelopes-queue-send-connection-string"
   value     = "${module.envelopes-queue.primary_send_connection_string}"
@@ -46,6 +46,12 @@ resource "azurerm_key_vault_secret" "envelopes_queue_send_conn_str" {
 resource "azurerm_key_vault_secret" "envelopes_queue_listen_conn_str" {
   name      = "envelopes-queue-listen-connection-string"
   value     = "${module.envelopes-queue.primary_listen_connection_string}"
+  vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
+}
+
+resource "azurerm_key_vault_secret" "envelopes_queue_max_delivery_count" {
+  name      = "envelopes-queue-max-delivery-count"
+  value     = "${var.envelope_queue_delivery_count}"
   vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
 }
 

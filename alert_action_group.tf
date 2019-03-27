@@ -15,6 +15,12 @@ module "alert-action-group" {
   email_receiver_address = "${data.azurerm_key_vault_secret.source_bsp_email_secret.value}"
 }
 
+resource "azurerm_key_vault_secret" "alert_action_group_name" {
+  name = "alert-action-group-name"
+  value = "${module.alert-action-group.action_group_name}"
+  vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
+}
+
 output "action_group_name" {
   value = "${module.alert-action-group.action_group_name}"
 }
