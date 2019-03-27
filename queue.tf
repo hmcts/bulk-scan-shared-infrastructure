@@ -16,7 +16,7 @@ module "envelopes-queue" {
   requires_duplicate_detection            = "true"
   duplicate_detection_history_time_window = "PT1H"
   lock_duration                           = "PT5M"
-  max_delivery_count                      = "${var.envelope_queue_delivery_count}"
+  max_delivery_count                      = "${var.envelope_queue_max_delivery_count}"
 }
 
 module "notifications-queue" {
@@ -25,7 +25,7 @@ module "notifications-queue" {
   namespace_name      = "${module.queue-namespace.name}"
   resource_group_name = "${azurerm_resource_group.rg.name}"
   lock_duration       = "PT5M"
-  max_delivery_count  = "${var.notification_queue_delivery_count}"
+  max_delivery_count  = "${var.notification_queue_max_delivery_count}"
 }
 
 module "processed-envelopes-queue" {
@@ -51,7 +51,7 @@ resource "azurerm_key_vault_secret" "envelopes_queue_listen_conn_str" {
 
 resource "azurerm_key_vault_secret" "envelopes_queue_max_delivery_count" {
   name      = "envelopes-queue-max-delivery-count"
-  value     = "${var.envelope_queue_delivery_count}"
+  value     = "${var.envelope_queue_max_delivery_count}"
   vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
 }
 
@@ -115,5 +115,5 @@ output "processed_envelopes_queue_primary_send_connection_string" {
 }
 
 output "envelopes_queue_max_delivery_count" {
-  value = "${var.envelope_queue_delivery_count}"
+  value = "${var.envelope_queue_max_delivery_count}"
 }

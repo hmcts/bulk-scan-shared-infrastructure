@@ -39,13 +39,13 @@ variable "common_tags" {
   type = "map"
 }
 
-variable "envelope_queue_delivery_count" {
+variable "envelope_queue_max_delivery_count" {
   type        = "string"
   default     = "10" // same as module's config
   description = "Envelope queue message max delivery counter. Extracted to variable so it can be assigned to application environment."
 }
 
-variable "notification_queue_delivery_count" {
+variable "notification_queue_max_delivery_count" {
   type        = "string"
   default     = "10" // same as module's config
   description = "Notification queue message max delivery counter. Extracted to variable so it can be overridden per environment."
