@@ -12,11 +12,13 @@ module "bulk-scan-dlq-alert" {
 customEvents
 | where name == "DeadLetter"
 | extend dimensions = parse_json(customDimensions)
+| extend measurements = parse_json(customMeasurements)
 | project timestamp,
           reason = dimensions.reason,
           description = dimensions.description,
           messageId = dimensions.messageId,
-          queue = dimensions.queue
+          queue = dimensions.queue,
+          deliveryCount = measurements.deliveryCount
 EOF
 
   frequency_in_minutes       = 15
