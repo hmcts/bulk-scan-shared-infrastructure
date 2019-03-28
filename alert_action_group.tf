@@ -9,7 +9,7 @@ module "alert-action-group" {
   env      = "${var.env}"
 
   resourcegroup_name     = "${azurerm_resource_group.rg.name}"
-  action_group_name      = "BSP Alert - ${var.env}"
+  action_group_name      = "BSP Alert (${var.env})"
   short_name             = "BSP_alert"
   email_receiver_name    = "BSP Alerts And Monitoring"
   email_receiver_address = "${data.azurerm_key_vault_secret.source_bsp_email_secret.value}"
