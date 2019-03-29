@@ -10,7 +10,7 @@ module "bulk-scan-exception-alert" {
 
   app_insights_query = <<EOF
 union exceptions, traces
-| where severityLevel == 3
+| where severityLevel >= 3
 EOF
 
   frequency_in_minutes       = 15
