@@ -44,11 +44,19 @@ az acr login --name hmcts --subscription ${SUBSCRIPTION_ID}
 # Compose CCD Web
 #####################################################################################
 
-docker-compose -f docker-compose.yml up ${@} -d ccd-case-management-web \
-                                                dm-store \
-                                                ccd-api-gateway \
-                                                idam-api \
-                                                authentication-web \
-                                                smtp-server \
-                                                ccd-importer \
-                                                idam-importer
+echo "Starting docker containers..."
+
+docker-compose up ${@} -d ccd-case-management-web \
+                          dm-store \
+                          ccd-api-gateway \
+                          idam-api \
+                          authentication-web \
+                          smtp-server \
+                          ccd-importer \
+                          idam-importer
+
+while [[ `docker ps -a | grep starting | wc -l | awk '{$1=$1};1'` != "0" ]]
+do
+    echo "Waiting for $(docker ps -a | grep starting | wc -l | awk '{$1=$1};1') containers to start. Sleeping for 5 seconds..."
+    sleep 5
+done
