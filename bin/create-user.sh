@@ -23,4 +23,10 @@ curl -XPOST -H 'Content-Type: application/json' http://localhost:8080/testing-su
     "password": "'${PASSWORD}'"
 }'
 
-echo -e "Created user with:\nUsername: ${USER_EMAIL}\nPassword:${PASSWORD}\nFirstname: ${FORENAME}\nSurname: ${SURNAME}\nUser group: ${USER_GROUP}\nRoles: ${USER_ROLES}"
+echo "Created user with:"
+echo "Username: ${USER_EMAIL}"
+echo "Password: ${PASSWORD}"
+echo "Firstname: ${FORENAME}"
+echo "Surname: ${SURNAME}"
+echo "User group: ${USER_GROUP}"
+echo "Roles: ${USER_ROLES}"
