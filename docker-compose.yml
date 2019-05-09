@@ -3,7 +3,7 @@ version: '2.1'
 
 services:
     authentication-web:
-      image: docker.artifactory.reform.hmcts.net/auth/authentication-web:latest
+      image: hmcts.azurecr.io/hmcts/tidam-authentication-web:latest
       environment:
         - IDAM_API_URL=http://idam-api:8080
         - IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_BULK_SCAN_ORCHESTRATOR=123456
@@ -20,7 +20,7 @@ services:
         - 8000:8000
 
     idam-api:
-      image: docker.artifactory.reform.hmcts.net/auth/idam-api
+      image: hmcts.azurecr.io/hmcts/tidam-api:latest
       command: --wait-for-database 60
       environment:
         - JAVA_OPTS=-Xms8m -Xmx256m -Djava.security.egd=file:/dev/./urandom -XX:MaxMetaspaceSize=128m
@@ -49,7 +49,7 @@ services:
         - IDAM_BSP_SYSTEMUPDATE_USER=bulkscanorchestrator+systemupdate@gmail.com
         - IDAM_BSP_SYSTEMUPDATE_PASSWORD=Password12
         - IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_BSP=123456
-        - IDAM_BSP_WHITELIST=https://localhost/receiver
+        - IDAM_BSP_WHITELIST=https://localhost:3000/receiver
       mem_limit: 512m
       memswap_limit: 0
       depends_on:
