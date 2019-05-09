@@ -32,6 +32,8 @@ Changes to this project will be run against the preview environment if a PR is o
 #### Prerequisites
 
 * [Docker](https://www.docker.com/)
+* [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest)
+* [jq](https://stedolan.github.io/jq/)
 * (*Optional*) To upload documents to document management store(dm-store) and allow CCD to talk to local document store add below entry in host file.
 
 ```
