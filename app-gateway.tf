@@ -1,5 +1,5 @@
 locals {
-  vaultName = "${(var.env == "demo" || var.env == "aat") ? "infra-vault-nonprod" : (var.env == "sandbox" || var.env == "saat" || var.env == "sprod") ? "infra-vault-sandbox" : var.env == "prod" ? infra-vault-prod : ""}"
+  vaultName = "${(var.env == "demo" || var.env == "aat") ? "infra-vault-nonprod" : (var.env == "sandbox" || var.env == "saat" || var.env == "sprod") ? "infra-vault-sandbox" : var.env == "prod" ? "infra-vault-prod" : ""}"
 }
 
 data "azurerm_key_vault" "infra_vault" {
