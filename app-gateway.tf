@@ -1,11 +1,5 @@
 locals {
-  prod_vault      = "${(var.env == "prod") ? "infra-vault-prod" : ""}"
-  nonprod_vault   = "${(var.env == "demo" || var.env == "aat") ? "infra-vault-nonprod" : ""}"
-  sandbox_vault   = "${(var.env == "sandbox" || var.env == "saat" || var.env == "sprod") ? "infra-vault-sandbox" : ""}"
-
-  vaultNameIfSubscriptionPresent = "infra-vault-${var.subscription}"
-
-  vaultName = "${var.subscription != "" ? local.vaultNameIfSubscriptionPresent : format("%s%s%s%s", local.prod_vault, local.nonprod_vault, local.sandbox_vault)}"
+  vaultName = "${(var.env == "demo" || var.env == "aat") ? "infra-vault-nonprod" : (var.env == "sandbox" || var.env == "saat" || var.env == "sprod") ? "infra-vault-sandbox" : var.env == "prod" ? infra-vault-prod : ""}"
 }
 
 data "azurerm_key_vault" "infra_vault" {
