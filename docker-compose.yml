@@ -106,6 +106,7 @@ services:
           - JAVA_OPTS=-Xms8m -Xmx256m -Djava.security.egd=file:/dev/./urandom -XX:MaxMetaspaceSize=128m
           - USER_PROFILE_DB_HOST=shared-database-v10
           - USER_PROFILE_DB_PORT=5432
+          - USER_PROFILE_DB_NAME=ccd_user_profile
           - USER_PROFILE_DB_USERNAME=ccd_user_profile
           - USER_PROFILE_DB_PASSWORD=ccd_user_profile
           - USER_PROFILE_S2S_AUTHORISED_SERVICES=ccd_data,ccd_definition
@@ -113,7 +114,7 @@ services:
           - REFORM_SERVICE_NAME=ccd-user-profile-api
           - REFORM_TEAM=ccd
           - REFORM_ENVIRONMENT=local
-          - APPINSIGHTS_INSTRUMENTATIONKEY=fake-key
+          - AZURE_APPLICATIONINSIGHTS_INSTRUMENTATIONKEY=fake-key
           - USER_PROFILE_DB_USE_SSL=false
         mem_limit: 512m
         memswap_limit: 0
