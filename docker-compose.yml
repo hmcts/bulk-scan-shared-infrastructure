@@ -121,6 +121,8 @@ services:
         depends_on:
           shared-database-v10:
             condition: service_healthy
+          service-auth-provider-api:
+            condition: service_started
         healthcheck:
           disable: true
         ports:
@@ -147,6 +149,12 @@ services:
       mem_limit: 512m
       memswap_limit: 0
       depends_on:
+        ccd-user-profile-api:
+          condition: service_started
+        idam-api:
+          condition: service_started
+        service-auth-provider-api:
+          condition: service_started
         shared-database-v10:
           condition: service_healthy
       healthcheck:
@@ -178,6 +186,14 @@ services:
       mem_limit: 512m
       memswap_limit: 0
       depends_on:
+        ccd-user-profile-api:
+          condition: service_started
+        dm-store:
+          condition: service_started
+        idam-api:
+          condition: service_healthy
+        service-auth-provider-api:
+          condition: service_started
         shared-database-v10:
           condition: service_healthy
       healthcheck:
@@ -202,6 +218,10 @@ services:
         CLIENT_SECRET: 123456
         CCD_ROLE: caseworker-bulkscan
         BULK_SCAN_ORCHESTRATOR_BASE_URL: http://host.docker.internal:8582
+      depends_on:
+        # adding condition so to start container later
+        idam-api:
+          condition: service_started
       volumes:
         - ./docker/ccd-definition-import/data:/definitions
         - ./docker/ccd-definition-import/scripts:/scripts
@@ -256,17 +276,6 @@ services:
         - APPINSIGHTS_INSTRUMENTATIONKEY=fake-key
       mem_limit: 256m
       memswap_limit: 0
-      depends_on:
-        ccd-user-profile-api:
-          condition: service_started
-        ccd-definition-store-api:
-          condition: service_started
-        ccd-data-store-api:
-          condition: service_started
-        service-auth-provider-api:
-          condition: service_started
-        idam-api:
-          condition: service_started
       healthcheck:
         disable: true
       ports:
@@ -306,6 +315,11 @@ services:
         - ENDPOINTS_HEALTH_SENSITIVE=false
         - ENDPOINTS_INFO_SENSITIVE=false
         - CASE_WORKER_ROLES=caseworker-sscs
+      depends_on:
+        idam-api:
+          condition: service_started
+        service-auth-provider-api:
+          condition: service_started
       ports:
         - 4460:4460
 
