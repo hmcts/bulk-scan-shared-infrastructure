@@ -1,6 +1,7 @@
 data "azurerm_key_vault" "infra_vault" {
   name = "${var.env == "prod" ? "infra-cert-prod" : "infra-vault-${var.subscription}"}"
   resource_group_name = "${var.env == "prod" ? "infra-cert-prod" : "cnp-core-infra"}"
+  id = "${var.key_vault_id}"
 }
 
 data "azurerm_key_vault_secret" "cert" {

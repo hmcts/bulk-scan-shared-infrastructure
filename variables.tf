@@ -53,3 +53,4 @@ variable "notification_queue_max_delivery_count" {
 
 variable "external_cert_name" {}
 variable "external_hostname" {}
+variable "key_vault_id" {}
