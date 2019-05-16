@@ -51,7 +51,7 @@ docker-compose up -d
 
 while [[ `docker ps -a | grep starting | wc -l | awk '{$1=$1};1'` != "0" ]]
 do
-    echo "Waiting for " `docker ps -a | grep starting | wc -l | awk '{$1=$1};1'` " containers to start. Sleeping for 5 seconds..."
+    echo "Waiting for "`docker ps -a | grep starting | wc -l | awk '{$1=$1};1'`" container(s) to start. Sleeping for 5 seconds..."
     sleep 5
 done
 
