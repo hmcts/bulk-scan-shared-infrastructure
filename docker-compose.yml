@@ -129,6 +129,8 @@ services:
           - 4453:4453
 
     ccd-definition-store-api:
+      # todo: this version is a patch for NPE spreadsheet parser inspected while importing definitions
+      # once it is introduced in latest version can be reverted to just `hmcts/ccd-definition-store-api:latest`
       image: hmcts.azurecr.io/hmcts/ccd-definition-store-api:pr-402
       environment:
         - JAVA_OPTS=-Xms8m -Xmx256m -Djava.security.egd=file:/dev/./urandom -XX:MaxMetaspaceSize=128m
