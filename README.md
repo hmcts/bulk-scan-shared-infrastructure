@@ -58,6 +58,9 @@ This will:
 - expose container ports to the host, so all the APIs and databases will be directly accessible. Use `docker ps` or read the [compose file](./docker-compose.yml) to see how the ports are mapped.
 - load the idam user and roles required
 - load the ccd definition
+- enable ccd caseworkers:
+  - default (see below)
+  - personal hmcts one
 
 To stop the environment use the same script, just make sure to pass the `local` parameter:
 
@@ -91,6 +94,27 @@ $ ./bin/upload-ccd-spreadsheet.sh -v
 ```
 #### Login into CCD
 Open management web page http://localhost:3451 and login with user created above
+
+#### Troubleshooting docker setup
+
+##### Start CCD Web script fails on first run
+
+IdAM API takes long time to boot up.
+This causes incomplete docker setup.
+Inspect `docker ps -a` idam container, wait for completion, then run `./bin/start-ccd-web.sh` again.
+In all occasions never experienced a failure afterwards
+
+##### CCD Web is up and running, but cannot log in
+
+There can be multiple reasons including core breaking changes introduced by services enlisted in `docker-compose.yml` file.
+
+First course of action is to check whether CCD definition got imported successfully as it is creating user profiles which are mandatory for login
+
+The following are suggestions of possible culprits:
+
+- role mismatch between idam and ccd. Check both `ccd-importer` and `idam-importer`
+- debug down the line from `ccd-case-management-web`
+- check configuration/environment variables
 
 ### Publishing message to Service Bus Queue
 Azure does not provide emulator to spin up Service Bus Queue locally, hence you will have to always use an instance deployed on one of the environments(Sandbox, Demo or AAT)
