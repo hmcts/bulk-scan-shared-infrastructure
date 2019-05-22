@@ -29,7 +29,14 @@ else
   az login >> /dev/null 2>&1
 fi
 
-AZURE_ACCOUNT=`show_account`
+DEV_ACCOUNT=`az account list | jq -r 'map(select(.name | match("^.*CNP-DEV$"))) | .[0]?'`
+
+if [[ -z "$DEV_ACCOUNT" ]]; then
+  AZURE_ACCOUNT=`show_account`
+else
+  AZURE_ACCOUNT=${DEV_ACCOUNT}
+fi
+
 SUBSCRIPTION_ID=`echo "$AZURE_ACCOUNT" | jq -r '.id'`
 SUBSCRIPTION_NAME=`echo "$AZURE_ACCOUNT" | jq -r '.name'`
 ACCOUNT_EMAIL=`echo "$AZURE_ACCOUNT" | jq -r '.user.name'`
@@ -38,8 +45,10 @@ if echo "$SUBSCRIPTION_NAME" | grep -v -e "^.*CNP-DEV$"; then
   read -p "Enter DEV subscription ID: " SUBSCRIPTION_ID
 fi
 
-echo "Logging into the HMCTS Azure Container Registry"
-az acr login --name hmcts --subscription ${SUBSCRIPTION_ID}
+if [[ `az acr show --name hmcts | grep '"loginServer": "hmcts.azurecr.io"' | wc -l | awk '{$1=$1};1'` == "0" ]]; then
+  echo "Logging into the HMCTS Azure Container Registry"
+  az acr login --name hmcts --subscription ${SUBSCRIPTION_ID}
+fi
 
 #####################################################################################
 # Compose CCD Web
