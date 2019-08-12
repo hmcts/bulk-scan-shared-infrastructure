@@ -9,9 +9,7 @@ else
   export CURL_OPTS="--fail --silent"
 fi
 
-[ "_${CREATE_IMPORTER_USER}" = "_yes" ] && /scripts/create-importer-user.sh ${IMPORTER_USERNAME} ${IMPORTER_PASSWORD}
-
-userToken=$(sh /scripts/idam-authenticate.sh ${IMPORTER_USERNAME} ${IMPORTER_PASSWORD} ${IDAM_URI} ${REDIRECT_URI} ${CLIENT_ID} ${CLIENT_SECRET})
+userToken=$(sh /scripts/idam-authenticate.sh ${IMPORTER_USERNAME} ${IMPORTER_PASSWORD} ${IDAM_URI})
 
 # add ccd role
 /scripts/add-ccd-role.sh "${CCD_ROLE}" "PUBLIC" "${userToken}"

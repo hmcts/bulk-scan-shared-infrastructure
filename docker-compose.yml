@@ -2,61 +2,86 @@
 version: '2.1'
 
 services:
-    authentication-web:
-      image: hmcts.azurecr.io/hmcts/tidam-authentication-web:latest
+    idam-web-admin:
+      image: hmctspublic.azurecr.io/idam/web-admin:latest
       environment:
-        - IDAM_API_URL=http://idam-api:8080
-        - IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_BULK_SCAN_ORCHESTRATOR=123456
-        - IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_CCD_GATEWAY=123456
+        - JAVA_OPTS=-Xms128m -Xmx512m
+        - STRATEGIC_SERVICE_URL=http://sidam-api:5000
+      ports:
+        - 8082:8080
+      links:
+        - sidam-api
+      depends_on:
+        - sidam-api
+
+    idam-web:
+      image: hmctspublic.azurecr.io/idam/web-public:latest
+      environment:
+        - STRATEGIC_SERVICE_URL=http://sidam-api:5000
         - IDAM_CONTINUE_URL_VALIDATOR_ENFORCE_TLS=false
+        - JAVA_OPTS=-Xms128m -Xmx512m
       mem_limit: 256m
       memswap_limit: 0
       depends_on:
-        idam-api:
+        sidam-api:
           condition: service_started
       healthcheck:
         disable: true
       ports:
-        - 8000:8000
+        - 9002:8080
 
-    idam-api:
-      image: hmcts.azurecr.io/hmcts/tidam-api:latest
+    sidam-api:
+      image: hmctspublic.azurecr.io/idam/api:latest
       command: --wait-for-database 60
       environment:
-        - JAVA_OPTS=-Xms8m -Xmx256m -Djava.security.egd=file:/dev/./urandom -XX:MaxMetaspaceSize=128m
-        - SPRING_DATASOURCE_URL=jdbc:postgresql://shared-database-v10:5432/idam
-        - IDAM_TESTING_SUPPORT_ENABLED=true
+        - JAVA_OPTS=-Xms128m -Xmx512m -Dlogging.level.uk.gov.hmcts=DEBUG
+        - SPRING_DATASOURCE_URL=jdbc:postgresql://shared-db:5432/openidm?currentSchema=fridam
+        - TESTING_SUPPORT_ENABLED=true
         - SPRING_MAIL_HOST=smtp-server
         - NOTIFY_API_KEY=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
         - NOTIFY=false
-        - NOTIFY_CMC_WELCOME_USER_TEMPLATE=fake
-        - NOTIFY_DIVORCE_WELCOME_USER_TEMPLATE=fake
-        - NOTIFY_SSCS_WELCOME_USER_TEMPLATE=fake
-        - NOTIFY_RESET_PASSWORD_TEMPLATE=fake
-        - NOTIFY_PROBATE_ACTIVATE_USER_TEMPLATE=fake
-        - NOTIFY_DIVORCE_ACTIVATE_USER_TEMPLATE=fake
-        - NOTIFY_SSCS_ACTIVATE_USER_TEMPLATE=fake
-        - NOTIFY_CCD_ACTIVATE_USER_TEMPLATE=fake
-        - NOTIFY_BAR_ACTIVATE_USER_TEMPLATE=fake
-        - NOTIFY_FREG_ACTIVATE_USER_TEMPLATE=fake
-        - IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_CMC_CITIZEN=123456
-        - IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_CMC_LEGAL=123456
-        - IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_CCD_GATEWAY=123456
-        - http_proxy
-        - https_proxy
-        - no_proxy
         - REFORM_ENVIRONMENT=test
-        - IDAM_BSP_SYSTEMUPDATE_USER=bulkscanorchestrator+systemupdate@gmail.com
-        - IDAM_BSP_SYSTEMUPDATE_PASSWORD=Password12
-        - IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_BSP=123456
-        - IDAM_BSP_WHITELIST=https://localhost:3000/receiver
       mem_limit: 512m
       memswap_limit: 0
       depends_on:
-        shared-database-v10:
-          condition: service_healthy
+        fr-am:
+          condition: service_started
+        fr-idm:
+          condition: service_started
+        shared-db:
+          condition: service_started
+      ports:
+        - 5000:5000
+
+    fr-am:
+      image: "hmctsprivate.azurecr.io/idam/idam-fr-am:latest"
+      environment:
+        - JAVA_OPTS=-Xms128m -Xmx512m
       ports:
         - 8080:8080
+        - 1389:1389
+      depends_on:
+        shared-db:
+          condition: service_started
+
+    fr-idm:
+      image: "hmctsprivate.azurecr.io/idam/idam-fr-idm:latest"
+      ports:
+        - 18080:18080
+        - 9010:9010
+      environment:
+        - JAVA_TOOL_OPTIONS=-Dcom.sun.management.jmxremote.port=9010 -Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Djava.rmi.server.hostname=vm-ubuntu16 -Dcom.sun.management.jmxremote.rmi.port=9010
+        - JAVA_OPTS=-Xms128m -Xmx512m
+      depends_on:
+        fr-am:
+          condition: service_started
+        shared-db:
+          condition: service_started
+
+    shared-db:
+      image: "hmctsprivate.azurecr.io/idam/shared-db:latest"
+      ports:
+        - 5051:5432
 
     smtp-server:
       image: mailhog/mailhog
@@ -66,7 +91,7 @@ services:
         - 1025:1025
 
     service-auth-provider-api:
-      image: hmcts/service-auth-provider-app
+      image: hmctspublic.azurecr.io/rpe/service-auth-provider:latest
       environment:
         - SERVER_PORT=8080
         - JAVA_OPTS=-Xms8m -Xmx256m -Djava.security.egd=file:/dev/./urandom -XX:MaxMetaspaceSize=128m
@@ -98,10 +123,10 @@ services:
       mem_limit: 320m
       memswap_limit: 0
       ports:
-        - 5435:5432
+        - 5052:5432
 
     ccd-user-profile-api:
-        image: hmcts/ccd-user-profile-api:latest
+        image: hmctspublic.azurecr.io/ccd/user-profile-api:latest
         environment:
           - JAVA_OPTS=-Xms8m -Xmx256m -Djava.security.egd=file:/dev/./urandom -XX:MaxMetaspaceSize=128m
           - USER_PROFILE_DB_HOST=shared-database-v10
@@ -131,7 +156,7 @@ services:
     ccd-definition-store-api:
       # todo: this version is a patch for NPE spreadsheet parser inspected while importing definitions
       # once it is introduced in latest version can be reverted to just `hmcts/ccd-definition-store-api:latest`
-      image: hmcts.azurecr.io/hmcts/ccd-definition-store-api:pr-402
+      image: hmctspublic.azurecr.io/ccd/definition-store-api:pr-402
       environment:
         - JAVA_OPTS=-Xms8m -Xmx256m -Djava.security.egd=file:/dev/./urandom -XX:MaxMetaspaceSize=128m
         - DEFINITION_STORE_DB_HOST=shared-database-v10
@@ -142,7 +167,7 @@ services:
         - DEFINITION_STORE_IDAM_KEY=AAAAAAAAAAAAAAAA
         - DEFINITION_STORE_S2S_AUTHORISED_SERVICES=ccd_data,bulk_scan_orchestrator,ccd_gw
         - USER_PROFILE_HOST=http://ccd-user-profile-api:4453
-        - IDAM_USER_URL=http://idam-api:8080
+        - IDAM_USER_URL=http://sidam-api:5000
         - IDAM_S2S_URL=http://service-auth-provider-api:8080
         - REFORM_SERVICE_NAME=ccd-definition-store-api
         - REFORM_TEAM=ccd
@@ -153,7 +178,7 @@ services:
       depends_on:
         ccd-user-profile-api:
           condition: service_started
-        idam-api:
+        sidam-api:
           condition: service_started
         service-auth-provider-api:
           condition: service_started
@@ -165,7 +190,7 @@ services:
         - 4451:4451
 
     ccd-data-store-api:
-      image: hmcts/ccd-data-store-api:latest
+      image: hmctspublic.azurecr.io/ccd/data-store-api:latest
       environment:
         - JAVA_OPTS=-Xms8m -Xmx256m -Djava.security.egd=file:/dev/./urandom -XX:MaxMetaspaceSize=128m
         - DATA_STORE_DB_HOST=shared-database-v10
@@ -178,7 +203,7 @@ services:
         - DATA_STORE_S2S_AUTHORISED_SERVICES=bulk_scan_orchestrator,ccd_gw
         - DEFINITION_STORE_HOST=http://ccd-definition-store-api:4451
         - USER_PROFILE_HOST=http://ccd-user-profile-api:4453
-        - IDAM_USER_URL=http://idam-api:8080
+        - IDAM_USER_URL=http://sidam-api:5000
         - IDAM_S2S_URL=http://service-auth-provider-api:8080
         - REFORM_SERVICE_NAME=ccd-data-store-api
         - REFORM_TEAM=ccd
@@ -192,8 +217,8 @@ services:
           condition: service_started
         dm-store:
           condition: service_started
-        idam-api:
-          condition: service_healthy
+        sidam-api:
+          condition: service_started
         service-auth-provider-api:
           condition: service_started
         shared-database-v10:
@@ -208,22 +233,20 @@ services:
         context: docker/ccd-definition-import
       image: hmcts/bulk-scan-ccd-importer
       environment:
-        WAIT_HOSTS: ccd-user-profile-api:4453, ccd-definition-store-api:4451, service-auth-provider-api:8080, ccd-api-gateway:3453, idam-api:8080
+        WAIT_HOSTS: ccd-user-profile-api:4453, ccd-definition-store-api:4451, service-auth-provider-api:8080, ccd-api-gateway:3453, sidam-api:5000
         VERBOSE: ${VERBOSE:-false}
         WAIT_HOSTS_TIMEOUT: 300
-        CREATE_IMPORTER_USER: "yes"
         IMPORTER_USERNAME: ccd-importer@server.net
         IMPORTER_PASSWORD: Password12
-        IDAM_URI: http://idam-api:8080
+        IDAM_URI: http://sidam-api:5000
         REDIRECT_URI: http://localhost:3000/receiver
-        CLIENT_ID: bsp
-        CLIENT_SECRET: 123456
         CCD_ROLE: caseworker-bulkscan
         BULK_SCAN_ORCHESTRATOR_BASE_URL: http://host.docker.internal:8582
       depends_on:
-        # adding condition so to start container later
-        idam-api:
+        sidam-api:
           condition: service_started
+        ccd-definition-store-api:
+          condition: service_healthy
       volumes:
         - ./docker/ccd-definition-import/data:/definitions
         - ./docker/ccd-definition-import/scripts:/scripts
@@ -231,15 +254,20 @@ services:
     idam-importer:
       build:
         context: docker/idam-importer
-      image: hmcts/idam-importer
+      environment:
+        IDAM_API_URL: http://sidam-api:5000
+        IDAM_ADMIN_USER: ${IDAM_USERNAME}
+        IDAM_ADMIN_PASSWORD: ${IDAM_PASSWORD}
+        WAIT_HOSTS: sidam-api:5000
+        WAIT_HOSTS_TIMEOUT: 300
       depends_on:
-        idam-api:
-          condition: service_healthy
+        sidam-api:
+          condition: service_started
 
     ccd-case-management-web:
-      image: hmcts/ccd-case-management-web:latest
+      image: hmctspublic.azurecr.io/ccd/case-management-web:latest
       environment:
-        - IDAM_LOGIN_URL=https://localhost:8000/login
+        - IDAM_LOGIN_URL=http://localhost:9002/login
         - CCD_GATEWAY_BASE_URL=http://localhost:3453
         - CCD_ACTIVITY_BASE_URL=http://localhost:3455
         - DM_URL=http://localhost:3453/documents
@@ -250,7 +278,7 @@ services:
       depends_on:
         ccd-api-gateway:
           condition: service_started
-        authentication-web:
+        idam-web:
           condition: service_started
       healthcheck:
         disable: true
@@ -258,14 +286,14 @@ services:
         - 3451:3451
 
     ccd-api-gateway:
-      image: hmcts/ccd-api-gateway:latest
+      image: hmctspublic.azurecr.io/ccd/api-gateway-web:latest
       environment:
-        - IDAM_BASE_URL=http://idam-api:8080
-        - IDAM_USER_URL=http://idam-api:8080
-        - IDAM_LOGOUT_URL=https://localhost:8000/login/logout
+        - IDAM_BASE_URL=http://sidam-api:5000
+        - IDAM_USER_URL=http://sidam-api:5000
+        - IDAM_LOGOUT_URL=http://localhost:9002/login/logout
         - IDAM_OAUTH2_CLIENT_ID=ccd_gateway
         - IDAM_OAUTH2_CLIENT_SECRET=123456
-        - IDAM_OAUTH2_TOKEN_ENDPOINT=http://idam-api:8080/oauth2/token
+        - IDAM_OAUTH2_TOKEN_ENDPOINT=http://sidam-api:5000/oauth2/token
         - IDAM_S2S_URL=http://service-auth-provider-api:8080
         - IDAM_SERVICE_KEY=AAAAAAAAAAAAAAAA
         - IDAM_SERVICE_NAME=ccd_gw
@@ -278,13 +306,20 @@ services:
         - APPINSIGHTS_INSTRUMENTATIONKEY=fake-key
       mem_limit: 256m
       memswap_limit: 0
+      depends_on:
+        ccd-user-profile-api:
+          condition: service_started
+        ccd-definition-store-api:
+          condition: service_started
+        ccd-data-store-api:
+          condition: service_started
       healthcheck:
         disable: true
       ports:
         - 3453:3453
 
     dm-store:
-      image: hmcts/dm-store:latest
+      image: hmctspublic.azurecr.io/dm/store:latest
       command: --wait-for-database 30
       environment:
         - JAVA_OPTS=-Xms8m -Xmx256m -Djava.security.egd=file:/dev/./urandom -XX:MaxMetaspaceSize=128m
@@ -292,7 +327,7 @@ services:
         - SPRING_DATASOURCE_URL=jdbc:postgresql://shared-database-v10:5432/evidence
         - SPRING_DATASOURCE_USERNAME=evidence
         - SPRING_DATASOURCE_PASSWORD=evidence
-        - IDAM_USER_BASE_URI=http://idam-api:8080
+        - IDAM_USER_BASE_URI=http://sidam-api:5000
         - IDAM_S2S_BASE_URI=http://service-auth-provider-api:8080
         - S2S_NAMES_WHITELIST=ccd_gw,cmc,bulk_scan_orchestrator,ccd_data,bulk_scan_processor
         - http_proxy=
@@ -318,7 +353,7 @@ services:
         - ENDPOINTS_INFO_SENSITIVE=false
         - CASE_WORKER_ROLES=caseworker-sscs
       depends_on:
-        idam-api:
+        sidam-api:
           condition: service_started
         service-auth-provider-api:
           condition: service_started

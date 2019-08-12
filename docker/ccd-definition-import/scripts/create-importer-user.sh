@@ -9,7 +9,7 @@ FORENAME=CCD
 SURNAME=Importer
 USER_GROUP=ccd-import
 
-curl -XPOST -H 'Content-Type: application/json' http://idam-api:8080/testing-support/accounts -d '{
+curl -XPOST -H 'Content-Type: application/json' http://sidam-api:5000/testing-support/accounts -d '{
     "email": "'${USER_EMAIL}'",
     "forename": "'${FORENAME}'",
     "surname": "'${SURNAME}'",

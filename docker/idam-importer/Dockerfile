@@ -1,5 +1,5 @@
-FROM jbergknoff/postgresql-client
+FROM hmctspublic.azurecr.io/hmcts/idam/utils
 
-COPY import.sql /import.sql
+COPY scripts /scripts
 
-ENTRYPOINT psql -h shared-database-v10 -d idam -U postgres < /import.sql
+RUN chmod +x /scripts/*.sh

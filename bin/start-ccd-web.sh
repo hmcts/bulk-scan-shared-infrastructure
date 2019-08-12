@@ -41,14 +41,13 @@ SUBSCRIPTION_ID=`echo "$AZURE_ACCOUNT" | jq -r '.id'`
 SUBSCRIPTION_NAME=`echo "$AZURE_ACCOUNT" | jq -r '.name'`
 ACCOUNT_EMAIL=`echo "$AZURE_ACCOUNT" | jq -r '.user.name'`
 
-if echo "$SUBSCRIPTION_NAME" | grep -v -e "^.*CNP-DEV$"; then
-  read -p "Enter DEV subscription ID: " SUBSCRIPTION_ID
-fi
+# perhaps not needed, need to test with other subscription present
+#if echo "$SUBSCRIPTION_NAME" | grep -v -e "^.*CNP-DEV$"; then
+#  read -p "Enter DEV subscription ID: " SUBSCRIPTION_ID
+#fi
 
-if [[ `az acr show --name hmcts | grep '"loginServer": "hmcts.azurecr.io"' | wc -l | awk '{$1=$1};1'` == "0" ]]; then
-  echo "Logging into the HMCTS Azure Container Registry"
-  az acr login --name hmcts --subscription ${SUBSCRIPTION_ID}
-fi
+echo "Logging into the HMCTS Azure Container Registry"
+az acr login --name hmctsprivate --subscription ${SUBSCRIPTION_ID}
 
 #####################################################################################
 # Compose CCD Web
@@ -63,13 +62,3 @@ do
     echo "Waiting for "`docker ps -a | grep starting | wc -l | awk '{$1=$1};1'`" container(s) to start. Sleeping for 5 seconds..."
     sleep 5
 done
-
-# for convenience, let's have personal caseworker account
-
-BIN_DIR=$(dirname "$0")
-
-${BIN_DIR}/create-case-worker.sh "$ACCOUNT_EMAIL" "Myself" "As A Caseworker"
-
-# in order to log in, we need user profiles present in the ccd
-
-${BIN_DIR}/create-ccd-user-profile.sh "$ACCOUNT_EMAIL"
