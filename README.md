@@ -57,7 +57,7 @@ This will:
 - start ccd and and dependent services locally
 - mount database volumes, to which your data will persist between restarts,
 - expose container ports to the host, so all the APIs and databases will be directly accessible. Use `docker ps` or read the [compose file](./docker-compose.yml) to see how the ports are mapped.
-- load the idam user and roles required
+- load the idam user, roles and services required
 - load the ccd definition
 - enable ccd caseworkers:
   - default (see below)
@@ -110,7 +110,7 @@ In all occasions never experienced a failure afterwards
 
 ##### CCD Web is up and running, but cannot log in
 
-There can be multiple reasons including core breaking changes introduced by services enlisted in `docker-compose.yml` file.
+There can be multiple reasons including core breaking changes introduced by services enlisted in `docker-compose config --servives`.
 
 First course of action is to check whether CCD definition got imported successfully as it is creating user profiles which are mandatory for login
 
@@ -187,7 +187,7 @@ Click on shared access policies and then select the policy(key for e.g SendShare
 
 #### Some nice things to know
 
-* Allocate enough memory to docker to spin up all the containers. 4 GB would be recommended.
+* Allocate enough memory to docker to spin up all the containers. 6 GB would be recommended - transition to sidam made sure enough RAM will be consumed.
 
 * You can pass flags while creating docker container for e.g to recreate all containers from scratch.
 
