@@ -1,5 +1,17 @@
 #!/bin/sh
 
+if [[ -z "${1}" || -z "${2}" ]]; then
+  echo "In order to successfully start local ccd setup please provide IDAM admin credentials"
+  echo "They can be found here:\n"
+  echo "    ***** https://tools.hmcts.net/confluence/display/SISM/Local+Docker+Setup *****"
+  echo "\n  Re-run script \`./bin/start-ccd-web.sh username password\`\n"
+
+  exit 1
+fi
+
+export IDAM_USERNAME=${1}
+export IDAM_PASSWORD=${2}
+
 command -v az >/dev/null 2>&1 || {
     echo "################################################################################################"
     echo >&2 "Please install Azure CLI - instructions in README.md"
