@@ -246,7 +246,7 @@ services:
         sidam-api:
           condition: service_started
         ccd-definition-store-api:
-          condition: service_healthy
+          condition: service_started
       volumes:
         - ./docker/ccd-definition-import/data:/definitions
         - ./docker/ccd-definition-import/scripts:/scripts
