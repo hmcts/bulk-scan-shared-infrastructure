@@ -14,4 +14,4 @@ if [[ "${1}" = "idam-importer" ]]; then
   export IDAM_PASSWORD=${3}
 fi
 
-docker-compose -f docker-compose.yml up -d "$@"
+docker-compose -f docker-compose.yml up -d "${1}"
