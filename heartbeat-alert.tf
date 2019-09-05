@@ -9,8 +9,8 @@ module "envelopes-queue-heartbeat-alert" {
 
   app_insights_query = "traces | where message startswith 'Heartbeat message received'"
 
-  frequency_in_minutes       = 15
-  time_window_in_minutes     = 15
+  frequency_in_minutes       = 25
+  time_window_in_minutes     = 25
   severity_level             = "1"
   action_group_name          = "${module.alert-action-group.action_group_name}"
   custom_email_subject       = "Bulk Scan Heartbeat"
