@@ -36,6 +36,15 @@ module "processed-envelopes-queue" {
   lock_duration       = "PT5M"
 }
 
+module "payments-queue" {
+  source              = "git@github.com:hmcts/terraform-module-servicebus-queue.git"
+  name                = "payments"
+  namespace_name      = "${module.queue-namespace.name}"
+  resource_group_name = "${azurerm_resource_group.rg.name}"
+  lock_duration       = "PT5M"
+  max_delivery_count  = "${var.payment_queue_max_delivery_count}"
+}
+
 # region connection strings and other shared queue information as Key Vault secrets
 resource "azurerm_key_vault_secret" "envelopes_queue_send_conn_str" {
   name      = "envelopes-queue-send-connection-string"
@@ -78,6 +87,20 @@ resource "azurerm_key_vault_secret" "processed_envelopes_queue_listen_conn_str" 
   value     = "${module.processed-envelopes-queue.primary_listen_connection_string}"
   vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
 }
+
+
+resource "azurerm_key_vault_secret" "payments_queue_send_conn_str" {
+  name      = "payments-queue-send-connection-string"
+  value     = "${module.payments-queue.primary_send_connection_string}"
+  vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
+}
+
+resource "azurerm_key_vault_secret" "payments_queue_listen_conn_str" {
+  name      = "payments-queue-listen-connection-string"
+  value     = "${module.payments-queue.primary_listen_connection_string}"
+  vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
+}
+
 # endregion
 
 # deprecated, use `envelopes_queue_primary_listen_connection_string` instead
