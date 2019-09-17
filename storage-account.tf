@@ -1,7 +1,7 @@
 provider "azurerm" {
   alias           = "mgmt"
   subscription_id = "${var.mgmt_subscription_id}"
-  version         = "=1.22.1"
+  version         = "=1.33.1"
 }
 
 locals {
@@ -43,6 +43,7 @@ resource "azurerm_storage_account" "storage_account" {
   network_rules {
     virtual_network_subnet_ids = ["${data.azurerm_subnet.trusted_subnet.id}", "${data.azurerm_subnet.jenkins_subnet.id}"]
     bypass                     = ["Logging", "Metrics", "AzureServices"]
+    default_action             = "Deny"
   }
 
   tags = "${local.tags}"
