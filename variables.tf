@@ -58,3 +58,7 @@ variable "payment_queue_max_delivery_count" {
 }
 variable "external_cert_name" {}
 variable "external_hostname" {}
+
+variable "managed_identity_object_id" {
+  default = ""
+}
