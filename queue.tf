@@ -1,5 +1,5 @@
 module "queue-namespace" {
-  source              = "git@github.com:hmcts/terraform-module-servicebus-namespace.git"
+  source              = "git@github.com:hmcts/terraform-module-servicebus-namespace?ref=master"
   name                = "${var.product}-servicebus-${var.env}"
   location            = "${var.location}"
   resource_group_name = "${azurerm_resource_group.rg.name}"
@@ -8,7 +8,7 @@ module "queue-namespace" {
 }
 
 module "envelopes-queue" {
-  source              = "git@github.com:hmcts/terraform-module-servicebus-queue.git"
+  source              = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=master"
   name                = "envelopes"
   namespace_name      = "${module.queue-namespace.name}"
   resource_group_name = "${azurerm_resource_group.rg.name}"
@@ -20,7 +20,7 @@ module "envelopes-queue" {
 }
 
 module "notifications-queue" {
-  source              = "git@github.com:hmcts/terraform-module-servicebus-queue.git"
+  source              = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=master"
   name                = "notifications"
   namespace_name      = "${module.queue-namespace.name}"
   resource_group_name = "${azurerm_resource_group.rg.name}"
@@ -29,7 +29,7 @@ module "notifications-queue" {
 }
 
 module "processed-envelopes-queue" {
-  source              = "git@github.com:hmcts/terraform-module-servicebus-queue.git"
+  source              = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=master"
   name                = "processed-envelopes"
   namespace_name      = "${module.queue-namespace.name}"
   resource_group_name = "${azurerm_resource_group.rg.name}"
@@ -37,7 +37,7 @@ module "processed-envelopes-queue" {
 }
 
 module "payments-queue" {
-  source              = "git@github.com:hmcts/terraform-module-servicebus-queue.git"
+  source              = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=master"
   name                = "payments"
   namespace_name      = "${module.queue-namespace.name}"
   resource_group_name = "${azurerm_resource_group.rg.name}"
