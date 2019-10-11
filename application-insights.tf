@@ -1,5 +1,5 @@
 resource "azurerm_key_vault_secret" "AZURE_APPINSIGHTS_KEY" {
-  name         = "AppInsightsInstrumentationKey"
+  name         = "app-insights-instrumentation-key"
   value        = "${azurerm_application_insights.appinsights.instrumentation_key}"
   key_vault_id = "${module.vault.key_vault_id}"
 }
