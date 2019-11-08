@@ -14,7 +14,7 @@ module "envelopes-queue" {
   resource_group_name = "${azurerm_resource_group.rg.name}"
 
   requires_duplicate_detection            = "true"
-  duplicate_detection_history_time_window = "PT1H"
+  duplicate_detection_history_time_window = "PT59M"
   lock_duration                           = "PT5M"
   max_delivery_count                      = "${var.envelope_queue_max_delivery_count}"
 }
@@ -26,6 +26,8 @@ module "notifications-queue" {
   resource_group_name = "${azurerm_resource_group.rg.name}"
   lock_duration       = "PT5M"
   max_delivery_count  = "${var.notification_queue_max_delivery_count}"
+
+  duplicate_detection_history_time_window = "PT15M"
 }
 
 module "processed-envelopes-queue" {
@@ -43,6 +45,8 @@ module "payments-queue" {
   resource_group_name = "${azurerm_resource_group.rg.name}"
   lock_duration       = "PT5M"
   max_delivery_count  = "${var.payment_queue_max_delivery_count}"
+
+  duplicate_detection_history_time_window = "PT15M"
 }
 
 # region connection strings and other shared queue information as Key Vault secrets

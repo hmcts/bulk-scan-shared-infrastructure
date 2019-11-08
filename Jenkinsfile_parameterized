@@ -15,4 +15,5 @@ Subscription subscription = new Subscription(env)
 
 def product = 'bulk-scan'
 
-sharedInfrastructurePipeline(product, params.ENVIRONMENT, subscription.nonProdName)
+withParameterizedInfraPipeline(product, params.ENVIRONMENT, subscription.nonProdName) {
+}
