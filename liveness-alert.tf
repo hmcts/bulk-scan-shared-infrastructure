@@ -10,7 +10,7 @@ module "bulk-scan-processor-liveness-alert" {
   app_insights_query = <<EOF
 requests
 | where name == "GET /health" and resultCode != "200"
-| where url contains "processor"
+| where url contains "bulk-scan-processor"
 EOF
 
   frequency_in_minutes       = 15
