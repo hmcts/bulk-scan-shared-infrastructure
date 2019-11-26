@@ -29,7 +29,7 @@ module "bulk-scan-payment-processor-liveness-alert" {
   app_insights_name = "${azurerm_application_insights.appinsights.name}"
 
   enabled    = "${var.env == "prod"}"
-  alert_name = "Bulk_Scan_Processor_liveness_-_BSP"
+  alert_name = "Bulk_Scan_Payment_Processor_liveness_-_BSP"
   alert_desc = "Triggers when bulk scan payment processor looks like being down within a 30 minutes window timeframe."
 
   app_insights_query = <<EOF
