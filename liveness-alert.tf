@@ -10,7 +10,7 @@ module "bulk-scan-processor-liveness-alert" {
   app_insights_query = <<EOF
 requests
 | where name == "GET /health" and resultCode != "200"
-| where url contains "bulk-scan-processor"
+| where cloud_RoleName == "Bulk Scan Processor"
 EOF
 
   frequency_in_minutes       = 15
@@ -35,7 +35,7 @@ module "bulk-scan-payment-processor-liveness-alert" {
   app_insights_query = <<EOF
 requests
 | where name == "GET /health" and resultCode != "200"
-| where url contains "bulk-scan-payment-processor"
+| where cloud_RoleName == "Bulk Scan Payment Processor"
 EOF
 
   frequency_in_minutes       = 15
@@ -60,7 +60,7 @@ module "bulk-scan-orchestrator-liveness-alert" {
   app_insights_query = <<EOF
 requests
 | where name == "GET /health" and resultCode != "200"
-| where url contains "orchestrator"
+| where cloud_RoleName == "Bulk Scan Orchestrator"
 EOF
 
   frequency_in_minutes       = 15
