@@ -8,8 +8,8 @@ data "azurerm_key_vault_secret" "cert" {
   key_vault_id = "${data.azurerm_key_vault.infra_vault.id}"
 }
 
-data "azurerm_key_vault_secret" "exela_ip" {
-  name      = "exela-ip"
+data "azurerm_key_vault_secret" "external_ip" {
+  name      = "external-ip"
   key_vault_id = "${data.azurerm_key_vault.infra_vault.id}"
 }
 
@@ -111,11 +111,11 @@ resource "azure_security_group" "bulkscan" {
   location = "${var.location}"
   
   security_rule {
-    name                       = "allow-inbound-https-exela"
+    name                       = "allow-inbound-https-external"
     type                       = "Inbound"
     action                     = "Allow"
     priority                   = 10
-    source_address_prefix      = "${data.azurerm_key_vault_secret.exela_ip.value}"
+    source_address_prefix      = "${data.azurerm_key_vault_secret.external_ip.value}"
     source_port_range          = "*"
     destination_address_prefix = "*"
     destination_port_range     = "443"
@@ -147,7 +147,7 @@ resource "azure_security_group" "bulkscan" {
   }
 }
   
-resource "azurerm_subnet_network_security_group_association" "example" {
+resource "azurerm_subnet_network_security_group_association" "subnet_nsg_association" {
   subnet_id                 = "${data.azurerm_subnet.subnet_b.id}"
   network_security_group_id = "${azurerm_network_security_group.bulkscan.id}"
 }
