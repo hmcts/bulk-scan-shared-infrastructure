@@ -114,7 +114,7 @@ resource "azure_security_group" "bulkscan" {
     name                       = "allow-inbound-https-external"
     type                       = "Inbound"
     action                     = "Allow"
-    priority                   = 10
+    priority                   = 100
     source_address_prefix      = "${data.azurerm_key_vault_secret.external_ip.value}"
     source_port_range          = "*"
     destination_address_prefix = "*"
@@ -126,7 +126,7 @@ resource "azure_security_group" "bulkscan" {
     name                       = "allow-inbound-vpn"
     type                       = "Inbound"
     action                     = "Allow"
-    priority                   = 20
+    priority                   = 200
     source_address_prefix      = "${data.azurerm_key_vault_secret.vpn_ip.value}"
     source_port_range          = "*"
     destination_address_prefix = "*"
