@@ -8,6 +8,16 @@ data "azurerm_key_vault_secret" "cert" {
   key_vault_id = "${data.azurerm_key_vault.infra_vault.id}"
 }
 
+data "azurerm_key_vault_secret" "exela_ip" {
+  name      = "exela-ip"
+  key_vault_id = "${data.azurerm_key_vault.infra_vault.id}"
+}
+
+data "azurerm_key_vault_secret" "vpn_ip" {
+  name      = "vpn-ip"
+  key_vault_id = "${data.azurerm_key_vault.infra_vault.id}"
+}
+
 module "appGw" {
   source            = "git@github.com:hmcts/cnp-module-waf?ref=master"
   env               = "${var.env}"
@@ -93,4 +103,51 @@ module "appGw" {
       healthyStatusCodes                  = "200-404"                  // MS returns 400 on /, allowing more codes in case they change it
     },
   ]
+}
+  
+resource "azure_security_group" "bulkscan" {
+  name     = "bulk-scan-nsg-${var.env}"
+  resource_group_name = "core-infra-${var.env}"
+  location = "${var.location}"
+  
+  security_rule {
+    name                       = "allow-inbound-https-exela"
+    type                       = "Inbound"
+    action                     = "Allow"
+    priority                   = 10
+    source_address_prefix      = "${data.azurerm_key_vault_secret.exela_ip.value}"
+    source_port_range          = "*"
+    destination_address_prefix = "*"
+    destination_port_range     = "443"
+    protocol                   = "TCP"    
+  }
+  
+  security_rule {
+    name                       = "allow-inbound-vpn"
+    type                       = "Inbound"
+    action                     = "Allow"
+    priority                   = 20
+    source_address_prefix      = "${data.azurerm_key_vault_secret.vpn_ip.value}"
+    source_port_range          = "*"
+    destination_address_prefix = "*"
+    destination_port_range     = "443"
+    protocol                   = "TCP"    
+  }
+  
+  security_rule {
+    name                       = "deny-inbound-all"
+    type                       = "Inbound"
+    action                     = "Deny"
+    priority                   = 400
+    source_address_prefix      = "*"
+    source_port_range          = "*"
+    destination_address_prefix = "*"
+    destination_port_range     = "*"
+    protocol                   = "*"    
+  }
+}
+  
+resource "azurerm_subnet_network_security_group_association" "example" {
+  subnet_id                 = "${data.azurerm_subnet.subnet_b.id}"
+  network_security_group_id = "${azurerm_network_security_group.bulkscan.id}"
 }
