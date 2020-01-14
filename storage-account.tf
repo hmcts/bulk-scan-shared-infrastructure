@@ -75,6 +75,13 @@ resource "azurerm_key_vault_secret" "storage_account_primary_key" {
   vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
 }
 
+# this secret is used by blob-router-service for uploading blobs
+resource "azurerm_key_vault_secret" "storage_account_connection_string" {
+  name      = "storage-account-connection-string"
+  value     = "${azurerm_storage_account.storage_account.primary_connection_string}"
+  vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
+}
+
 output "storage_account_name" {
   value = "${azurerm_storage_account.storage_account.name}"
 }
