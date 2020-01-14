@@ -9,12 +9,20 @@ module "no-envelopes-processed-alert" {
 
   app_insights_query = <<EOF
 let range_end = bin(now(), 1h);
-traces
-| where timestamp > ago(2h)
-| where message startswith "Processing zip file"
-| make-series count(message) default=0 on timestamp in range(range_end - 1h, range_end, 1m)
-| mvexpand count_message, timestamp
-| project files = toint(count_message), event_time = todatetime(timestamp)
+let data = datatable(metric: real) [
+  0,
+];
+data
+| project timestamp = now() - 20m, metric
+| make-series sum(metric) default=0 on timestamp in range(range_end - 1h, range_end, 1m)
+| mvexpand sum_metric, timestamp
+| project-rename count_ = sum_metric
+| union (traces
+|   where timestamp > ago(2h)
+|   where message startswith "Processing zip file"
+|   make-series count() default=0 on timestamp in range(range_end - 1h, range_end, 1m)
+|   mvexpand count_, timestamp)
+| project files = toint(count_), event_time = todatetime(timestamp)
 | summarize ["# files"] = sum(files), last_event = max(event_time)
 | extend day_of_week = toint(substring(tostring(dayofweek(last_event)), 0, 1))
 | extend last_event_time = bin(last_event % 1d, 1m) + datetime("2018-02-02")
