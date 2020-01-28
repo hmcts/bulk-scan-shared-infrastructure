@@ -105,7 +105,7 @@ module "appGw" {
   ]
 }
   
-resource "azure_security_group" "bulkscan" {
+resource "azurerm_security_group" "bulkscan" {
   name     = "bulk-scan-nsg-${var.env}"
   resource_group_name = "core-infra-${var.env}"
   location = "${var.location}"
