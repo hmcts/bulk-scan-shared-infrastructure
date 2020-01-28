@@ -105,7 +105,7 @@ module "appGw" {
   ]
 }
   
-resource "azurerm_security_group" "bulkscan" {
+resource "azurerm_network_security_group" "bulkscan" {
   name     = "bulk-scan-nsg-${var.env}"
   resource_group_name = "core-infra-${var.env}"
   location = "${var.location}"
@@ -137,5 +137,5 @@ resource "azurerm_security_group" "bulkscan" {
   
 resource "azurerm_subnet_network_security_group_association" "subnet_nsg_association" {
   subnet_id                 = "${data.azurerm_subnet.subnet_b.id}"
-  network_security_group_id = "${azurerm_security_group.bulkscan.id}"
+  network_security_group_id = "${azurerm_network_security_group.bulkscan.id}"
 }
