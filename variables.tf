@@ -56,9 +56,15 @@ variable "payment_queue_max_delivery_count" {
   default     = "10" // same as module's config
   description = "Payment queue message max delivery counter. Extracted to variable so it can be overridden per environment."
 }
+
 variable "external_cert_name" {}
 variable "external_hostname" {}
 
 variable "managed_identity_object_id" {
   default = ""
+}
+
+variable "palo_cluster_size" {
+  type        = "string"
+  default     = "2"
 }
