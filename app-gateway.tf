@@ -9,12 +9,12 @@ data "azurerm_key_vault_secret" "cert" {
 }
 
 data "azurerm_key_vault_secret" "allowed_external_ips" {
-  name      = "external-ip"
+  name      = "nsg-allowed-external-ips"
   key_vault_id = "${data.azurerm_key_vault.infra_vault.id}"
 }
 
 data "azurerm_key_vault_secret" "allowed_internal_ips" {
-  name      = "vpn-ip"
+  name      = "nsg-allowed-internal-ips"
   key_vault_id = "${data.azurerm_key_vault.infra_vault.id}"
 }
 
