@@ -66,5 +66,5 @@ variable "managed_identity_object_id" {
 
 variable "palo_cluster_size" {
   type        = "string"
-  default     = "2"
+  default     = "1"
 }
