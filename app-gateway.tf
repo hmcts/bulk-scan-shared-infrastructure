@@ -112,8 +112,8 @@ resource "azurerm_network_security_group" "bulkscan" {
   
   security_rule {
     name                       = "allow-inbound-https-external"
-    type                       = "Inbound"
-    action                     = "Allow"
+    direction                  = "Inbound"
+    access                     = "Allow"
     priority                   = 100
     source_address_prefix      = "${data.azurerm_key_vault_secret.allowed_external_ips.value}"
     source_port_range          = "*"
@@ -124,8 +124,8 @@ resource "azurerm_network_security_group" "bulkscan" {
   
   security_rule {
     name                       = "allow-inbound-https-internal"
-    type                       = "Inbound"
-    action                     = "Allow"
+    direction                  = "Inbound"
+    access                     = "Allow"
     priority                   = 110
     source_address_prefix      = "${data.azurerm_key_vault_secret.allowed_internal_ips.value}"
     source_port_range          = "*"
