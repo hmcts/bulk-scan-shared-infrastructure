@@ -8,12 +8,12 @@ data "azurerm_key_vault_secret" "cert" {
   key_vault_id = "${data.azurerm_key_vault.infra_vault.id}"
 }
 
-data "azurerm_key_vault_secret" "external_ip" {
+data "azurerm_key_vault_secret" "allowed_external_ips" {
   name      = "external-ip"
   key_vault_id = "${data.azurerm_key_vault.infra_vault.id}"
 }
 
-data "azurerm_key_vault_secret" "vpn_ip" {
+data "azurerm_key_vault_secret" "allowed_internal_ips" {
   name      = "vpn-ip"
   key_vault_id = "${data.azurerm_key_vault.infra_vault.id}"
 }
@@ -115,7 +115,7 @@ resource "azure_security_group" "bulkscan" {
     type                       = "Inbound"
     action                     = "Allow"
     priority                   = 100
-    source_address_prefix      = "${data.azurerm_key_vault_secret.external_ip.value}"
+    source_address_prefix      = "${data.azurerm_key_vault_secret.allowed_external_ips.value}"
     source_port_range          = "*"
     destination_address_prefix = "*"
     destination_port_range     = "443"
@@ -123,27 +123,15 @@ resource "azure_security_group" "bulkscan" {
   }
   
   security_rule {
-    name                       = "allow-inbound-vpn"
+    name                       = "allow-inbound-https-internal"
     type                       = "Inbound"
     action                     = "Allow"
-    priority                   = 200
-    source_address_prefix      = "${data.azurerm_key_vault_secret.vpn_ip.value}"
+    priority                   = 110
+    source_address_prefix      = "${data.azurerm_key_vault_secret.allowed_internal_ips.value}"
     source_port_range          = "*"
     destination_address_prefix = "*"
     destination_port_range     = "443"
     protocol                   = "TCP"    
-  }
-  
-  security_rule {
-    name                       = "deny-inbound-all"
-    type                       = "Inbound"
-    action                     = "Deny"
-    priority                   = 400
-    source_address_prefix      = "*"
-    source_port_range          = "*"
-    destination_address_prefix = "*"
-    destination_port_range     = "*"
-    protocol                   = "*"    
   }
 }
   
