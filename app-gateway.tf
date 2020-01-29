@@ -8,16 +8,6 @@ data "azurerm_key_vault_secret" "cert" {
   key_vault_id = "${data.azurerm_key_vault.infra_vault.id}"
 }
 
-data "azurerm_key_vault_secret" "allowed_external_ips" {
-  name      = "nsg-allowed-external-ips"
-  key_vault_id = "${data.azurerm_key_vault.infra_vault.id}"
-}
-
-data "azurerm_key_vault_secret" "allowed_internal_ips" {
-  name      = "nsg-allowed-internal-ips"
-  key_vault_id = "${data.azurerm_key_vault.infra_vault.id}"
-}
-
 module "appGw" {
   source            = "git@github.com:hmcts/cnp-module-waf?ref=master"
   env               = "${var.env}"
