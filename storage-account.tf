@@ -6,7 +6,7 @@ provider "azurerm" {
 
 locals {
   account_name      = "${replace("${var.product}${var.env}", "-", "")}"
-  mgmt_network_name = "${var.subscription == "prod" || var.subscription == "nonprod" ? "mgmt-infra-prod" : "mgmt-infra-sandbox"}"
+  mgmt_network_name = "${var.subscription == "preview" ? "mgmt-infra-sandbox" : "mgmt-infra-prod"}"
 
   // for each client service two containers are created: one named after the service
   // and another one, named {service_name}-rejected, for storing envelopes rejected by bulk-scan
