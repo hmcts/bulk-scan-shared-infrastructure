@@ -9,11 +9,13 @@ data "azurerm_key_vault_secret" "cert" {
 }
 
 data "azurerm_key_vault_secret" "allowed_external_ips" {
+  count     = "${var.env == "perftest" ? 0 : 1}"
   name      = "nsg-allowed-external-ips"
   key_vault_id = "${data.azurerm_key_vault.infra_vault.id}"
 }
 
 data "azurerm_key_vault_secret" "allowed_internal_ips" {
+  count     = "${var.env == "perftest" ? 0 : 1}"
   name      = "nsg-allowed-internal-ips"
   key_vault_id = "${data.azurerm_key_vault.infra_vault.id}"
 }
@@ -104,12 +106,13 @@ module "appGw" {
     },
   ]
 }
-  
+
 resource "azurerm_network_security_group" "bulkscan" {
+  count    = "${var.env == "perftest" ? 0 : 1}"
   name     = "bulk-scan-nsg-${var.env}"
   resource_group_name = "core-infra-${var.env}"
   location = "${var.location}"
-  
+
   security_rule {
     name                       = "allow-inbound-https-external"
     direction                  = "Inbound"
@@ -119,9 +122,9 @@ resource "azurerm_network_security_group" "bulkscan" {
     source_port_range          = "*"
     destination_address_prefix = "*"
     destination_port_range     = "443"
-    protocol                   = "TCP"    
+    protocol                   = "TCP"
   }
-  
+
   security_rule {
     name                       = "allow-inbound-https-internal"
     direction                  = "Inbound"
@@ -131,11 +134,12 @@ resource "azurerm_network_security_group" "bulkscan" {
     source_port_range          = "*"
     destination_address_prefix = "*"
     destination_port_range     = "443"
-    protocol                   = "TCP"    
+    protocol                   = "TCP"
   }
 }
-  
+
 resource "azurerm_subnet_network_security_group_association" "subnet_nsg_association" {
+  count                     = "${var.env == "perftest" ? 0 : 1}"
   subnet_id                 = "${data.azurerm_subnet.subnet_b.id}"
   network_security_group_id = "${azurerm_network_security_group.bulkscan.id}"
 }
