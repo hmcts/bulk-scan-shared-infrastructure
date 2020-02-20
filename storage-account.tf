@@ -29,7 +29,7 @@ locals {
   mgmt_network_name = "${var.subscription == "prod" || var.subscription == "nonprod" ? "mgmt-infra-prod" : "mgmt-infra-sandbox"}"
   aks_network_name = "${var.subscription == "prod" || var.subscription == "nonprod" ? "core-prod-vnet" : "core-aat-vnet"}"
   aks_resource_group = "${var.subscription == "prod" || var.subscription == "nonprod" ? "aks-infra-prod-rg" : "aks-infra-aat-rg"}"
-  aks_env_subscription = "${var.subscription == "aat" ? "stg" : var.subscription}"
+
   // for each client service two containers are created: one named after the service
   // and another one, named {service_name}-rejected, for storing envelopes rejected by bulk-scan
   client_service_names = ["bulkscan", "sscs", "divorce", "probate", "finrem", "cmc"]
@@ -42,14 +42,14 @@ data "azurerm_subnet" "trusted_subnet" {
 }
 
 data "azurerm_subnet" "aks00_subnet" {
-  provider            = "azurerm.cftapps-${local.aks_env_subscription}"
+  provider             = "${var.subscription == "aat" ? "azurerm.cftapps-stg" : ${var.subscription == "prod" ? "azurerm.cftapps-prod" : "azurerm.cftapps-sbox"}}"
   name                 = "aks-00"
   virtual_network_name = "${local.aks_network_name}"
   resource_group_name  = "${local.aks_resource_group}"
 }
     
 data "azurerm_subnet" "aks01_subnet" {
-  provider            = "azurerm.cftapps-${local.aks_env_subscription}"
+  provider             = "${var.subscription == "aat" ? "azurerm.cftapps-stg" : ${var.subscription == "prod" ? "azurerm.cftapps-prod" : "azurerm.cftapps-sbox"}}"
   name                 = "aks-01"
   virtual_network_name = "${local.aks_network_name}"
   resource_group_name  = "${local.aks_resource_group}"
