@@ -4,12 +4,32 @@ provider "azurerm" {
   version         = "=1.33.1"
 }
 
+provider "azurerm" {
+  alias  = "cft-mgmt"
+  subscription_id = "ed302caf-ec27-4c64-a05e-85731c3ce90e"
+}
+
+provider "azurerm" {
+  alias  = "cftapps-prod"
+  subscription_id = "8cbc6f36-7c56-4963-9d36-739db5d00b27"
+}
+
+provider "azurerm" {
+  alias  = "cftapps-stg"
+  subscription_id = "96c274ce-846d-4e48-89a7-d528432298a7"
+}
+
+provider "azurerm" {
+  alias  = "cftapps-sbox"
+  subscription_id = "b72ab7b7-723f-4b18-b6f6-03b0f2c6a1bb"
+}
+
 locals {
   account_name      = "${replace("${var.product}${var.env}", "-", "")}"
   mgmt_network_name = "${var.subscription == "prod" || var.subscription == "nonprod" ? "mgmt-infra-prod" : "mgmt-infra-sandbox"}"
   aks_network_name = "${var.subscription == "prod" || var.subscription == "nonprod" ? "core-prod-vnet" : "core-aat-vnet"}"
   aks_resource_group = "${var.subscription == "prod" || var.subscription == "nonprod" ? "aks-infra-prod-rg" : "aks-infra-aat-rg"}"
-
+  aks_env_subscription = "${var.subscription == "aat" ? "stg" : var.subscription}"
   // for each client service two containers are created: one named after the service
   // and another one, named {service_name}-rejected, for storing envelopes rejected by bulk-scan
   client_service_names = ["bulkscan", "sscs", "divorce", "probate", "finrem", "cmc"]
@@ -22,12 +42,14 @@ data "azurerm_subnet" "trusted_subnet" {
 }
 
 data "azurerm_subnet" "aks00_subnet" {
+  provider            = "azurerm.cftapps-${local.aks_env_subscription}"
   name                 = "aks-00"
   virtual_network_name = "${local.aks_network_name}"
   resource_group_name  = "${local.aks_resource_group}"
 }
     
 data "azurerm_subnet" "aks01_subnet" {
+  provider            = "azurerm.cftapps-${local.aks_env_subscription}"
   name                 = "aks-01"
   virtual_network_name = "${local.aks_network_name}"
   resource_group_name  = "${local.aks_resource_group}"
