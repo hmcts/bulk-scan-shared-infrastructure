@@ -8,16 +8,6 @@ data "azurerm_key_vault_secret" "cert" {
   key_vault_id = "${data.azurerm_key_vault.infra_vault.id}"
 }
 
-data "azurerm_key_vault_secret" "allowed_external_ips" {
-  name      = "nsg-allowed-external-ips"
-  key_vault_id = "${data.azurerm_key_vault.infra_vault.id}"
-}
-
-data "azurerm_key_vault_secret" "allowed_internal_ips" {
-  name      = "nsg-allowed-internal-ips"
-  key_vault_id = "${data.azurerm_key_vault.infra_vault.id}"
-}
-
 module "appGw" {
   source            = "git@github.com:hmcts/cnp-module-waf?ref=master"
   env               = "${var.env}"
@@ -103,39 +93,4 @@ module "appGw" {
       healthyStatusCodes                  = "200-404"                  // MS returns 400 on /, allowing more codes in case they change it
     },
   ]
-}
-  
-resource "azurerm_network_security_group" "bulkscan" {
-  name     = "bulk-scan-nsg-${var.env}"
-  resource_group_name = "core-infra-${var.env}"
-  location = "${var.location}"
-  
-  security_rule {
-    name                       = "allow-inbound-https-external"
-    direction                  = "Inbound"
-    access                     = "Allow"
-    priority                   = 100
-    source_address_prefix      = "${data.azurerm_key_vault_secret.allowed_external_ips.value}"
-    source_port_range          = "*"
-    destination_address_prefix = "*"
-    destination_port_range     = "443"
-    protocol                   = "TCP"    
-  }
-  
-  security_rule {
-    name                       = "allow-inbound-https-internal"
-    direction                  = "Inbound"
-    access                     = "Allow"
-    priority                   = 110
-    source_address_prefix      = "${data.azurerm_key_vault_secret.allowed_internal_ips.value}"
-    source_port_range          = "*"
-    destination_address_prefix = "*"
-    destination_port_range     = "443"
-    protocol                   = "TCP"    
-  }
-}
-  
-resource "azurerm_subnet_network_security_group_association" "subnet_nsg_association" {
-  subnet_id                 = "${data.azurerm_subnet.subnet_b.id}"
-  network_security_group_id = "${azurerm_network_security_group.bulkscan.id}"
 }
