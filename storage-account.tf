@@ -108,7 +108,7 @@ resource "azurerm_storage_account" "storage_account" {
   }
 
   network_rules {
-    virtual_network_subnet_ids = "${var.subscription == "aat" ? local.stg_virtual_network_subnet_ids : var.subscription == "prod" ? local.prod_virtual_network_subnet_ids : local.sbox_virtual_network_subnet_ids}"
+    virtual_network_subnet_ids = ["${var.subscription == "aat" ? local.stg_virtual_network_subnet_ids : var.subscription == "prod" ? local.prod_virtual_network_subnet_ids : local.sbox_virtual_network_subnet_ids}"]
     bypass                     = ["Logging", "Metrics", "AzureServices"]
     default_action             = "Deny"
   }
