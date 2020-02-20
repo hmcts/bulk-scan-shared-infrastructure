@@ -94,38 +94,3 @@ module "appGw" {
     },
   ]
 }
-  
-resource "azurerm_network_security_group" "bulkscan" {
-  name     = "bulk-scan-nsg-${var.env}"
-  resource_group_name = "core-infra-${var.env}"
-  location = "${var.location}"
-  
-  security_rule {
-    name                       = "allow-inbound-https-external"
-    direction                  = "Inbound"
-    access                     = "Allow"
-    priority                   = 100
-    source_address_prefix      = "${data.azurerm_key_vault_secret.allowed_external_ips.value}"
-    source_port_range          = "*"
-    destination_address_prefix = "*"
-    destination_port_range     = "443"
-    protocol                   = "TCP"    
-  }
-  
-  security_rule {
-    name                       = "allow-inbound-https-internal"
-    direction                  = "Inbound"
-    access                     = "Allow"
-    priority                   = 110
-    source_address_prefix      = "${data.azurerm_key_vault_secret.allowed_internal_ips.value}"
-    source_port_range          = "*"
-    destination_address_prefix = "*"
-    destination_port_range     = "443"
-    protocol                   = "TCP"    
-  }
-}
-  
-resource "azurerm_subnet_network_security_group_association" "subnet_nsg_association" {
-  subnet_id                 = "${data.azurerm_subnet.subnet_b.id}"
-  network_security_group_id = "${azurerm_network_security_group.bulkscan.id}"
-}
