@@ -6,7 +6,8 @@ provider "azurerm" {
 
 locals {
   account_name      = "${replace("${var.product}${var.env}", "-", "")}"
-  mgmt_network_name = "${var.subscription == "preview" ? "mgmt-infra-sandbox" : "mgmt-infra-prod"}"
+  mgmt_network_name = "core-cftptl-intsvc-vnet"
+  mgmt_network_rg_name = "aks-infra-cftptl-intsvc-rg"
 
   // for each client service two containers are created: one named after the service
   // and another one, named {service_name}-rejected, for storing envelopes rejected by bulk-scan
@@ -21,9 +22,9 @@ data "azurerm_subnet" "trusted_subnet" {
 
 data "azurerm_subnet" "jenkins_subnet" {
   provider             = "azurerm.mgmt"
-  name                 = "jenkins-subnet"
+  name                 = "iaas"
   virtual_network_name = "${local.mgmt_network_name}"
-  resource_group_name  = "${local.mgmt_network_name}"
+  resource_group_name  = "${local.mgmt_network_rg_name}"
 }
 
 resource "azurerm_storage_account" "storage_account" {
