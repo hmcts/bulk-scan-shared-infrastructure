@@ -53,7 +53,7 @@ resource "azurerm_key_vault_secret" "envelopes_staging_queue_listen_conn_str" {
 
 resource "azurerm_key_vault_secret" "envelopes_staging_queue_max_delivery_count" {
   name      = "envelopes-staging-queue-max-delivery-count"
-  value     = "${var.envelope_staging_queue_max_delivery_count}"
+  value     = "${var.envelope_queue_max_delivery_count}"
   vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
 }
 
@@ -97,8 +97,4 @@ output "processed_envelopes_staging_queue_primary_listen_connection_string" {
 
 output "processed_envelopes_staging_queue_primary_send_connection_string" {
   value = "${module.processed-envelopes-staging-queue.primary_send_connection_string}"
-}
-
-output "envelopes_staging_queue_max_delivery_count" {
-  value = "${var.envelope_staging_queue_max_delivery_count}"
 }
