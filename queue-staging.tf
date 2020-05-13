@@ -1,16 +1,7 @@
-module "queue-staging-namespace" {
-  source              = "git@github.com:hmcts/terraform-module-servicebus-namespace?ref=master"
-  name                = "${var.product}-servicebus-${var.env}"
-  location            = "${var.location}"
-  resource_group_name = "${azurerm_resource_group.rg.name}"
-  env                 = "${var.env}"
-  common_tags         = "${var.common_tags}"
-}
-
 module "envelopes-staging-queue" {
   source              = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=master"
   name                = "envelopes"
-  namespace_name      = "${module.queue-staging-namespace.name}"
+  namespace_name      = "${module.queue-namespace.name}"
   resource_group_name = "${azurerm_resource_group.rg.name}"
 
   requires_duplicate_detection            = "true"
@@ -22,7 +13,7 @@ module "envelopes-staging-queue" {
 module "processed-envelopes-staging-queue" {
   source              = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=master"
   name                = "processed-envelopes"
-  namespace_name      = "${module.queue-staging-namespace.name}"
+  namespace_name      = "${module.queue-namespace.name}"
   resource_group_name = "${azurerm_resource_group.rg.name}"
   lock_duration       = "PT5M"
 }
@@ -30,7 +21,7 @@ module "processed-envelopes-staging-queue" {
 module "payments-staging-queue" {
   source              = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=master"
   name                = "payments"
-  namespace_name      = "${module.queue-staging-namespace.name}"
+  namespace_name      = "${module.queue-namespace.name}"
   resource_group_name = "${azurerm_resource_group.rg.name}"
   lock_duration       = "PT5M"
   max_delivery_count  = "${var.payment_queue_max_delivery_count}"
@@ -82,19 +73,3 @@ resource "azurerm_key_vault_secret" "payments_staging_queue_listen_conn_str" {
 }
 
 # endregion
-
-output "envelopes_staging_queue_primary_listen_connection_string" {
-  value = "${module.envelopes-staging-queue.primary_listen_connection_string}"
-}
-
-output "envelopes_staging_queue_primary_send_connection_string" {
-  value = "${module.envelopes-staging-queue.primary_send_connection_string}"
-}
-
-output "processed_envelopes_staging_queue_primary_listen_connection_string" {
-  value = "${module.processed-envelopes-staging-queue.primary_listen_connection_string}"
-}
-
-output "processed_envelopes_staging_queue_primary_send_connection_string" {
-  value = "${module.processed-envelopes-staging-queue.primary_send_connection_string}"
-}
