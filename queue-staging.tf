@@ -1,6 +1,6 @@
 module "envelopes-staging-queue" {
   source              = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=master"
-  name                = "envelopes"
+  name                = "envelopes-staging"
   namespace_name      = "${module.queue-namespace.name}"
   resource_group_name = "${azurerm_resource_group.rg.name}"
 
@@ -12,7 +12,7 @@ module "envelopes-staging-queue" {
 
 module "processed-envelopes-staging-queue" {
   source              = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=master"
-  name                = "processed-envelopes"
+  name                = "processed-envelopes-staging"
   namespace_name      = "${module.queue-namespace.name}"
   resource_group_name = "${azurerm_resource_group.rg.name}"
   lock_duration       = "PT5M"
@@ -20,7 +20,7 @@ module "processed-envelopes-staging-queue" {
 
 module "payments-staging-queue" {
   source              = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=master"
-  name                = "payments"
+  name                = "payments-staging"
   namespace_name      = "${module.queue-namespace.name}"
   resource_group_name = "${azurerm_resource_group.rg.name}"
   lock_duration       = "PT5M"
@@ -39,12 +39,6 @@ resource "azurerm_key_vault_secret" "envelopes_queue_staging_send_conn_str" {
 resource "azurerm_key_vault_secret" "envelopes_staging_queue_listen_conn_str" {
   name      = "envelopes-staging-queue-listen-connection-string"
   value     = "${module.envelopes-staging-queue.primary_listen_connection_string}"
-  vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
-}
-
-resource "azurerm_key_vault_secret" "envelopes_staging_queue_max_delivery_count" {
-  name      = "envelopes-staging-queue-max-delivery-count"
-  value     = "${var.envelope_queue_max_delivery_count}"
   vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
 }
 
