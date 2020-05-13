@@ -30,7 +30,7 @@ module "payments-staging-queue" {
 }
 
 # region connection strings and other shared queue information as Key Vault secrets
-resource "azurerm_key_vault_secret" "envelopes_queue_staging_send_conn_str" {
+resource "azurerm_key_vault_secret" "envelopes_staging_queue_send_conn_str" {
   name      = "envelopes-staging-queue-send-connection-string"
   value     = "${module.envelopes-staging-queue.primary_send_connection_string}"
   vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
