@@ -1,7 +1,7 @@
 locals {
-  trusted_vnet_name           = "core-infra-vnet-${var.env}"
-  trusted_vnet_resource_group = "core-infra-${var.env}"
-  trusted_vnet_subnet_name    = "palo-trusted"
+  trusted_vnet_name_stg           = "core-infra-vnet-${var.env}"
+  trusted_vnet_resource_group_stg = "core-infra-${var.env}"
+  trusted_vnet_subnet_name_stg    = "palo-trusted"
 }
 
 module "palo_alto_staging" {
