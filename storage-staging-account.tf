@@ -1,9 +1,15 @@
 locals {
-  staging_account_name      = "${replace("${var.product}${var.env}", "-", "")}staging"
+  account_name_stg         = "${replace("${var.product}${var.env}", "-", "")}staging"
+  mgmt_network_name_stg    = "core-cftptl-intsvc-vnet"
+  mgmt_network_rg_name_stg = "aks-infra-cftptl-intsvc-rg"
+
+  // for each client service two containers are created: one named after the service
+  // and another one, named {service_name}-rejected, for storing envelopes rejected by bulk-scan
+  client_service_names_stg = ["bulkscan", "sscs", "divorce", "probate", "finrem", "cmc"]
 }
 
-resource "azurerm_storage_account" "storage_staging_account" {
-  name                = "${local.staging_account_name}"
+resource "azurerm_storage_account" "storage_account_staging" {
+  name                = "${local.account_name_stg}"
   resource_group_name = "${azurerm_resource_group.rg.name}"
 
   location                 = "${azurerm_resource_group.rg.location}"
@@ -25,35 +31,35 @@ resource "azurerm_storage_account" "storage_staging_account" {
   tags = "${local.tags}"
 }
 
-resource "azurerm_storage_container" "service_staging_containers" {
-  name                 = "${local.client_service_names[count.index]}"
-  resource_group_name  = "${azurerm_storage_account.storage_staging_account.resource_group_name}"
-  storage_account_name = "${azurerm_storage_account.storage_staging_account.name}"
-  count                = "${length(local.client_service_names)}"
+resource "azurerm_storage_container" "service_containers_stg" {
+  name                 = "${local.client_service_names_stg[count.index]}"
+  resource_group_name  = "${azurerm_storage_account.storage_account_staging.resource_group_name}"
+  storage_account_name = "${azurerm_storage_account.storage_account_staging.name}"
+  count                = "${length(local.client_service_names_stg)}"
 }
 
-resource "azurerm_storage_container" "service_staging_rejected_containers" {
-  name                 = "${local.client_service_names[count.index]}-rejected"
-  resource_group_name  = "${azurerm_storage_account.storage_staging_account.resource_group_name}"
-  storage_account_name = "${azurerm_storage_account.storage_staging_account.name}"
-  count                = "${length(local.client_service_names)}"
+resource "azurerm_storage_container" "service_rejected_containers_stg" {
+  name                 = "${local.client_service_names_stg[count.index]}-rejected"
+  resource_group_name  = "${azurerm_storage_account.storage_account_staging.resource_group_name}"
+  storage_account_name = "${azurerm_storage_account.storage_account_staging.name}"
+  count                = "${length(local.client_service_names_stg)}"
 }
 
-resource "azurerm_key_vault_secret" "storage_staging_account_name" {
+resource "azurerm_key_vault_secret" "storage_account_staging_name" {
   name      = "storage-staging-account-name"
-  value     = "${azurerm_storage_account.storage_staging_account.name}"
+  value     = "${azurerm_storage_account.storage_account_staging.name}"
   vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
 }
 
-resource "azurerm_key_vault_secret" "storage_staging_account_primary_key" {
+resource "azurerm_key_vault_secret" "storage_account_staging_primary_key" {
   name      = "storage-staging-account-primary-key"
-  value     = "${azurerm_storage_account.storage_staging_account.primary_access_key}"
+  value     = "${azurerm_storage_account.storage_account_staging.primary_access_key}"
   vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
 }
 
 # this secret is used by blob-router-service for uploading blobs
-resource "azurerm_key_vault_secret" "storage_staging_account_connection_string" {
+resource "azurerm_key_vault_secret" "storage_account_staging_connection_string" {
   name      = "storage-staging-account-connection-string"
-  value     = "${azurerm_storage_account.storage_staging_account.primary_connection_string}"
+  value     = "${azurerm_storage_account.storage_account_staging.primary_connection_string}"
   vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
 }
