@@ -8,8 +8,7 @@ withInfraPipeline(product) {
 
   enableSlackNotifications('#bsp-build-notices')
 
-  after('buildinfra:aat') {
-    currentBuild.result = 'SUCCESS'
-    currentBuild.description = "Stopping deployment to prod temporarily"
+  before('buildinfra:prod') {
+    error('Halting pipeline before PROD.')
   }
 }
