@@ -8,4 +8,7 @@ withInfraPipeline(product) {
 
   enableSlackNotifications('#bsp-build-notices')
 
+  before('buildinfra:prod') {
+    error('Halting pipeline before PROD.')
+  }
 }
