@@ -31,7 +31,7 @@ module "appGwStaging" {
       FrontendPort            = "frontendPort443"
       Protocol                = "Https"
       SslCertificate          = "${var.external_cert_name}"
-      hostName                = "${var.external_hostname}"
+      hostName                = "${local.external_hostname_stg}"
     },
   ]
 
@@ -54,7 +54,7 @@ module "appGwStaging" {
       probeEnabled                   = "True"
       probe                          = "http-probe"
       PickHostNameFromBackendAddress = "False"
-      HostName                       = "${var.external_hostname}"
+      HostName                       = "${local.external_hostname_stg}"
     },
   ]
 
@@ -64,7 +64,7 @@ module "appGwStaging" {
       name                = "https"
       RuleType            = "Basic"
       httpListener        = "https-listener"
-      backendAddressPool  = "${var.product}-${var.env}"
+      backendAddressPool  = "${var.product}-${var.env}-staging"
       backendHttpSettings = "backend"
     },
   ]
@@ -79,7 +79,7 @@ module "appGwStaging" {
       unhealthyThreshold                  = 5
       pickHostNameFromBackendHttpSettings = "false"
       backendHttpSettings                 = "backend"
-      host                                = "${var.external_hostname}"
+      host                                = "${local.external_hostname_stg}"
       healthyStatusCodes                  = "200-404"                  // MS returns 400 on /, allowing more codes in case they change it
     },
   ]
