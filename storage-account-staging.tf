@@ -50,33 +50,31 @@ resource "azurerm_storage_account" "storage_account_staging" {
 
 resource "azurerm_storage_container" "service_containers_stg" {
   name                 = "${local.client_service_names_stg[count.index]}"
-  resource_group_name  = "${azurerm_storage_account.storage_account_staging.resource_group_name}"
   storage_account_name = "${azurerm_storage_account.storage_account_staging.name}"
   count                = "${length(local.client_service_names_stg)}"
 }
 
 resource "azurerm_storage_container" "service_rejected_containers_stg" {
   name                 = "${local.client_service_names_stg[count.index]}-rejected"
-  resource_group_name  = "${azurerm_storage_account.storage_account_staging.resource_group_name}"
   storage_account_name = "${azurerm_storage_account.storage_account_staging.name}"
   count                = "${length(local.client_service_names_stg)}"
 }
 
 resource "azurerm_key_vault_secret" "storage_account_staging_name" {
-  name      = "storage-staging-account-name"
-  value     = "${azurerm_storage_account.storage_account_staging.name}"
-  vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
+  key_vault_id = "${data.azurerm_key_vault.key_vault.id}"
+  name         = "storage-account-staging-name"
+  value        = "${azurerm_storage_account.storage_account_staging.name}"
 }
 
 resource "azurerm_key_vault_secret" "storage_account_staging_primary_key" {
-  name      = "storage-staging-account-primary-key"
-  value     = "${azurerm_storage_account.storage_account_staging.primary_access_key}"
-  vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
+  key_vault_id = "${data.azurerm_key_vault.key_vault.id}"
+  name         = "storage-account-staging-primary-key"
+  value        = "${azurerm_storage_account.storage_account_staging.primary_access_key}"
 }
 
 # this secret is used by blob-router-service for uploading blobs
 resource "azurerm_key_vault_secret" "storage_account_staging_connection_string" {
-  name      = "storage-staging-account-connection-string"
-  value     = "${azurerm_storage_account.storage_account_staging.primary_connection_string}"
-  vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
+  key_vault_id = "${data.azurerm_key_vault.key_vault.id}"
+  name         = "storage-account-staging-connection-string"
+  value        = "${azurerm_storage_account.storage_account_staging.primary_connection_string}"
 }
