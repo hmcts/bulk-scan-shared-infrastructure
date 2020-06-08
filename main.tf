@@ -7,7 +7,7 @@ locals {
     merge(
       var.common_tags,
       map(
-        "Team Contact", "#rpe",
+        "Team Contact", "#rbs",
         "Team Name", "Bulk Scan"
       )
     )}"
