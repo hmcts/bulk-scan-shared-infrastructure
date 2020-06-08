@@ -4,7 +4,7 @@ module "queue-namespace" {
   location            = "${var.location}"
   resource_group_name = "${azurerm_resource_group.rg.name}"
   env                 = "${var.env}"
-  common_tags         = "${local.common_tags}"
+  common_tags         = "${var.tags}"
 }
 
 module "envelopes-queue" {
