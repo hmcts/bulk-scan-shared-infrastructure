@@ -19,7 +19,7 @@ EOF
   action_group_name          = "${module.alert-action-group.action_group_name}"
   custom_email_subject       = "Bulk Scan Processor liveness"
   trigger_threshold_operator = "GreaterThan"
-  trigger_threshold          = 5
+  trigger_threshold          = 10
   resourcegroup_name         = "${azurerm_resource_group.rg.name}"
 }
 
@@ -44,7 +44,7 @@ EOF
   action_group_name          = "${module.alert-action-group.action_group_name}"
   custom_email_subject       = "Bulk Scan Payment Processor liveness"
   trigger_threshold_operator = "GreaterThan"
-  trigger_threshold          = 5
+  trigger_threshold          = 10
   resourcegroup_name         = "${azurerm_resource_group.rg.name}"
 }
 
@@ -69,6 +69,6 @@ EOF
   action_group_name          = "${module.alert-action-group.action_group_name}"
   custom_email_subject       = "Bulk Scan Orchestrator liveness"
   trigger_threshold_operator = "GreaterThan"
-  trigger_threshold          = 5
+  trigger_threshold          = 10
   resourcegroup_name         = "${azurerm_resource_group.rg.name}"
 }
