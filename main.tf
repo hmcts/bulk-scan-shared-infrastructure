@@ -6,6 +6,10 @@ locals {
   tags = "${merge(var.common_tags,
     map("Team Contact", "#rpe")
     )}"
+  common_tags = {
+    team_name    = "Bulk scan"
+    team_contact = "#rbs"
+  }
 }
 
 resource "azurerm_resource_group" "rg" {
