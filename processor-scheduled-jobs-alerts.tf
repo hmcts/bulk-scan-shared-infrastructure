@@ -1,4 +1,4 @@
-module "bulk-scan-blob-processing-alert" {
+module "blob-processing-alert" {
   source            = "git@github.com:hmcts/cnp-module-metric-alert"
   location          = "${azurerm_application_insights.appinsights.location}"
   app_insights_name = "${azurerm_application_insights.appinsights.name}"
@@ -19,7 +19,7 @@ module "bulk-scan-blob-processing-alert" {
   resourcegroup_name         = "${azurerm_resource_group.rg.name}"
 }
 
-module "bulk-scan-upload-documents-alert" {
+module "upload-documents-alert" {
   source            = "git@github.com:hmcts/cnp-module-metric-alert"
   location          = "${azurerm_application_insights.appinsights.location}"
   app_insights_name = "${azurerm_application_insights.appinsights.name}"
@@ -40,7 +40,7 @@ module "bulk-scan-upload-documents-alert" {
   resourcegroup_name         = "${azurerm_resource_group.rg.name}"
 }
 
-module "bulk-scan-delete-rejected-files-alert" {
+module "delete-rejected-files-alert" {
   source            = "git@github.com:hmcts/cnp-module-metric-alert"
   location          = "${azurerm_application_insights.appinsights.location}"
   app_insights_name = "${azurerm_application_insights.appinsights.name}"
@@ -61,7 +61,7 @@ module "bulk-scan-delete-rejected-files-alert" {
   resourcegroup_name         = "${azurerm_resource_group.rg.name}"
 }
 
-module "bulk-scan-delete-complete-files-alert" {
+module "delete-complete-files-alert" {
   source            = "git@github.com:hmcts/cnp-module-metric-alert"
   location          = "${azurerm_application_insights.appinsights.location}"
   app_insights_name = "${azurerm_application_insights.appinsights.name}"
@@ -82,7 +82,7 @@ module "bulk-scan-delete-complete-files-alert" {
   resourcegroup_name         = "${azurerm_resource_group.rg.name}"
 }
 
-module "bulk-scan-orchestrator-notifications-alert" {
+module "orchestrator-notifications-alert" {
   source            = "git@github.com:hmcts/cnp-module-metric-alert"
   location          = "${azurerm_application_insights.appinsights.location}"
   app_insights_name = "${azurerm_application_insights.appinsights.name}"
@@ -103,7 +103,7 @@ module "bulk-scan-orchestrator-notifications-alert" {
   resourcegroup_name         = "${azurerm_resource_group.rg.name}"
 }
 
-module "bulk-scan-incomplete-envelopes-alert" {
+module "incomplete-envelopes-alert" {
   source            = "git@github.com:hmcts/cnp-module-metric-alert"
   location          = "${azurerm_application_insights.appinsights.location}"
   app_insights_name = "${azurerm_application_insights.appinsights.name}"
