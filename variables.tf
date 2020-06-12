@@ -70,5 +70,5 @@ variable "palo_cluster_size" {
 
 variable "queue_secret_count" {
   type        = "string"
-  default     = "1"
+  default     = "0"
 }
