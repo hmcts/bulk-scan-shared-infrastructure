@@ -62,3 +62,8 @@ variable "external_hostname" {}
 variable "managed_identity_object_id" {
   default = ""
 }
+
+variable "palo_cluster_size" {
+  type        = "string"
+  default     = "1"
+}
