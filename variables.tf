@@ -62,7 +62,13 @@ variable "external_hostname" {}
 variable "managed_identity_object_id" {
   default = ""
 }
+
 variable "wafFileUploadLimit" {
    description = "Maximum file upload size in MB for WAF"
    default = "100"
  } 
+
+variable "palo_cluster_size" {
+  type        = "string"
+  default     = "1"
+}
