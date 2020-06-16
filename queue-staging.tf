@@ -1,5 +1,5 @@
 locals {
-  staging-resource-count = "1"
+  staging_resource_count = "${var.env == "aat" ? "1": "0"}"
 }
 
 module "envelopes-staging-queue" {
