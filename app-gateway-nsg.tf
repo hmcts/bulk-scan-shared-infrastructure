@@ -3,9 +3,9 @@ provider "azurerm" {
   subscription_id = "ed302caf-ec27-4c64-a05e-85731c3ce90e"
 }
 
-data "azurerm_key_vault" "reform_scan_key_vault" {
-  name                = "reform-scan-${var.env}"
-  resource_group_name = "reform-scan-${var.env}"
+data "azurerm_key_vault" "bulk_scan_key_vault" {
+  name                = "bulk-scan-${var.env}"
+  resource_group_name = "bulk-scan-${var.env}"
 }
 
 data "azurerm_public_ip" "proxy_out_public_ip" {
@@ -16,16 +16,16 @@ data "azurerm_public_ip" "proxy_out_public_ip" {
 
 data "azurerm_key_vault_secret" "aks00_public_ip_prefix" {
   name         = "nsg-aks00-pip"
-  key_vault_id = "${data.azurerm_key_vault.reform_scan_key_vault.id}"
+  key_vault_id = "${data.azurerm_key_vault.bulk_scan_key_vault.id}"
 }
 
 data "azurerm_key_vault_secret" "aks01_public_ip_prefix" {
   name         = "nsg-aks01-pip"
-  key_vault_id = "${data.azurerm_key_vault.reform_scan_key_vault.id}"
+  key_vault_id = "${data.azurerm_key_vault.bulk_scan_key_vault.id}"
 }
 
-resource "azurerm_network_security_group" "reformscannsg" {
-  name                = "reform-scan-nsg-${var.env}"
+resource "azurerm_network_security_group" "bulkscannsg" {
+  name                = "bulk-scan-nsg-${var.env}"
   resource_group_name = "core-infra-${var.env}"
   location            = "${var.location}"
 
@@ -56,5 +56,5 @@ resource "azurerm_network_security_group" "reformscannsg" {
 
 resource "azurerm_subnet_network_security_group_association" "subnet_nsg_association" {
   subnet_id                 = "${data.azurerm_subnet.subnet_a.id}"
-  network_security_group_id = "${azurerm_network_security_group.reformscannsg.id}"
+  network_security_group_id = "${azurerm_network_security_group.bulkscannsg.id}"
 }
