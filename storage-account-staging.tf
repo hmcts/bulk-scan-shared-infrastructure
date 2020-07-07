@@ -10,7 +10,7 @@ locals {
 
   // for each client service two containers are created: one named after the service
   // and another one, named {service_name}-rejected, for storing envelopes rejected by bulk-scan
-  client_service_names_stg = ["bulkscan", "sscs", "divorce", "probate", "finrem", "cmc"]
+  client_service_names_stg = ["bulkscanauto", "bulkscan", "sscs", "divorce", "probate", "finrem", "cmc"]
 }
 
 data "azurerm_subnet" "trusted_subnet_stg" {
