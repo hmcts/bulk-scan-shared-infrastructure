@@ -42,39 +42,39 @@ module "payments-queue" {
 
 resource "azurerm_key_vault_secret" "envelopes_queue_send_access_key" {
   name      = "envelopes-queue-send-shared-access-key"
-  value     = module.envelopes-queue.primary_send_shared_access_key
-  vault_uri = data.azurerm_key_vault.key_vault.vault_uri
+  value     = "${module.envelopes-queue.primary_send_shared_access_key}"
+  vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
 }
 
 resource "azurerm_key_vault_secret" "envelopes_queue_listen_access_key" {
   name      = "envelopes-queue-listen-shared-access-key"
-  value     = module.envelopes-queue.primary_listen_shared_access_key
-  vault_uri = data.azurerm_key_vault.key_vault.vault_uri
+  value     = "${module.envelopes-queue.primary_listen_shared_access_key}"
+  vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
 }
 
 resource "azurerm_key_vault_secret" "processed_envelopes_queue_send_access_key" {
   name      = "processed-envelopes-queue-send-shared-access-key"
-  value     = module.processed-envelopes-queue.primary_send_shared_access_key
-  vault_uri = data.azurerm_key_vault.key_vault.vault_uri
+  value     = "${module.processed-envelopes-queue.primary_send_shared_access_key}"
+  vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
 }
 
 resource "azurerm_key_vault_secret" "processed_envelopes_queue_listen_access_key" {
   name      = "processed-envelopes-queue-listen-shared-access-key"
-  value     = module.processed-envelopes-queue.primary_listen_shared_access_key
-  vault_uri = data.azurerm_key_vault.key_vault.vault_uri
+  value     = "${module.processed-envelopes-queue.primary_listen_shared_access_key}"
+  vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
 }
 
 
 resource "azurerm_key_vault_secret" "payments_queue_send_access_key" {
   name      = "payments-queue-send-shared-access-key"
-  value     = module.payments-queue.primary_send_shared_access_key
-  vault_uri = data.azurerm_key_vault.key_vault.vault_uri
+  value     = "${module.payments-queue.primary_send_shared_access_key}"
+  vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
 }
 
 resource "azurerm_key_vault_secret" "payments_queue_listen_access_key" {
   name      = "payments-queue-listen-shared-access-key"
-  value     = module.payments-queue.primary_listen_shared_access_key
-  vault_uri = data.azurerm_key_vault.key_vault.vault_uri
+  value     = "${module.payments-queue.primary_listen_shared_access_key}"
+  vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
 }
 
 # endregion
