@@ -76,4 +76,41 @@ resource "azurerm_key_vault_secret" "payments_staging_queue_listen_conn_str" {
   count     = "${local.staging_resource_count}"
 }
 
+resource "azurerm_key_vault_secret" "envelopes_staging_queue_send_access_key" {
+  name      = "envelopes-staging-queue-send-shared-access-key"
+  value     = "${module.envelopes-staging-queue.primary_send_shared_access_key}"
+  vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
+}
+
+resource "azurerm_key_vault_secret" "envelopes_staging_queue_listen_access_key" {
+  name      = "envelopes-staging-queue-listen-shared-access-key"
+  value     = "${module.envelopes-staging-queue.primary_listen_shared_access_key}"
+  vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
+}
+
+resource "azurerm_key_vault_secret" "processed_envelopes_staging_queue_send_access_key" {
+  name      = "processed-envelopes-staging-queue-send-shared-access-key"
+  value     = "${module.processed-envelopes-staging-queue.primary_send_shared_access_key}"
+  vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
+}
+
+resource "azurerm_key_vault_secret" "processed_envelopes_staging_queue_listen_access_key" {
+  name      = "processed-envelopes-staging-queue-listen-shared-access-key"
+  value     = "${module.processed-envelopes-staging-queue.primary_listen_shared_access_key}"
+  vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
+}
+
+
+resource "azurerm_key_vault_secret" "payments_staging_queue_send_access_key" {
+  name      = "payments-staging-queue-send-shared-access-key"
+  value     = "${module.payments-staging-queue.primary_send_shared_access_key}"
+  vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
+}
+
+resource "azurerm_key_vault_secret" "payments_staging_queue_listen_access_key" {
+  name      = "payments-staging-queue-listen-shared-access-key"
+  value     = "${module.payments-staging-queue.primary_listen_shared_access_key}"
+  vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
+}
+
 # endregion
