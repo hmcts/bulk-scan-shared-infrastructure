@@ -9,7 +9,7 @@ module "bulk-scan-processor-liveness-alert" {
 
   app_insights_query = <<EOF
 requests
-| where url contains "/health" and success != "True"
+| where url endswith "/health/liveness" and success != "True"
 | where cloud_RoleName == "Bulk Scan Processor"
 EOF
 
@@ -34,7 +34,7 @@ module "bulk-scan-payment-processor-liveness-alert" {
 
   app_insights_query = <<EOF
 requests
-| where url contains "/health" and success != "True"
+| where url endswith "/health/liveness" and success != "True"
 | where cloud_RoleName == "Bulk Scan Payment Processor"
 EOF
 
@@ -59,7 +59,7 @@ module "bulk-scan-orchestrator-liveness-alert" {
 
   app_insights_query = <<EOF
 requests
-| where url contains "/health" and success != "True"
+| where url endswith "/health/liveness" and success != "True"
 | where cloud_RoleName == "Bulk Scan Orchestrator"
 EOF
 
