@@ -2,7 +2,7 @@ locals {
   scan_storage_vnet_name           = "${var.env == "aat" ? "core-infra-vnet-prod" : "core-infra-vnet-${var.env}"}"
   private_endpoint_prod_aat_count  = "${var.env == "prod" || var.env == "aat" ? "1": "0"}"
   private_endpoint_non_prod_count  = "${var.env == "prod" || var.env == "aat" ? "0": "1"}"
-  scan_storage_vnet_resource_group = "core-infra-${var.env}"
+  scan_storage_vnet_resource_group = "${var.env == "aat" ? "core-infra-prod" : "core-infra-${var.env}"}"
   scan_storage_vnet_subnet_name    = "scan-storage"
 }
 
