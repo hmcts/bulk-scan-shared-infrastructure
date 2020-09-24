@@ -66,3 +66,7 @@ variable "palo_cluster_size" {
   type        = "string"
   default     = "1"
 }
+
+variable "storage_vnet_cidr" {}
+  
+variable "storage_subnet_cidr" {}
