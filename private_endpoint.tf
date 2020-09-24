@@ -32,8 +32,8 @@ resource "azurerm_template_deployment" "private_endpoint_prod_aat" {
     storageaccount_fqdn = "${azurerm_storage_account.storage_account.primary_blob_endpoint }"
   }
 
-  deployment_mode = "Incremental"
-  provider = "cnp-prod"
+  deployment_mode       = "Incremental"
+  provider              = "azurerm.cnp-prod"
 }
 
 resource "azurerm_template_deployment" "private_endpoint_non_prod" {
