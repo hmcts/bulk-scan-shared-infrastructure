@@ -46,7 +46,7 @@ resource "azurerm_template_deployment" "private_endpoint_prod_aat" {
 resource "azurerm_template_deployment" "private_endpoint_non_prod" {
   name                = "${local.account_name}-endpoint"
   resource_group_name = "${azurerm_resource_group.rg.name}"
-  count               = "${local.private_endpoint_non_prod_count}}"
+  count               = "${local.private_endpoint_non_prod_count}"
 
   template_body = file("private_endpoint_template.json")
 
