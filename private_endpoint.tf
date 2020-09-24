@@ -1,5 +1,5 @@
 locals {
-  scan_storage_vnet_name           = "core-infra-vnet-${var.env}"
+  scan_storage_vnet_name           = "${var.env == "aat" ? "core-infra-vnet-prod" : "core-infra-vnet-${var.env}"}"
   scan_storage_vnet_resource_group = "core-infra-${var.env}"
   scan_storage_vnet_subnet_name    = "scan-storage"
 }
