@@ -35,6 +35,7 @@ data "azurerm_subnet" "aks_01_subnet_stg" {
 }
 
 resource "azurerm_storage_account" "storage_account_staging" {
+  count               = "${var.env == "aat" ? "1": "0"}"
   name                = "${local.account_name_stg}"
   resource_group_name = "${azurerm_resource_group.rg.name}"
 
