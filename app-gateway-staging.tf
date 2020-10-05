@@ -3,7 +3,7 @@ module "appGwStaging" {
   env               = "${var.env}"
   subscription      = "${var.subscription}"
   location          = "${var.location}"
-  wafName           = "${var.product}stg"
+  wafName           = "${var.product}stage"
   resourcegroupname = "${azurerm_resource_group.rg.name}"
   common_tags       = "${var.common_tags}"
 
