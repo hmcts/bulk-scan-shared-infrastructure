@@ -8,7 +8,7 @@ module "palo_alto_staging" {
   source       = "git@github.com:hmcts/cnp-module-palo-alto?ref=add-pdf-threat-exclusion"
   subscription = "${var.subscription}"
   env          = "${var.env}"
-  product      = "${var.product}-stg"
+  product      = "${var.product}-stage"
   common_tags  = "${var.common_tags}"
 
   untrusted_vnet_name           = "core-infra-vnet-${var.env}"
