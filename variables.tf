@@ -62,7 +62,7 @@ variable "wafFileUploadLimit" {
    default = "100"
  } 
 
-variable "palo_cluster_size" {
+variable "frontdoor_backend" {
   type        = "string"
-  default     = "1"
+  default     = "firewall-prod-int-palo-bulkscan.uksouth.cloudapp.azure.com"
 }
