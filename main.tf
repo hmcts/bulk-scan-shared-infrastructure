@@ -1,10 +1,8 @@
 provider "azurerm" {
-  version = "=2.25.0"
-  features {}
+  version = "=1.33.1"
 }
 
 locals {
-  product = "bulk-scan"
   tags = "${
     merge(
       var.common_tags,

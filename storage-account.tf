@@ -1,7 +1,7 @@
 provider "azurerm" {
   alias           = "mgmt"
   subscription_id = "${var.mgmt_subscription_id}"
-  features {}
+  version         = "=1.33.1"
 }
 
 locals {
@@ -12,6 +12,12 @@ locals {
   // for each client service two containers are created: one named after the service
   // and another one, named {service_name}-rejected, for storing envelopes rejected by bulk-scan
   client_service_names = ["bulkscanauto", "bulkscan", "sscs", "divorce", "probate", "finrem", "cmc", "publiclaw"]
+}
+
+data "azurerm_subnet" "trusted_subnet" {
+  name                 = "${local.trusted_vnet_subnet_name}"
+  virtual_network_name = "${local.trusted_vnet_name}"
+  resource_group_name  = "${local.trusted_vnet_resource_group}"
 }
 
 data "azurerm_subnet" "jenkins_subnet" {
@@ -44,13 +50,13 @@ resource "azurerm_storage_account" "storage_account" {
   account_replication_type = "LRS"
   account_kind             = "BlobStorage"
 
-#   custom_domain {
-#     name          = "${var.external_hostname}"
-#     use_subdomain = "false"
-#   }
+  custom_domain {
+    name          = "${var.external_hostname}"
+    use_subdomain = "false"
+  }
 
   network_rules {
-    virtual_network_subnet_ids = ["${data.azurerm_subnet.scan_storage_subnet.id}", "${data.azurerm_subnet.jenkins_subnet.id}", "${data.azurerm_subnet.aks_00_subnet.id}", "${data.azurerm_subnet.aks_01_subnet.id}"]
+    virtual_network_subnet_ids = ["${data.azurerm_subnet.trusted_subnet.id}", "${data.azurerm_subnet.jenkins_subnet.id}", "${data.azurerm_subnet.aks_00_subnet.id}", "${data.azurerm_subnet.aks_01_subnet.id}"]
     bypass                     = ["Logging", "Metrics", "AzureServices"]
     default_action             = "Deny"
   }
@@ -60,12 +66,14 @@ resource "azurerm_storage_account" "storage_account" {
 
 resource "azurerm_storage_container" "service_containers" {
   name                 = "${local.client_service_names[count.index]}"
+  resource_group_name  = "${azurerm_storage_account.storage_account.resource_group_name}"
   storage_account_name = "${azurerm_storage_account.storage_account.name}"
   count                = "${length(local.client_service_names)}"
 }
 
 resource "azurerm_storage_container" "service_rejected_containers" {
   name                 = "${local.client_service_names[count.index]}-rejected"
+  resource_group_name  = "${azurerm_storage_account.storage_account.resource_group_name}"
   storage_account_name = "${azurerm_storage_account.storage_account.name}"
   count                = "${length(local.client_service_names)}"
 }
@@ -73,20 +81,20 @@ resource "azurerm_storage_container" "service_rejected_containers" {
 resource "azurerm_key_vault_secret" "storage_account_name" {
   name      = "storage-account-name"
   value     = "${azurerm_storage_account.storage_account.name}"
-  key_vault_id = "${module.vault.key_vault_id}"
+  vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
 }
 
 resource "azurerm_key_vault_secret" "storage_account_primary_key" {
   name      = "storage-account-primary-key"
   value     = "${azurerm_storage_account.storage_account.primary_access_key}"
-  key_vault_id = "${module.vault.key_vault_id}"
+  vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
 }
 
 # this secret is used by blob-router-service for uploading blobs
 resource "azurerm_key_vault_secret" "storage_account_connection_string" {
   name      = "storage-account-connection-string"
   value     = "${azurerm_storage_account.storage_account.primary_connection_string}"
-  key_vault_id = "${module.vault.key_vault_id}"
+  vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
 }
 
 output "storage_account_name" {

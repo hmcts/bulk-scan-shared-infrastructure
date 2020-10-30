@@ -20,7 +20,7 @@ variable "env" {
 
 variable "application_type" {
   type        = "string"
-  default     = "web"
+  default     = "Web"
   description = "Type of Application Insights (Web/Other)"
 }
 
@@ -66,18 +66,3 @@ variable "palo_cluster_size" {
   type        = "string"
   default     = "1"
 }
-
-variable "frontdoor_backend" {
-  type        = "string"
-}
-
-variable "stg_frontdoor_backend" {
-  type        = "string"
-  default     = ""
-}
-
-variable "stg_external_hostname" {
-  type        = "string"
-  default     = ""
-}  
-  
