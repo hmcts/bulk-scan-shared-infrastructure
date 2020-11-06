@@ -61,3 +61,8 @@ variable "wafFileUploadLimit" {
    description = "Maximum file upload size in MB for WAF"
    default = "100"
 }
+
+variable "palo_cluster_size" {
+  type        = "string"
+  default     = "1"
+}
