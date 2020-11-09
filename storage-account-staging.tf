@@ -3,8 +3,6 @@ locals {
   external_hostname_suffix = "platform.hmcts.net"
   stripped_product_stg     = "${replace(var.product, "-", "")}"
   account_name_stg         = "${local.stripped_product_stg}${var.env}staging"
-  mgmt_network_name_stg    = "core-cftptl-intsvc-vnet"
-  mgmt_network_rg_name_stg = "aks-infra-cftptl-intsvc-rg"
   prod_hostname_stg        = "${local.stripped_product_stg}stg.${local.external_hostname_suffix}"
   nonprod_hostname_stg     = "${local.stripped_product_stg}stg.${var.env}.${local.external_hostname_suffix}"
   external_hostname_stg    = "${ var.env == "prod" ? local.prod_hostname_stg : local.nonprod_hostname_stg}"

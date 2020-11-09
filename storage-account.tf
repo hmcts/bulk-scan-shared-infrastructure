@@ -6,8 +6,6 @@ provider "azurerm" {
 
 locals {
   account_name      = "${replace("${var.product}${var.env}", "-", "")}"
-  mgmt_network_name = "core-cftptl-intsvc-vnet"
-  mgmt_network_rg_name = "aks-infra-cftptl-intsvc-rg"
 
   // for each client service two containers are created: one named after the service
   // and another one, named {service_name}-rejected, for storing envelopes rejected by bulk-scan
