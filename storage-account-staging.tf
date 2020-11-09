@@ -14,27 +14,6 @@ locals {
   client_service_names_stg = ["bulkscanauto", "bulkscan", "sscs", "divorce", "probate", "finrem", "cmc"]
 }
 
-data "azurerm_subnet" "jenkins_subnet_stg" {
-  provider             = "azurerm.mgmt"
-  name                 = "iaas"
-  virtual_network_name = "${local.mgmt_network_name_stg}"
-  resource_group_name  = "${local.mgmt_network_rg_name_stg}"
-}
-
-data "azurerm_subnet" "aks_00_subnet_stg" {
-  provider             = "azurerm.mgmt"
-  name                 = "aks-00"
-  virtual_network_name = "${local.mgmt_network_name_stg}"
-  resource_group_name  = "${local.mgmt_network_rg_name_stg}"
-}
-
-data "azurerm_subnet" "aks_01_subnet_stg" {
-  provider             = "azurerm.mgmt"
-  name                 = "aks-01"
-  virtual_network_name = "${local.mgmt_network_name_stg}"
-  resource_group_name  = "${local.mgmt_network_rg_name_stg}"
-}
-
 resource "azurerm_storage_account" "storage_account_staging" {
   name                = "${local.account_name_stg}"
   resource_group_name = "${azurerm_resource_group.rg.name}"
@@ -50,7 +29,13 @@ resource "azurerm_storage_account" "storage_account_staging" {
 #   }
 
   network_rules {
-    virtual_network_subnet_ids = ["${data.azurerm_subnet.jenkins_subnet_stg.id}", "${data.azurerm_subnet.aks_00_subnet_stg.id}", "${data.azurerm_subnet.aks_01_subnet_stg.id}"]
+    virtual_network_subnet_ids = [
+      data.azurerm_subnet.jenkins_subnet.id, 
+      data.azurerm_subnet.jenkins_aks_00.id, 
+      data.azurerm_subnet.jenkins_aks_01.id,
+      data.azurerm_subnet.app_aks_00_subnet_stg.id, 
+      data.azurerm_subnet.app_aks_01_subnet_stg.id
+    ]
     bypass                     = ["Logging", "Metrics", "AzureServices"]
     default_action             = "Deny"
   }

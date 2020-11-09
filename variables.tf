@@ -7,7 +7,7 @@ variable "location" {
   default = "UK South"
 }
 
-// as of now, UK South is unavailable for Application Insights
+// TODO move to UK South as it's available there now
 variable "appinsights_location" {
   type        = "string"
   default     = "West Europe"
@@ -50,8 +50,6 @@ variable "payment_queue_max_delivery_count" {
   default     = "10" // same as module's config
   description = "Payment queue message max delivery counter. Extracted to variable so it can be overridden per environment."
 }
-variable "external_cert_name" {}
-variable "external_hostname" {}
 
 variable "managed_identity_object_id" {
   default = ""
@@ -62,7 +60,4 @@ variable "wafFileUploadLimit" {
    default = "100"
 }
 
-variable "palo_cluster_size" {
-  type        = "string"
-  default     = "1"
-}
+variable "aks_subscription_id" {}
