@@ -1,7 +1,7 @@
 module "bulk-scan-processor-liveness-alert" {
   source            = "git@github.com:hmcts/cnp-module-metric-alert"
-  location          = "${azurerm_application_insights.appinsights.location}"
-  app_insights_name = "${azurerm_application_insights.appinsights.name}"
+  location          = azurerm_application_insights.appinsights.location
+  app_insights_name = azurerm_application_insights.appinsights.name
 
   enabled    = "${var.env == "prod"}"
   alert_name = "Bulk_Scan_Processor_liveness_-_BSP"
@@ -16,17 +16,17 @@ EOF
   frequency_in_minutes       = 15
   time_window_in_minutes     = 16
   severity_level             = "2"
-  action_group_name          = "${module.alert-action-group.action_group_name}"
+  action_group_name          = module.alert-action-group.action_group_name
   custom_email_subject       = "Bulk Scan Processor liveness"
   trigger_threshold_operator = "GreaterThan"
   trigger_threshold          = 10
-  resourcegroup_name         = "${azurerm_resource_group.rg.name}"
+  resourcegroup_name         = azurerm_resource_group.rg.name
 }
 
 module "bulk-scan-payment-processor-liveness-alert" {
   source            = "git@github.com:hmcts/cnp-module-metric-alert"
-  location          = "${azurerm_application_insights.appinsights.location}"
-  app_insights_name = "${azurerm_application_insights.appinsights.name}"
+  location          = azurerm_application_insights.appinsights.location
+  app_insights_name = azurerm_application_insights.appinsights.name
 
   enabled    = "${var.env == "prod"}"
   alert_name = "Bulk_Scan_Payment_Processor_liveness_-_BSP"
@@ -41,17 +41,17 @@ EOF
   frequency_in_minutes       = 15
   time_window_in_minutes     = 16
   severity_level             = "2"
-  action_group_name          = "${module.alert-action-group.action_group_name}"
+  action_group_name          = module.alert-action-group.action_group_name
   custom_email_subject       = "Bulk Scan Payment Processor liveness"
   trigger_threshold_operator = "GreaterThan"
   trigger_threshold          = 10
-  resourcegroup_name         = "${azurerm_resource_group.rg.name}"
+  resourcegroup_name         = azurerm_resource_group.rg.name
 }
 
 module "bulk-scan-orchestrator-liveness-alert" {
   source            = "git@github.com:hmcts/cnp-module-metric-alert"
-  location          = "${azurerm_application_insights.appinsights.location}"
-  app_insights_name = "${azurerm_application_insights.appinsights.name}"
+  location          = azurerm_application_insights.appinsights.location
+  app_insights_name = azurerm_application_insights.appinsights.name
 
   enabled    = "${var.env == "prod"}"
   alert_name = "Bulk_Scan_Orchestrator_liveness_-_BSP"
@@ -66,9 +66,9 @@ EOF
   frequency_in_minutes       = 15
   time_window_in_minutes     = 16
   severity_level             = "2"
-  action_group_name          = "${module.alert-action-group.action_group_name}"
+  action_group_name          = module.alert-action-group.action_group_name
   custom_email_subject       = "Bulk Scan Orchestrator liveness"
   trigger_threshold_operator = "GreaterThan"
   trigger_threshold          = 10
-  resourcegroup_name         = "${azurerm_resource_group.rg.name}"
+  resourcegroup_name         = azurerm_resource_group.rg.name
 }

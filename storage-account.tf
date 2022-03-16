@@ -12,7 +12,7 @@ locals {
   // and another one, named {service_name}-rejected, for storing envelopes rejected by bulk-scan
   client_service_names = ["bulkscanauto", "bulkscan", "sscs", "divorce", "nfd", "probate", "finrem", "cmc", "publiclaw", "privatelaw"]
 
-  resourcegroup_name          = "${azurerm_resource_group.rg.name}"
+  resourcegroup_name          = azurerm_resource_group.rg.name
 
   valid_subnets =   [
     data.azurerm_subnet.jenkins_subnet.id,
@@ -32,9 +32,9 @@ locals {
 
 resource "azurerm_storage_account" "storage_account" {
   name                = "${local.account_name}"
-  resource_group_name = "${azurerm_resource_group.rg.name}"
+  resource_group_name = azurerm_resource_group.rg.name
 
-  location                 = "${azurerm_resource_group.rg.location}"
+  location                 = azurerm_resource_group.rg.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
 
@@ -49,7 +49,7 @@ resource "azurerm_storage_account" "storage_account" {
     default_action             = "Deny"
   }
 
-  tags = "${local.tags}"
+  tags = local.tags
 }
 
 resource "azurerm_storage_container" "service_containers" {
@@ -67,20 +67,20 @@ resource "azurerm_storage_container" "service_rejected_containers" {
 resource "azurerm_key_vault_secret" "storage_account_name" {
   name      = "storage-account-name"
   value     = "${azurerm_storage_account.storage_account.name}"
-  key_vault_id = "${module.vault.key_vault_id}"
+  key_vault_id = module.vault.key_vault_id
 }
 
 resource "azurerm_key_vault_secret" "storage_account_primary_key" {
   name      = "storage-account-primary-key"
   value     = "${azurerm_storage_account.storage_account.primary_access_key}"
-  key_vault_id = "${module.vault.key_vault_id}"
+  key_vault_id = module.vault.key_vault_id
 }
 
 # this secret is used by blob-router-service for uploading blobs
 resource "azurerm_key_vault_secret" "storage_account_connection_string" {
   name      = "storage-account-connection-string"
   value     = "${azurerm_storage_account.storage_account.primary_connection_string}"
-  key_vault_id = "${module.vault.key_vault_id}"
+  key_vault_id = module.vault.key_vault_id
 }
 
 output "storage_account_name" {

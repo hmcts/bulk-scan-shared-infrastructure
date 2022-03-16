@@ -13,10 +13,10 @@ locals {
 }
 
 resource "azurerm_storage_account" "storage_account_staging" {
-  name                = "${local.account_name_stg}"
-  resource_group_name = "${azurerm_resource_group.rg.name}"
+  name                = local.account_name_stg
+  resource_group_name = azurerm_resource_group.rg.name
 
-  location                 = "${azurerm_resource_group.rg.location}"
+  location                 = azurerm_resource_group.rg.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
 
@@ -37,36 +37,36 @@ resource "azurerm_storage_account" "storage_account_staging" {
     default_action             = "Deny"
   }
 
-  tags = "${local.tags}"
+  tags = local.tags
 }
     
 resource "azurerm_storage_container" "service_containers_stg" {
-  name                 = "${local.client_service_names_stg[count.index]}"
-  storage_account_name = "${azurerm_storage_account.storage_account_staging.name}"
+  name                 = local.client_service_names_stg[count.index]
+  storage_account_name = azurerm_storage_account.storage_account_staging.name
   count                = "${length(local.client_service_names_stg)}"
 }
 
 resource "azurerm_storage_container" "service_rejected_containers_stg" {
   name                 = "${local.client_service_names_stg[count.index]}-rejected"
-  storage_account_name = "${azurerm_storage_account.storage_account_staging.name}"
+  storage_account_name = azurerm_storage_account.storage_account_staging.name
   count                = "${length(local.client_service_names_stg)}"
 }
 
 resource "azurerm_key_vault_secret" "storage_account_staging_name" {
-  key_vault_id = "${module.vault.key_vault_id}"
+  key_vault_id = module.vault.key_vault_id
   name         = "storage-account-staging-name"
-  value        = "${azurerm_storage_account.storage_account_staging.name}"
+  value        = azurerm_storage_account.storage_account_staging.name
 }
 
 resource "azurerm_key_vault_secret" "storage_account_staging_primary_key" {
-  key_vault_id = "${module.vault.key_vault_id}"
+  key_vault_id = module.vault.key_vault_id
   name         = "storage-account-staging-primary-key"
-  value        = "${azurerm_storage_account.storage_account_staging.primary_access_key}"
+  value        = azurerm_storage_account.storage_account_staging.primary_access_key
 }
 
 # this secret is used by blob-router-service for uploading blobs
 resource "azurerm_key_vault_secret" "storage_account_staging_connection_string" {
-  key_vault_id = "${module.vault.key_vault_id}"
+  key_vault_id = module.vault.key_vault_id
   name         = "storage-account-staging-connection-string"
-  value        = "${azurerm_storage_account.storage_account_staging.primary_connection_string}"
+  value        = azurerm_storage_account.storage_account_staging.primary_connection_string
 }

@@ -1,7 +1,7 @@
 module "blob-processing-alert" {
   source            = "git@github.com:hmcts/cnp-module-metric-alert"
-  location          = "${azurerm_application_insights.appinsights.location}"
-  app_insights_name = "${azurerm_application_insights.appinsights.name}"
+  location          = azurerm_application_insights.appinsights.location
+  app_insights_name = azurerm_application_insights.appinsights.name
 
   enabled    = "${var.env == "prod"}"
   alert_name = "Bulk_Scan_Blob_Processing_-_BSP"
@@ -12,17 +12,17 @@ module "blob-processing-alert" {
   frequency_in_minutes       = 30
   time_window_in_minutes     = 30
   severity_level             = "1"
-  action_group_name          = "${module.alert-action-group.action_group_name}"
+  action_group_name          = module.alert-action-group.action_group_name
   custom_email_subject       = "Bulk Scan Blob processing scheduled job alert"
   trigger_threshold_operator = "Equal"
   trigger_threshold          = 0
-  resourcegroup_name         = "${azurerm_resource_group.rg.name}"
+  resourcegroup_name         = azurerm_resource_group.rg.name
 }
 
 module "upload-documents-alert" {
   source            = "git@github.com:hmcts/cnp-module-metric-alert"
-  location          = "${azurerm_application_insights.appinsights.location}"
-  app_insights_name = "${azurerm_application_insights.appinsights.name}"
+  location          = azurerm_application_insights.appinsights.location
+  app_insights_name = azurerm_application_insights.appinsights.name
 
   enabled    = "${var.env == "prod"}"
   alert_name = "Bulk_Scan_Upload-Documents_-_BSP"
@@ -33,17 +33,17 @@ module "upload-documents-alert" {
   frequency_in_minutes       = 30
   time_window_in_minutes     = 30
   severity_level             = "1"
-  action_group_name          = "${module.alert-action-group.action_group_name}"
+  action_group_name          = module.alert-action-group.action_group_name
   custom_email_subject       = "Bulk Scan upload-documents scheduled job alert"
   trigger_threshold_operator = "Equal"
   trigger_threshold          = 0
-  resourcegroup_name         = "${azurerm_resource_group.rg.name}"
+  resourcegroup_name         = azurerm_resource_group.rg.name
 }
 
 module "delete-rejected-files-alert" {
   source            = "git@github.com:hmcts/cnp-module-metric-alert"
-  location          = "${azurerm_application_insights.appinsights.location}"
-  app_insights_name = "${azurerm_application_insights.appinsights.name}"
+  location          = azurerm_application_insights.appinsights.location
+  app_insights_name = azurerm_application_insights.appinsights.name
 
   enabled    = "${var.env == "prod"}"
   alert_name = "Bulk_Scan_Delete_Rejected_Files_-_BSP"
@@ -54,17 +54,17 @@ module "delete-rejected-files-alert" {
   frequency_in_minutes       = 120
   time_window_in_minutes     = 120
   severity_level             = "1"
-  action_group_name          = "${module.alert-action-group.action_group_name}"
+  action_group_name          = module.alert-action-group.action_group_name
   custom_email_subject       = "Bulk Scan delete-rejected-files scheduled job alert"
   trigger_threshold_operator = "Equal"
   trigger_threshold          = 0
-  resourcegroup_name         = "${azurerm_resource_group.rg.name}"
+  resourcegroup_name         = azurerm_resource_group.rg.name
 }
 
 module "delete-complete-files-alert" {
   source            = "git@github.com:hmcts/cnp-module-metric-alert"
-  location          = "${azurerm_application_insights.appinsights.location}"
-  app_insights_name = "${azurerm_application_insights.appinsights.name}"
+  location          = azurerm_application_insights.appinsights.location
+  app_insights_name = azurerm_application_insights.appinsights.name
 
   enabled    = "${var.env == "prod"}"
   alert_name = "Bulk_Scan_Delete_Completed_Files_-_BSP"
@@ -75,17 +75,17 @@ module "delete-complete-files-alert" {
   frequency_in_minutes       = 120
   time_window_in_minutes     = 120
   severity_level             = "1"
-  action_group_name          = "${module.alert-action-group.action_group_name}"
+  action_group_name          = module.alert-action-group.action_group_name
   custom_email_subject       = "Bulk Scan delete-complete-files scheduled job alert"
   trigger_threshold_operator = "Equal"
   trigger_threshold          = 0
-  resourcegroup_name         = "${azurerm_resource_group.rg.name}"
+  resourcegroup_name         = azurerm_resource_group.rg.name
 }
 
 module "orchestrator-notifications-alert" {
   source            = "git@github.com:hmcts/cnp-module-metric-alert"
-  location          = "${azurerm_application_insights.appinsights.location}"
-  app_insights_name = "${azurerm_application_insights.appinsights.name}"
+  location          = azurerm_application_insights.appinsights.location
+  app_insights_name = azurerm_application_insights.appinsights.name
 
   enabled    = "${var.env == "prod"}"
   alert_name = "Bulk_Scan_Send_Orchestrator_Notification_-_BSP"
@@ -96,11 +96,11 @@ module "orchestrator-notifications-alert" {
   frequency_in_minutes       = 30
   time_window_in_minutes     = 30
   severity_level             = "1"
-  action_group_name          = "${module.alert-action-group.action_group_name}"
+  action_group_name          = module.alert-action-group.action_group_name
   custom_email_subject       = "Bulk Scan send-orchestrator-notification scheduled job alert"
   trigger_threshold_operator = "Equal"
   trigger_threshold          = 0
-  resourcegroup_name         = "${azurerm_resource_group.rg.name}"
+  resourcegroup_name         = azurerm_resource_group.rg.name
 }
 
 module "incomplete-envelopes-alert" {
@@ -117,9 +117,9 @@ module "incomplete-envelopes-alert" {
   frequency_in_minutes       = 120
   time_window_in_minutes     = 120
   severity_level             = "1"
-  action_group_name          = "${module.alert-action-group.action_group_name}"
+  action_group_name          = module.alert-action-group.action_group_name
   custom_email_subject       = "Bulk Scan incomplete-envelopes-monitoring scheduled job alert"
   trigger_threshold_operator = "Equal"
   trigger_threshold          = 0
-  resourcegroup_name         = "${azurerm_resource_group.rg.name}"
+  resourcegroup_name         = azurerm_resource_group.rg.name
 }
