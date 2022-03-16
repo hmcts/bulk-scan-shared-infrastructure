@@ -2,16 +2,15 @@ provider "azurerm" {
   features {}
 }
 
+module "ctags" {
+  source      = "git::https://github.com/hmcts/terraform-module-common-tags.git?ref=master"
+  environment = var.env
+  product     = var.product
+  builtFrom   = var.builtFrom
+}
+
 locals {
-  product = "bulk-scan"
-  tags = "${
-    merge(
-      var.common_tags,
-      map(
-        "Team Contact", "#rbs",
-        "Team Name", "Bulk Scan"
-      )
-    )}"
+  tags    = module.ctags.common_tags
 }
 
 resource "azurerm_resource_group" "rg" {
