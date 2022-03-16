@@ -6,7 +6,7 @@ provider "azurerm" {
 }
 
 locals {
-  account_name = "${replace("${var.product}${var.env}", "-", "")}"
+  account_name = replace("${var.product}${var.env}", "-", "")
 
   // for each client service two containers are created: one named after the service
   // and another one, named {service_name}-rejected, for storing envelopes rejected by bulk-scan
@@ -55,13 +55,13 @@ resource "azurerm_storage_account" "storage_account" {
 resource "azurerm_storage_container" "service_containers" {
   name                 = local.client_service_names[count.index]
   storage_account_name = azurerm_storage_account.storage_account.name
-  count                = "${length(local.client_service_names)}"
+  count                = length(local.client_service_names)
 }
 
 resource "azurerm_storage_container" "service_rejected_containers" {
   name                 = "${local.client_service_names[count.index]}-rejected"
   storage_account_name = azurerm_storage_account.storage_account.name
-  count                = "${length(local.client_service_names)}"
+  count                = length(local.client_service_names)
 }
 
 resource "azurerm_key_vault_secret" "storage_account_name" {
