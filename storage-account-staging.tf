@@ -5,7 +5,7 @@ locals {
   account_name_stg         = "${local.stripped_product_stg}${var.env}staging"
   prod_hostname_stg        = "${local.stripped_product_stg}stg.${local.external_hostname_suffix}"
   nonprod_hostname_stg     = "${local.stripped_product_stg}stg.${var.env}.${local.external_hostname_suffix}"
-  external_hostname_stg    = "${var.env == "prod" ? local.prod_hostname_stg : local.nonprod_hostname_stg}"
+  external_hostname_stg    = var.env == "prod" ? local.prod_hostname_stg : local.nonprod_hostname_stg
 
   // for each client service two containers are created: one named after the service
   // and another one, named {service_name}-rejected, for storing envelopes rejected by bulk-scan
