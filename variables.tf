@@ -61,7 +61,3 @@ variable "wafFileUploadLimit" {
 }
 
 variable "aks_subscription_id" {}
-
-variable "sku" {
-  default = "Premium"
-}

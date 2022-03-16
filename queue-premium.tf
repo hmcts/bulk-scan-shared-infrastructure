@@ -4,7 +4,7 @@ module "queue-namespace-premium" {
   location            = "${var.location}"
   resource_group_name = "${azurerm_resource_group.rg.name}"
   env                 = "${var.env}"
-  sku                 = "${var.sku}"
+  sku                 = "Premium"
   common_tags         = "${local.tags}"
 }
 
@@ -125,33 +125,3 @@ resource "azurerm_key_vault_secret" "payments_queue_listen_conn_str_premium" {
 }
 
 # endregion
-
-# deprecated, use `envelopes_queue_primary_listen_connection_string` instead
-output "queue_primary_listen_connection_string_premium" {
-  value = "${module.envelopes-queue-premium.primary_listen_connection_string}"
-}
-
-output "envelopes_queue_primary_listen_connection_string_premium" {
-  value = "${module.envelopes-queue-premium.primary_listen_connection_string}"
-}
-
-# deprecated, use `envelopes_queue_primary_send_connection_string` instead
-output "queue_primary_send_connection_string_premium" {
-  value = "${module.envelopes-queue-premium.primary_send_connection_string}"
-}
-
-output "envelopes_queue_primary_send_connection_string_premium" {
-  value = "${module.envelopes-queue-premium.primary_send_connection_string}"
-}
-
-output "processed_envelopes_queue_primary_listen_connection_string_premium" {
-  value = "${module.processed-envelopes-queue-premium.primary_listen_connection_string}"
-}
-
-output "processed_envelopes_queue_primary_send_connection_string_premium" {
-  value = "${module.processed-envelopes-queue-premium.primary_send_connection_string}"
-}
-
-output "envelopes_queue_max_delivery_count_premium" {
-  value = "${var.envelope_queue_max_delivery_count}"
-}
