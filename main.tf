@@ -3,20 +3,18 @@ provider "azurerm" {
 }
 
 locals {
-  product = "bulk-scan"
-  tags = "${
-    merge(
-      var.common_tags,
-      map(
-        "Team Contact", "#rbs",
-        "Team Name", "Bulk Scan"
-      )
-    )}"
+  tags = merge(
+    var.common_tags,
+    map(
+      "Team Contact", "#rbs",
+      "Team Name", "Bulk Scan"
+    )
+  )
 }
 
 resource "azurerm_resource_group" "rg" {
   name     = "${var.product}-${var.env}"
-  location = "${var.location}"
+  location = var.location
 
-  tags = "${local.tags}"
+  tags = local.tags
 }

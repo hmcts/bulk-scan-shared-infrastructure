@@ -1,25 +1,26 @@
 variable "product" {
-  type = "string"
+  type    = string
+  default = "Bulk Scan"
 }
 
 variable "location" {
-  type    = "string"
+  type    = string
   default = "UK South"
 }
 
 // TODO move to UK South as it's available there now
 variable "appinsights_location" {
-  type        = "string"
+  type        = string
   default     = "West Europe"
   description = "Location for Application Insights"
 }
 
 variable "env" {
-  type = "string"
+  type = string
 }
 
 variable "application_type" {
-  type        = "string"
+  type        = string
   default     = "web"
   description = "Type of Application Insights (Web/Other)"
 }
@@ -36,17 +37,17 @@ variable "subscription" {}
 variable "mgmt_subscription_id" {}
 
 variable "common_tags" {
-  type = "map"
+  type = map
 }
 
 variable "envelope_queue_max_delivery_count" {
-  type        = "string"
+  type        = string
   default     = "10" // same as module's config
   description = "Envelope queue message max delivery counter. Extracted to variable so it can be assigned to application environment."
 }
 
 variable "payment_queue_max_delivery_count" {
-  type        = "string"
+  type        = string
   default     = "10" // same as module's config
   description = "Payment queue message max delivery counter. Extracted to variable so it can be overridden per environment."
 }
@@ -56,8 +57,8 @@ variable "managed_identity_object_id" {
 }
 
 variable "wafFileUploadLimit" {
-   description = "Maximum file upload size in MB for WAF"
-   default = "100"
+  description = "Maximum file upload size in MB for WAF"
+  default     = "100"
 }
 
 variable "aks_subscription_id" {}
