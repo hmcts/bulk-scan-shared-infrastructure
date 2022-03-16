@@ -3,7 +3,7 @@ module "no-new-envelopes-alert" {
   location          = azurerm_application_insights.appinsights.location
   app_insights_name = azurerm_application_insights.appinsights.name
 
-  enabled     = "${var.env == "prod"}"
+  enabled     = var.env == "prod"
   alert_name  = "No_new_envelopes_-_Bulk_Scan_Processor"
   alert_desc  = "Triggers when Bulk Scan Processor did not receive new envelopes"
 

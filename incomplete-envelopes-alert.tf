@@ -3,7 +3,7 @@ module "bulk-scan-incomplete-envelopes-alert" {
   location          = azurerm_application_insights.appinsights.location
   app_insights_name = azurerm_application_insights.appinsights.name
 
-  enabled    = "${var.env == "prod"}"
+  enabled    = var.env == "prod"
   alert_name = "Bulk_Scan_incomplete_envelopes_-_BSP"
   alert_desc = "Triggers when bulk scan processor receives a log entry about having incomplete envelopes greater than 0"
 

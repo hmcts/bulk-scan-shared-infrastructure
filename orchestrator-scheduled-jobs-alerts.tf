@@ -3,7 +3,7 @@ module "consume-envelopes-queue-messages-alert" {
   location          = azurerm_application_insights.appinsights.location
   app_insights_name = azurerm_application_insights.appinsights.name
 
-  enabled    = "${var.env == "prod"}"
+  enabled    = var.env == "prod"
   alert_name = "Bulk_Scan_Consume_Envelopes_Queue_Messages_-_BSP"
   alert_desc = "Triggers when envelopes queue is not working."
 
@@ -24,7 +24,7 @@ module "delete-messages-from-envelopes-dlq-alert" {
   location          = azurerm_application_insights.appinsights.location
   app_insights_name = azurerm_application_insights.appinsights.name
 
-  enabled    = "${var.env == "prod"}"
+  enabled    = var.env == "prod"
   alert_name = "Bulk_Scan_Delete_Messages_From_Envelopes_Dlq_-_BSP"
   alert_desc = "Triggers when no logs from delete messages from envelopes dlq job found within timeframe."
 

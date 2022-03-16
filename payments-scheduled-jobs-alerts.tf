@@ -3,7 +3,7 @@ module "consume-payments-queue-alert" {
   location          = azurerm_application_insights.appinsights.location
   app_insights_name = azurerm_application_insights.appinsights.name
 
-  enabled    = "${var.env == "prod"}"
+  enabled    = var.env == "prod"
   alert_name = "Bulk_Scan_Consume_Payments_Queue_Messages_-_BSP"
   alert_desc = "Triggers when consume payments queue listener log not found within timeframe."
 

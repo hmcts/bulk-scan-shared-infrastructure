@@ -3,7 +3,7 @@ module "envelopes-queue-heartbeat-alert" {
   location          = azurerm_application_insights.appinsights.location
   app_insights_name = azurerm_application_insights.appinsights.name
 
-  enabled    = "${var.env == "prod"}"
+  enabled    = var.env == "prod"
   alert_name = "Envelope_Heartbeat_-_BSP"
   alert_desc = "Triggers when orchestrator didn't read heatbeat message from the queue in withing timeframe."
 

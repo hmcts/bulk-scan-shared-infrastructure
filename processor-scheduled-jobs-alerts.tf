@@ -3,7 +3,7 @@ module "blob-processing-alert" {
   location          = azurerm_application_insights.appinsights.location
   app_insights_name = azurerm_application_insights.appinsights.name
 
-  enabled    = "${var.env == "prod"}"
+  enabled    = var.env == "prod"
   alert_name = "Bulk_Scan_Blob_Processing_-_BSP"
   alert_desc = "Triggers when no logs from blob processing job found within timeframe."
 
@@ -24,7 +24,7 @@ module "upload-documents-alert" {
   location          = azurerm_application_insights.appinsights.location
   app_insights_name = azurerm_application_insights.appinsights.name
 
-  enabled    = "${var.env == "prod"}"
+  enabled    = var.env == "prod"
   alert_name = "Bulk_Scan_Upload-Documents_-_BSP"
   alert_desc = "Triggers when no logs from upload documents job found within timeframe."
 
@@ -45,7 +45,7 @@ module "delete-rejected-files-alert" {
   location          = azurerm_application_insights.appinsights.location
   app_insights_name = azurerm_application_insights.appinsights.name
 
-  enabled    = "${var.env == "prod"}"
+  enabled    = var.env == "prod"
   alert_name = "Bulk_Scan_Delete_Rejected_Files_-_BSP"
   alert_desc = "Triggers when no logs from delete-rejected-files job found within timeframe."
 
@@ -66,7 +66,7 @@ module "delete-complete-files-alert" {
   location          = azurerm_application_insights.appinsights.location
   app_insights_name = azurerm_application_insights.appinsights.name
 
-  enabled    = "${var.env == "prod"}"
+  enabled    = var.env == "prod"
   alert_name = "Bulk_Scan_Delete_Completed_Files_-_BSP"
   alert_desc = "Triggers when no logs from delete completed files job found within timeframe."
 
@@ -87,7 +87,7 @@ module "orchestrator-notifications-alert" {
   location          = azurerm_application_insights.appinsights.location
   app_insights_name = azurerm_application_insights.appinsights.name
 
-  enabled    = "${var.env == "prod"}"
+  enabled    = var.env == "prod"
   alert_name = "Bulk_Scan_Send_Orchestrator_Notification_-_BSP"
   alert_desc = "Triggers when no logs from send-orchestrator-notification job found within timeframe."
 
@@ -108,7 +108,7 @@ module "incomplete-envelopes-alert" {
   location          = "${azurerm_application_insights.appinsights.location}"
   app_insights_name = "${azurerm_application_insights.appinsights.name}"
 
-  enabled    = "${var.env == "prod"}"
+  enabled    = var.env == "prod"
   alert_name = "Bulk_Scan_Incomplete_Envelopes_-_BSP"
   alert_desc = "Triggers when no logs from incomplete-envelopes-monitoring job found within timeframe."
 
