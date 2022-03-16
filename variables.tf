@@ -8,6 +8,11 @@ variable "location" {
   default = "UK South"
 }
 
+variable "builtFrom" {
+  type    = string
+  default = ""
+}
+
 // TODO move to UK South as it's available there now
 variable "appinsights_location" {
   type        = string
