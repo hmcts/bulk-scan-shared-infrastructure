@@ -10,7 +10,7 @@ module "ctags" {
 }
 
 locals {
-  tags    = module.ctags.common_tags
+  tags = module.ctags.common_tags
 }
 
 resource "azurerm_resource_group" "rg" {

@@ -1,5 +1,5 @@
 variable "product" {
-  type = string
+  type    = string
   default = "Bulk Scan"
 }
 
@@ -62,8 +62,8 @@ variable "managed_identity_object_id" {
 }
 
 variable "wafFileUploadLimit" {
-   description = "Maximum file upload size in MB for WAF"
-   default = "100"
+  description = "Maximum file upload size in MB for WAF"
+  default     = "100"
 }
 
 variable "aks_subscription_id" {}

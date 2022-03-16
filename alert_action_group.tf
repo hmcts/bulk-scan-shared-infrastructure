@@ -1,5 +1,5 @@
 data "azurerm_key_vault_secret" "source_bsp_email_secret" {
-  name      = "bulk-scan-alert-email"
+  name         = "bulk-scan-alert-email"
   key_vault_id = module.vault.key_vault_id
 }
 
@@ -16,8 +16,8 @@ module "alert-action-group" {
 }
 
 resource "azurerm_key_vault_secret" "alert_action_group_name" {
-  name = "alert-action-group-name"
-  value = module.alert-action-group.action_group_name
+  name         = "alert-action-group-name"
+  value        = module.alert-action-group.action_group_name
   key_vault_id = module.vault.key_vault_id
 }
 
