@@ -1,7 +1,7 @@
 #TF Infra Approvals Doesn't support count on Modules, so have to stick with this on master branch.
 locals {
   external_hostname_suffix = "platform.hmcts.net"
-  stripped_product_stg     = "${replace(var.product, "-", "")}"
+  stripped_product_stg     = replace(var.product, "-", "")
   account_name_stg         = "${local.stripped_product_stg}${var.env}staging"
   prod_hostname_stg        = "${local.stripped_product_stg}stg.${local.external_hostname_suffix}"
   nonprod_hostname_stg     = "${local.stripped_product_stg}stg.${var.env}.${local.external_hostname_suffix}"
