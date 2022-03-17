@@ -6,7 +6,7 @@ module "queue-namespace-premium" {
   env                 = var.env
   sku                 = "Premium"
   capacity            = 1
-  zoneRedundant      = true
+  zone_redundant      = true
   common_tags         = local.tags
 }
 
