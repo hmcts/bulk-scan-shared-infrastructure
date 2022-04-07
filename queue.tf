@@ -129,30 +129,37 @@ resource "azurerm_key_vault_secret" "payments_queue_listen_conn_str" {
 
 # deprecated, use `envelopes_queue_primary_listen_connection_string` instead
 output "queue_primary_listen_connection_string" {
-  value = module.envelopes-queue.primary_listen_connection_string
+  sensitive = true
+  value     = module.envelopes-queue.primary_listen_connection_string
 }
 
 output "envelopes_queue_primary_listen_connection_string" {
-  value = module.envelopes-queue.primary_listen_connection_string
+  sensitive = true
+  value     = module.envelopes-queue.primary_listen_connection_string
 }
 
 # deprecated, use `envelopes_queue_primary_send_connection_string` instead
 output "queue_primary_send_connection_string" {
-  value = module.envelopes-queue.primary_send_connection_string
+  sensitive = true
+  value     = module.envelopes-queue.primary_send_connection_string
 }
 
 output "envelopes_queue_primary_send_connection_string" {
-  value = module.envelopes-queue.primary_send_connection_string
+  sensitive = true
+  value     = module.envelopes-queue.primary_send_connection_string
 }
 
 output "processed_envelopes_queue_primary_listen_connection_string" {
-  value = module.processed-envelopes-queue.primary_listen_connection_string
+  sensitive = true
+  value     = module.processed-envelopes-queue.primary_listen_connection_string
 }
 
 output "processed_envelopes_queue_primary_send_connection_string" {
-  value = module.processed-envelopes-queue.primary_send_connection_string
+  sensitive = true
+  value     = module.processed-envelopes-queue.primary_send_connection_string
 }
 
 output "envelopes_queue_max_delivery_count" {
-  value = var.envelope_queue_max_delivery_count
+  sensitive = true
+  value     = var.envelope_queue_max_delivery_count
 }
