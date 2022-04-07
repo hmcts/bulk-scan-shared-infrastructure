@@ -3,7 +3,7 @@ provider "azurerm" {
 }
 
 module "ctags" {
-  source      = "git@github.com:/hmcts/terraform-module-common-tags.git?ref=master"
+  source      = "git@github.com:hmcts/terraform-module-common-tags.git?ref=master"
   environment = var.environment
   product     = var.product
   builtFrom   = var.builtFrom
