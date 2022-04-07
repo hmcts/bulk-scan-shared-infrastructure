@@ -5,10 +5,10 @@ provider "azurerm" {
 locals {
   tags = merge(
     var.common_tags,
-    map(
-      "Team Contact", "#rbs",
-      "Team Name", "Bulk Scan"
-    )
+    tomap({
+      "Team Contact" = "#rbs"
+      "Team Name" = "Bulk Scan"
+    })
   )
 }
 
