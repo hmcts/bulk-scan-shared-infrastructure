@@ -1,11 +1,12 @@
 module "bulk-scan-incomplete-envelopes-alert" {
   source            = "git@github.com:hmcts/cnp-module-metric-alert"
-  location          = "${azurerm_application_insights.appinsights.location}"
-  app_insights_name = "${azurerm_application_insights.appinsights.name}"
+  location          = azurerm_application_insights.appinsights.location
+  app_insights_name = azurerm_application_insights.appinsights.name
 
-  enabled    = "${var.env == "prod"}"
-  alert_name = "Bulk_Scan_incomplete_envelopes_-_BSP"
-  alert_desc = "Triggers when bulk scan processor receives a log entry about having incomplete envelopes greater than 0"
+  enabled     = var.env == "prod"
+  alert_name  = "Bulk_Scan_incomplete_envelopes_-_BSP"
+  alert_desc  = "Triggers when bulk scan processor receives a log entry about having incomplete envelopes greater than 0"
+  common_tags = var.common_tags
 
   app_insights_query = <<EOF
 traces
@@ -23,9 +24,9 @@ EOF
   frequency_in_minutes       = 60
   time_window_in_minutes     = 60
   severity_level             = "1"
-  action_group_name          = "${module.alert-action-group.action_group_name}"
+  action_group_name          = module.alert-action-group.action_group_name
   custom_email_subject       = "Bulk Scan incomplete envelopes"
   trigger_threshold_operator = "GreaterThan"
   trigger_threshold          = 0
-  resourcegroup_name         = "${azurerm_resource_group.rg.name}"
+  resourcegroup_name         = azurerm_resource_group.rg.name
 }

@@ -9,13 +9,4 @@ env.KEEP_DIR_FOR_DEBUGGING = 'true'
 withInfraPipeline(product) {
 
   enableSlackNotifications('#bsp-build-notices')
-
-  after('buildinfra:aat') {
-    echo 'Intentionally failing build here'
-    error()
-  }
-
-  before('buildinfra:prod') {
-    error('Halting pipeline before PROD.')
-  }
 }
