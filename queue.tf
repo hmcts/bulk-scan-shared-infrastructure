@@ -8,7 +8,7 @@ module "queue-namespace" {
 }
 
 module "envelopes-queue" {
-  source              = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=master"
+  source              = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=DTSPO-6371_azurerm_upgrade"
   name                = "envelopes"
   namespace_name      = module.queue-namespace.name
   resource_group_name = azurerm_resource_group.rg.name
@@ -20,7 +20,7 @@ module "envelopes-queue" {
 }
 
 module "processed-envelopes-queue" {
-  source                                  = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=master"
+  source                                  = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=DTSPO-6371_azurerm_upgrade"
   name                                    = "processed-envelopes"
   namespace_name                          = module.queue-namespace.name
   resource_group_name                     = azurerm_resource_group.rg.name
@@ -30,7 +30,7 @@ module "processed-envelopes-queue" {
 }
 
 module "payments-queue" {
-  source                                  = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=master"
+  source                                  = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=DTSPO-6371_azurerm_upgrade"
   name                                    = "payments"
   namespace_name                          = module.queue-namespace.name
   resource_group_name                     = azurerm_resource_group.rg.name
