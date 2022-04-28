@@ -11,7 +11,7 @@ module "queue-namespace-premium" {
   sku                 = "Premium"
   capacity            = 1
   zone_redundant      = true
-  common_tags         = local.tags
+  common_tags         = var.common_tags
 }
 
 module "envelopes-queue-premium" {
