@@ -37,7 +37,7 @@ resource "azurerm_storage_account" "storage_account_staging" {
     default_action = "Deny"
   }
 
-  tags = local.tags
+  tags = var.common_tags
 }
 
 resource "azurerm_storage_container" "service_containers_stg" {
