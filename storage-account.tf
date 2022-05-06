@@ -19,14 +19,14 @@ locals {
     data.azurerm_subnet.jenkins_aks_00.id,
     data.azurerm_subnet.jenkins_aks_01.id,
     data.azurerm_subnet.app_aks_00_subnet.id,
-    data.azurerm_subnet.app_aks_01_subnet.id
+    data.azurerm_subnet.app_aks_01_subnet.id,
   ]
-
   preview_subnets = var.env == "aat" ? [data.azurerm_subnet.preview_aks_00_subnet.id, data.azurerm_subnet.preview_aks_01_subnet.id] : []
 
-  cft_prod_subnets = var.env == "prod" ? [data.azurerm_subnet.prod_aks_00_subnet.id, data.azurerm_subnet.prod_aks_01_subnet.id] : []
+  # Can be deleted when DTSPO-5565 is complete
+  arm_aks_subnets = var.env == "prod" ? [data.azurerm_subnet.arm_aks_00_subnet[0].id, data.azurerm_subnet.arm_aks_01_subnet[0].id] : []
 
-  all_valid_subnets = concat(local.valid_subnets, local.preview_subnets, local.cft_prod_subnets)
+  all_valid_subnets = concat(local.valid_subnets, local.preview_subnets, local.arm_aks_subnets)
 
 }
 
