@@ -38,6 +38,7 @@ resource "azurerm_storage_account" "storage_account" {
   account_tier             = "Standard"
   account_replication_type = "ZRS"
 
+  allow_nested_items_to_be_public = false
   #   custom_domain {
   #     name          = "${var.external_hostname}"
   #     use_subdomain = "false"
