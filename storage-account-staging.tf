@@ -20,21 +20,16 @@ resource "azurerm_storage_account" "storage_account_staging" {
   account_tier             = "Standard"
   account_replication_type = "ZRS"
 
+  allow_nested_items_to_be_public = false
   #   custom_domain {
   #     name          = "${local.external_hostname_stg}"
   #     use_subdomain = "false"
   #   }
 
   network_rules {
-    virtual_network_subnet_ids = [
-      data.azurerm_subnet.jenkins_subnet.id,
-      data.azurerm_subnet.jenkins_aks_00.id,
-      data.azurerm_subnet.jenkins_aks_01.id,
-      data.azurerm_subnet.app_aks_00_subnet.id,
-      data.azurerm_subnet.app_aks_01_subnet.id
-    ]
-    bypass         = ["Logging", "Metrics", "AzureServices"]
-    default_action = "Deny"
+    virtual_network_subnet_ids = local.all_valid_subnets
+    bypass                     = ["Logging", "Metrics", "AzureServices"]
+    default_action             = "Deny"
   }
 
   tags = var.common_tags

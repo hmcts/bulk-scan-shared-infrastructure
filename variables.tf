@@ -37,7 +37,7 @@ variable "subscription" {}
 variable "mgmt_subscription_id" {}
 
 variable "common_tags" {
-  type = map
+  type = map(any)
 }
 
 variable "envelope_queue_max_delivery_count" {
