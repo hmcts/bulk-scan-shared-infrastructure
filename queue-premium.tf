@@ -3,7 +3,7 @@ module "queue-namespace-premium" {
     azurerm.private_endpoint = azurerm.aks
   }
 
-  source              = "git@github.com:hmcts/terraform-module-servicebus-namespace?ref=master"
+  source              = "git@github.com:hmcts/terraform-module-servicebus-namespace?ref=DTSPO-6371_remove_provider"
   name                = "${var.product}-servicebus-${var.env}-premium"
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
