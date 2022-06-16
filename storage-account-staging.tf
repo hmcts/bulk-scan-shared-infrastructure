@@ -9,7 +9,7 @@ locals {
 
   // for each client service two containers are created: one named after the service
   // and another one, named {service_name}-rejected, for storing envelopes rejected by bulk-scan
-  client_service_names_stg = ["bulkscanauto", "bulkscan", "sscs", "divorce", "nfd", "probate", "finrem", "cmc", "publiclaw", "privatelaw"]
+  client_service_names_stg = ["bulkscanauto", "bulkscan", "sscs", "divorce", "nfd", "probate", "finrem", "cmc", "publiclaw", "privatelaw", "adoption"]
 }
 
 resource "azurerm_storage_account" "storage_account_staging" {
