@@ -10,13 +10,13 @@ module "consume-envelopes-queue-messages-alert" {
   app_insights_query = "traces | where message startswith 'Envelopes queue consume listener is working'"
   common_tags        = var.common_tags
 
-  frequency_in_minutes       = 60
-  time_window_in_minutes     = 65
+  frequency_in_minutes       = "60"
+  time_window_in_minutes     = "65"
   severity_level             = "1"
   action_group_name          = module.alert-action-group.action_group_name
   custom_email_subject       = "Bulk Scan check-envelopes-queue alert"
   trigger_threshold_operator = "Equal"
-  trigger_threshold          = 0
+  trigger_threshold          = "0"
   resourcegroup_name         = azurerm_resource_group.rg.name
 }
 
@@ -32,12 +32,12 @@ module "delete-messages-from-envelopes-dlq-alert" {
   app_insights_query = "traces | where message startswith 'Started delete-envelopes-dlq-messages job'"
   common_tags        = var.common_tags
 
-  frequency_in_minutes       = 120
-  time_window_in_minutes     = 180
+  frequency_in_minutes       = "120"
+  time_window_in_minutes     = "180"
   severity_level             = "1"
   action_group_name          = module.alert-action-group.action_group_name
   custom_email_subject       = "Bulk Scan delete-envelopes-dlq-messages scheduled job alert"
   trigger_threshold_operator = "Equal"
-  trigger_threshold          = 0
+  trigger_threshold          = "0"
   resourcegroup_name         = azurerm_resource_group.rg.name
 }

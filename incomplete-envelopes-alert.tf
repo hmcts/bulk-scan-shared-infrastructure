@@ -21,12 +21,12 @@ EOF
 
   # consider increasing by hour to run less frequently
   # loss: increased window from actual log event which happens only once per day
-  frequency_in_minutes       = 60
-  time_window_in_minutes     = 60
+  frequency_in_minutes       = "60"
+  time_window_in_minutes     = "60"
   severity_level             = "1"
   action_group_name          = module.alert-action-group.action_group_name
   custom_email_subject       = "Bulk Scan incomplete envelopes"
   trigger_threshold_operator = "GreaterThan"
-  trigger_threshold          = 0
+  trigger_threshold          = "0"
   resourcegroup_name         = azurerm_resource_group.rg.name
 }

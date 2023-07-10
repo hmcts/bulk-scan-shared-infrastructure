@@ -13,12 +13,12 @@ traces
 | where message startswith "No envelopes received"
 EOF
 
-  frequency_in_minutes       = 60
-  time_window_in_minutes     = 90
+  frequency_in_minutes       = "60"
+  time_window_in_minutes     = "90"
   severity_level             = "4"
   action_group_name          = module.alert-action-group.action_group_name
   custom_email_subject       = "Bulk Scan Processor - No new envelopes"
   trigger_threshold_operator = "GreaterThan"
-  trigger_threshold          = 0
+  trigger_threshold          = "0"
   resourcegroup_name         = azurerm_resource_group.rg.name
 }
