@@ -10,12 +10,12 @@ module "envelopes-queue-heartbeat-alert" {
   app_insights_query = "traces | where message startswith 'Heartbeat message received'"
   common_tags        = var.common_tags
 
-  frequency_in_minutes       = 25
-  time_window_in_minutes     = 25
+  frequency_in_minutes       = "25"
+  time_window_in_minutes     = "25"
   severity_level             = "1"
   action_group_name          = module.alert-action-group.action_group_name
   custom_email_subject       = "Bulk Scan Heartbeat"
   trigger_threshold_operator = "Equal"
-  trigger_threshold          = 0
+  trigger_threshold          = "0"
   resourcegroup_name         = azurerm_resource_group.rg.name
 }

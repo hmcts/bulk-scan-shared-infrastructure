@@ -14,13 +14,13 @@ requests
 | where cloud_RoleName == "Bulk Scan Processor"
 EOF
 
-  frequency_in_minutes       = 15
-  time_window_in_minutes     = 16
+  frequency_in_minutes       = "15"
+  time_window_in_minutes     = "16"
   severity_level             = "2"
   action_group_name          = module.alert-action-group.action_group_name
   custom_email_subject       = "Bulk Scan Processor liveness"
   trigger_threshold_operator = "GreaterThan"
-  trigger_threshold          = 10
+  trigger_threshold          = "10"
   resourcegroup_name         = azurerm_resource_group.rg.name
 }
 
@@ -40,13 +40,13 @@ requests
 | where cloud_RoleName == "Bulk Scan Payment Processor"
 EOF
 
-  frequency_in_minutes       = 15
-  time_window_in_minutes     = 16
+  frequency_in_minutes       = "15"
+  time_window_in_minutes     = "16"
   severity_level             = "2"
   action_group_name          = module.alert-action-group.action_group_name
   custom_email_subject       = "Bulk Scan Payment Processor liveness"
   trigger_threshold_operator = "GreaterThan"
-  trigger_threshold          = 10
+  trigger_threshold          = "10"
   resourcegroup_name         = azurerm_resource_group.rg.name
 }
 
@@ -66,12 +66,12 @@ requests
 | where cloud_RoleName == "Bulk Scan Orchestrator"
 EOF
 
-  frequency_in_minutes       = 15
-  time_window_in_minutes     = 16
+  frequency_in_minutes       = "15"
+  time_window_in_minutes     = "16"
   severity_level             = "2"
   action_group_name          = module.alert-action-group.action_group_name
   custom_email_subject       = "Bulk Scan Orchestrator liveness"
   trigger_threshold_operator = "GreaterThan"
-  trigger_threshold          = 10
+  trigger_threshold          = "10"
   resourcegroup_name         = azurerm_resource_group.rg.name
 }
