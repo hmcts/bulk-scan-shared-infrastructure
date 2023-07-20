@@ -114,7 +114,7 @@ module "incomplete-envelopes-alert" {
   app_insights_name = azurerm_application_insights.appinsights.name
 
   enabled    = var.env == "prod"
-  alert_name = "Bulk_Scan_Incomplete_Envelopes_-_BSP"
+  alert_name = "Bulk_Scan_Incomplete_Envelopes_Jobs_-_BSP"
   alert_desc = "Triggers when no logs from incomplete-envelopes-monitoring job found within timeframe."
 
   app_insights_query = "traces | where message startswith 'Started incomplete-envelopes-monitoring job'"
