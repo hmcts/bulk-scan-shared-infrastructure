@@ -91,17 +91,31 @@ resource "azurerm_key_vault_secret" "processed_envelopes_queue_send_access_key" 
   key_vault_id = module.vault.key_vault_id
 }
 
+moved {
+  from = azurerm_key_vault_secret.processed_envelopes_queue_listen_access_key_premium
+  to   = azurerm_key_vault_secret.processed_envelopes_queue_listen_access_key
+}
+
 resource "azurerm_key_vault_secret" "processed_envelopes_queue_listen_access_key" {
   name         = var.processed_envelopes_queue_listen_name
   value        = module.processed-envelopes-queue.primary_listen_shared_access_key
   key_vault_id = module.vault.key_vault_id
 }
 
+moved {
+  from = azurerm_key_vault_secret.payments_queue_send_access_key_premium
+  to   = azurerm_key_vault_secret.payments_queue_send_access_key
+}
 
 resource "azurerm_key_vault_secret" "payments_queue_send_access_key" {
   name         = var.payments_queue_send_name
   value        = module.payments-queue.primary_send_shared_access_key
   key_vault_id = module.vault.key_vault_id
+}
+
+moved {
+  from = azurerm_key_vault_secret.payments_queue_listen_access_key_premium
+  to   = azurerm_key_vault_secret.payments_queue_listen_access_key
 }
 
 resource "azurerm_key_vault_secret" "payments_queue_listen_access_key" {
@@ -113,10 +127,20 @@ resource "azurerm_key_vault_secret" "payments_queue_listen_access_key" {
 # endregion
 
 # region connection strings and other shared queue information as Key Vault secrets
+moved {
+  from = azurerm_key_vault_secret.envelopes_queue_send_conn_str_premium
+  to   = azurerm_key_vault_secret.envelopes_queue_send_conn_str
+}
+
 resource "azurerm_key_vault_secret" "envelopes_queue_send_conn_str" {
   name         = var.envelopes_queue_send_resource_name
   value        = module.envelopes-queue.primary_send_connection_string
   key_vault_id = module.vault.key_vault_id
+}
+
+moved {
+  from = azurerm_key_vault_secret.envelopes_queue_listen_conn_str_premium
+  to   = azurerm_key_vault_secret.envelopes_queue_listen_conn_str
 }
 
 resource "azurerm_key_vault_secret" "envelopes_queue_listen_conn_str" {
@@ -125,10 +149,20 @@ resource "azurerm_key_vault_secret" "envelopes_queue_listen_conn_str" {
   key_vault_id = module.vault.key_vault_id
 }
 
+moved {
+  from = azurerm_key_vault_secret.envelopes_queue_max_delivery_count_premium
+  to   = azurerm_key_vault_secret.envelopes_queue_max_delivery_count
+}
+
 resource "azurerm_key_vault_secret" "envelopes_queue_max_delivery_count" {
   name         = var.envelopes_queue_max_delivery_count_resource_name
   value        = var.envelope_queue_max_delivery_count
   key_vault_id = module.vault.key_vault_id
+}
+
+moved {
+  from = azurerm_key_vault_secret.processed_envelopes_queue_send_conn_str_premium
+  to   = azurerm_key_vault_secret.processed_envelopes_queue_send_conn_str
 }
 
 resource "azurerm_key_vault_secret" "processed_envelopes_queue_send_conn_str" {
@@ -137,16 +171,31 @@ resource "azurerm_key_vault_secret" "processed_envelopes_queue_send_conn_str" {
   key_vault_id = module.vault.key_vault_id
 }
 
+moved {
+  from = azurerm_key_vault_secret.processed_envelopes_queue_listen_conn_str_premium
+  to   = azurerm_key_vault_secret.processed_envelopes_queue_listen_conn_str
+}
+
 resource "azurerm_key_vault_secret" "processed_envelopes_queue_listen_conn_str" {
   name         = var.processed_envelopes_queue_listen_resource_name
   value        = module.processed-envelopes-queue.primary_listen_connection_string
   key_vault_id = module.vault.key_vault_id
 }
 
+moved {
+  from = azurerm_key_vault_secret.payments_queue_send_conn_str_premium
+  to   = azurerm_key_vault_secret.payments_queue_send_conn_str
+}
+
 resource "azurerm_key_vault_secret" "payments_queue_send_conn_str" {
   name         = var.payments_queue_send_resource_name
   value        = module.payments-queue.primary_send_connection_string
   key_vault_id = module.vault.key_vault_id
+}
+
+moved {
+  from = azurerm_key_vault_secret.payments_queue_listen_conn_str_premium
+  to   = azurerm_key_vault_secret.payments_queue_listen_conn_str
 }
 
 resource "azurerm_key_vault_secret" "payments_queue_listen_conn_str" {
