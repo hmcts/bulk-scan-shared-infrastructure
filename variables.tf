@@ -64,77 +64,77 @@ variable "wafFileUploadLimit" {
 variable "aks_subscription_id" {}
 
 variable "zone_redundant_service_bus" {
- default = false
+ default = true
 }
 
 variable "sku_service_bus" {
- default = "Basic"
+ default = "Premium"
 }
 
 variable "duplicate_detection_history_time_window_service_bus" {
- default = "PT59M"
+ default = "PT15M"
 }
 
 variable "requires_duplicate_service_bus" {
- default = false
+ default = true
 }
 
 # Region names
 variable "envelopes_queue_send_name" {
- default = "envelopes-queue-send-shared-access-key"
+ default = "envelopes-queue-send-shared-access-key-premium"
 }
 
 variable "envelopes_queue_listen_name" {
- default = "envelopes-queue-listen-shared-access-key"
+ default = "envelopes-queue-listen-shared-access-key-premium"
 }
 
 variable "processed_envelopes_queue_send_name" {
- default = "processed-envelopes-queue-send-shared-access-key"
+ default = "processed-envelopes-queue-send-shared-access-key-premium"
 }
 
 variable "processed_envelopes_queue_listen_name" {
- default = "processed-envelopes-queue-listen-shared-access-key"
+ default = "processed-envelopes-queue-listen-shared-access-key-premium"
 }
 
 variable "payments_queue_send_name" {
- default = "payments-queue-send-shared-access-key"
+ default = "payments-queue-send-shared-access-key-premium"
 }
 
 variable "payments_queue_listen_name" {
- default = "payments-queue-listen-shared-access-key"
+ default = "payments-queue-listen-shared-access-key-premium"
 }
 
 # region connection strings and other shared queue information as Key Vault secrets
 
 variable "envelopes_queue_send_resource_name" {
- default = "envelopes-queue-send-connection-string"
+ default = "envelopes-queue-send-connection-string-premium"
 }
 
 variable "envelopes_queue_listen_resource_name" {
- default = "envelopes-queue-listen-connection-string"
+ default = "envelopes-queue-listen-connection-string-premium"
 }
 
 variable "envelopes_queue_max_delivery_count_resource_name" {
- default = "envelopes-queue-max-delivery-count"
+ default = "envelopes-queue-max-delivery-count-premium"
 }
 
 variable "processed_envelopes_queue_send_resource_name" {
- default = "processed-envelopes-queue-send-connection-string"
+ default = "processed-envelopes-queue-send-connection-string-premium"
 }
 
 variable "processed_envelopes_queue_listen_resource_name" {
- default = "processed-envelopes-queue-listen-connection-string"
+ default = "processed-envelopes-queue-listen-connection-string-premium"
 }
 
 variable "payments_queue_send_resource_name" {
- default = "payments-queue-send-connection-string"
+ default = "payments-queue-send-connection-string-premium"
 }
 
 variable "payments_queue_listen_resource_name" {
- default = "payments-queue-listen-connection-string"
+ default = "payments-queue-listen-connection-string-premium"
 }
 
 # Name of asb
 variable "azure_service_bus_name" {
- default = "${var.product}-servicebus-${var.env}"
+ default = "${var.product}-servicebus-${var.env}-premium"
 }
