@@ -106,30 +106,30 @@ variable "payments_queue_listen_name" {
 
 # region connection strings and other shared queue information as Key Vault secrets
 
-variable "envelopes_queue_send_name" {
+variable "envelopes_queue_send_resource_name" {
  default = "envelopes-queue-send-connection-string"
 }
 
-variable "envelopes_queue_listen_name" {
+variable "envelopes_queue_listen_resource_name" {
  default = "envelopes-queue-listen-connection-string"
 }
 
-variable "envelopes_queue_max_delivery_count_name" {
+variable "envelopes_queue_max_delivery_count_resource_name" {
  default = "envelopes-queue-max-delivery-count"
 }
 
-variable "processed_envelopes_queue_send_name" {
+variable "processed_envelopes_queue_send_resource_name" {
  default = "processed-envelopes-queue-send-connection-string"
 }
 
-variable "processed_envelopes_queue_listen_name" {
+variable "processed_envelopes_queue_listen_resource_name" {
  default = "processed-envelopes-queue-listen-connection-string"
 }
 
-variable "payments_queue_send_name" {
+variable "payments_queue_send_resource_name" {
  default = "payments-queue-send-connection-string"
 }
 
-variable "payments_queue_listen_name" {
+variable "payments_queue_listen_resource_name" {
  default = "payments-queue-listen-connection-string"
 }

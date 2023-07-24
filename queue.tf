@@ -95,51 +95,53 @@ resource "azurerm_key_vault_secret" "payments_queue_listen_access_key" {
 
 # region connection strings and other shared queue information as Key Vault secrets
 resource "azurerm_key_vault_secret" "envelopes_queue_send_conn_str" {
-  name         = var.envelopes_queue_send_name
+  name         = var.envelopes_queue_send_resource_name
   value        = module.envelopes-queue.primary_send_connection_string
   key_vault_id = module.vault.key_vault_id
 }
 
 resource "azurerm_key_vault_secret" "envelopes_queue_listen_conn_str" {
-  name         = var.envelopes_queue_listen_name
+  name         = var.envelopes_queue_listen_resource_name
   value        = module.envelopes-queue.primary_listen_connection_string
   key_vault_id = module.vault.key_vault_id
 }
 
 resource "azurerm_key_vault_secret" "envelopes_queue_max_delivery_count" {
-  name         = var.envelopes_queue_max_delivery_count_name
+  name         = var.envelopes_queue_max_delivery_count_resource_name
   value        = var.envelope_queue_max_delivery_count
   key_vault_id = module.vault.key_vault_id
 }
 
 resource "azurerm_key_vault_secret" "processed_envelopes_queue_send_conn_str" {
-  name         = var.processed_envelopes_queue_send_name
+  name         = var.processed_envelopes_queue_send_resource_name
   value        = module.processed-envelopes-queue.primary_send_connection_string
   key_vault_id = module.vault.key_vault_id
 }
 
 resource "azurerm_key_vault_secret" "processed_envelopes_queue_listen_conn_str" {
-  name         = var.processed_envelopes_queue_listen_name
+  name         = var.processed_envelopes_queue_listen_resource_name
   value        = module.processed-envelopes-queue.primary_listen_connection_string
   key_vault_id = module.vault.key_vault_id
 }
 
 
 resource "azurerm_key_vault_secret" "payments_queue_send_conn_str" {
-  name         = var.payments_queue_send_name
+  name         = var.payments_queue_send_resource_name
   value        = module.payments-queue.primary_send_connection_string
   key_vault_id = module.vault.key_vault_id
 }
 
 resource "azurerm_key_vault_secret" "payments_queue_listen_conn_str" {
-  name         = "payments-queue-listen-connection-string"
+  name         = var.payments_queue_listen_resource_name
   value        = module.payments-queue.primary_listen_connection_string
   key_vault_id = module.vault.key_vault_id
 }
 
 # endregion
 
-# deprecated, use `envelopes_queue_primary_listen_connection_string` instead
+# Not sure if this is still needed anymore, or if we can remove.
+# Not required for prod it seems but was included for lower envs
+# Deprecated: use `envelopes_queue_primary_listen_connection_string` instead
 output "queue_primary_listen_connection_string" {
   sensitive = true
   value     = module.envelopes-queue.primary_listen_connection_string
@@ -150,8 +152,6 @@ output "envelopes_queue_primary_listen_connection_string" {
   value     = module.envelopes-queue.primary_listen_connection_string
 }
 
-# Not sure if this is still needed anymore, or if we can remove.
-# Not required for prod it seems but was included for lower envs
 # Deprecated: use `envelopes_queue_primary_send_connection_string` instead
 output "queue_primary_send_connection_string" {
   sensitive = true
