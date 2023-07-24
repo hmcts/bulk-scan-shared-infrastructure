@@ -2,7 +2,7 @@ locals {
   service_bus_name = var.azure_service_bus_name
 }
 
-module "queue-namespace" {
+module "queue-namespace-premium" {
   providers = {
     azurerm.private_endpoint = azurerm.aks
   }
@@ -18,7 +18,7 @@ module "queue-namespace" {
   common_tags         = var.common_tags
 }
 
-module "envelopes-queue" {
+module "envelopes-queue-premium" {
   source              = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=master"
   name                = "envelopes"
   namespace_name      = module.queue-namespace.name
@@ -30,7 +30,7 @@ module "envelopes-queue" {
   max_delivery_count                      = var.envelope_queue_max_delivery_count
 }
 
-module "processed-envelopes-queue" {
+module "processed-envelopes-queue-premium" {
   source              = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=master"
   name                = "processed-envelopes"
   namespace_name      = module.queue-namespace.name
@@ -43,7 +43,7 @@ module "processed-envelopes-queue" {
   max_delivery_count                      = var.envelope_queue_max_delivery_count
 }
 
-module "payments-queue" {
+module "payments-queue-premium" {
   source                       = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=master"
   name                         = "payments"
   namespace_name               = module.queue-namespace.name
