@@ -5,7 +5,6 @@ sku_service_bus                                     = "Basic"
 zone_redundant_service_bus                          = false
 duplicate_detection_history_time_window_service_bus = "PT59M"
 requires_duplicate_service_bus                      = false
-azure_service_bus_name                              = bulk-scan-servicebus-ithc
 
 # Region names
 envelopes_queue_send_name             = "envelopes-queue-send-shared-access-key"
