@@ -66,3 +66,70 @@ variable "aks_subscription_id" {}
 variable "zone_redundant_service_bus" {
  default = false
 }
+
+variable "sku_service_bus" {
+ default = "Basic"
+}
+
+variable "duplicate_detection_history_time_window_service_bus" {
+ default = "PT59M"
+}
+
+variable "requires_duplicate_service_bus" {
+ default = false
+}
+
+# Region names
+variable "envelopes_queue_send_name" {
+ default = "envelopes-queue-send-shared-access-key"
+}
+
+variable "envelopes_queue_listen_name" {
+ default = "envelopes-queue-listen-shared-access-key"
+}
+
+variable "processed_envelopes_queue_send_name" {
+ default = "processed-envelopes-queue-send-shared-access-key"
+}
+
+variable "processed_envelopes_queue_listen_name" {
+ default = "processed-envelopes-queue-listen-shared-access-key"
+}
+
+variable "payments_queue_send_name" {
+ default = "payments-queue-send-shared-access-key"
+}
+
+variable "payments_queue_listen_name" {
+ default = "payments-queue-listen-shared-access-key"
+}
+
+# region connection strings and other shared queue information as Key Vault secrets
+
+variable "envelopes_queue_send_name" {
+ default = "envelopes-queue-send-connection-string"
+}
+
+variable "envelopes_queue_listen_name" {
+ default = "envelopes-queue-listen-connection-string"
+}
+
+variable "envelopes_queue_max_delivery_count_name" {
+ default = "envelopes-queue-max-delivery-count"
+}
+
+variable "processed_envelopes_queue_send_name" {
+ default = "processed-envelopes-queue-send-connection-string"
+}
+
+variable "processed_envelopes_queue_listen_name" {
+ default = "processed-envelopes-queue-listen-connection-string"
+}
+
+variable "payments_queue_send_name" {
+ default = "payments-queue-send-connection-string"
+}
+
+variable "payments_queue_listen_name" {
+ default = "payments-queue-listen-connection-string"
+}
