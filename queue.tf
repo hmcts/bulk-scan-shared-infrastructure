@@ -1,10 +1,14 @@
+locals {
+  service_bus_name = var.azure_service_bus_name != "" ? var.azure_service_bus_name : "${var.product}-servicebus-${var.env}-premium"
+}
+
 module "queue-namespace" {
   providers = {
     azurerm.private_endpoint = azurerm.aks
   }
 
   source              = "git@github.com:hmcts/terraform-module-servicebus-namespace?ref=master"
-  name                = var.azure_service_bus_name
+  name                = local.service_bus_name
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
   env                 = var.env
@@ -27,11 +31,11 @@ module "envelopes-queue" {
 }
 
 module "processed-envelopes-queue" {
-  source                                  = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=master"
-  name                                    = "processed-envelopes"
-  namespace_name                          = module.queue-namespace.name
-  resource_group_name                     = azurerm_resource_group.rg.name
-  lock_duration                           = "PT5M"
+  source              = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=master"
+  name                = "processed-envelopes"
+  namespace_name      = module.queue-namespace.name
+  resource_group_name = azurerm_resource_group.rg.name
+  lock_duration       = "PT5M"
 
   // False in non prod, true in prod
   requires_duplicate_detection            = var.requires_duplicate_service_bus
@@ -40,13 +44,13 @@ module "processed-envelopes-queue" {
 }
 
 module "payments-queue" {
-  source                                  = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=master"
-  name                                    = "payments"
-  namespace_name                          = module.queue-namespace.name
-  resource_group_name                     = azurerm_resource_group.rg.name
-  lock_duration                           = "PT5M"
-  max_delivery_count                      = var.payment_queue_max_delivery_count
-  requires_duplicate_detection            = var.requires_duplicate_service_bus
+  source                       = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=master"
+  name                         = "payments"
+  namespace_name               = module.queue-namespace.name
+  resource_group_name          = azurerm_resource_group.rg.name
+  lock_duration                = "PT5M"
+  max_delivery_count           = var.payment_queue_max_delivery_count
+  requires_duplicate_detection = var.requires_duplicate_service_bus
 
   // 59 for non prod and 15 for prod
   duplicate_detection_history_time_window = var.duplicate_detection_history_time_window_service_bus
@@ -54,15 +58,15 @@ module "payments-queue" {
 
 # region shared access keys
 
+moved {
+  from = azurerm_key_vault_secret.envelopes_queue_send_access_key_premium
+  to   = azurerm_key_vault_secret.envelopes_queue_send_access_key
+}
+
 resource "azurerm_key_vault_secret" "envelopes_queue_send_access_key" {
   name         = var.envelopes_queue_send_name
   value        = module.envelopes-queue.primary_send_shared_access_key
   key_vault_id = module.vault.key_vault_id
-}
-
-moved {
-  from = azurerm_key_vault_secret.envelopes_queue_send_access_key_premium
-  to   = azurerm_key_vault_secret.envelopes_queue_send_access_key
 }
 
 resource "azurerm_key_vault_secret" "envelopes_queue_listen_access_key" {
