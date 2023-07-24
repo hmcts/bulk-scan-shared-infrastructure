@@ -25,3 +25,6 @@ processed_envelopes_queue_send_resource_name = "processed-envelopes-queue-send-c
 processed_envelopes_queue_listen_resource_name = "processed-envelopes-queue-listen-connection-string-premium"
 payments_queue_send_resource_name = "payments-queue-send-connection-string-premium"
 payments_queue_listen_resource_name = "payments-queue-listen-connection-string-premium"
+
+# Name of ASB
+azure_service_bus_name = "${var.product}-servicebus-${var.env}-premium"

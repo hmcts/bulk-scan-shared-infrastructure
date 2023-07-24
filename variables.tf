@@ -133,3 +133,8 @@ variable "payments_queue_send_resource_name" {
 variable "payments_queue_listen_resource_name" {
  default = "payments-queue-listen-connection-string"
 }
+
+# Name of asb
+variable "azure_service_bus_name" {
+ default = "${var.product}-servicebus-${var.env}"
+}
