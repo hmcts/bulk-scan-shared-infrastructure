@@ -59,38 +59,38 @@ module "payments-queue-premium" {
 # region shared access keys
 resource "azurerm_key_vault_secret" "envelopes_queue_send_access_key_premium" {
   name         = var.envelopes_queue_send_name
-  value        = module.envelopes-queue.primary_send_shared_access_key
+  value        = module.envelopes-queue-premium.primary_send_shared_access_key
   key_vault_id = module.vault.key_vault_id
 }
 
 resource "azurerm_key_vault_secret" "envelopes_queue_listen_access_key_premium" {
   name         = var.envelopes_queue_listen_name
-  value        = module.envelopes-queue.primary_listen_shared_access_key
+  value        = module.envelopes-queue-premium.primary_listen_shared_access_key
   key_vault_id = module.vault.key_vault_id
 }
 
 resource "azurerm_key_vault_secret" "processed_envelopes_queue_send_access_key_premium" {
   name         = var.processed_envelopes_queue_send_name
-  value        = module.processed-envelopes-queue.primary_send_shared_access_key
+  value        = module.processed-envelopes-queue-premium.primary_send_shared_access_key
   key_vault_id = module.vault.key_vault_id
 }
 
 resource "azurerm_key_vault_secret" "processed_envelopes_queue_listen_access_key_premium" {
   name         = var.processed_envelopes_queue_listen_name
-  value        = module.processed-envelopes-queue.primary_listen_shared_access_key
+  value        = module.processed-envelopes-queue-premium.primary_listen_shared_access_key
   key_vault_id = module.vault.key_vault_id
 }
 
 
 resource "azurerm_key_vault_secret" "payments_queue_send_access_key_premium" {
   name         = var.payments_queue_send_name
-  value        = module.payments-queue.primary_send_shared_access_key
+  value        = module.payments-queue-premium.primary_send_shared_access_key
   key_vault_id = module.vault.key_vault_id
 }
 
 resource "azurerm_key_vault_secret" "payments_queue_listen_access_key_premium" {
   name         = var.payments_queue_listen_name
-  value        = module.payments-queue.primary_listen_shared_access_key
+  value        = module.payments-queue-premium.primary_listen_shared_access_key
   key_vault_id = module.vault.key_vault_id
 }
 
@@ -146,7 +146,7 @@ resource "azurerm_key_vault_secret" "payments_queue_listen_conn_str_premium" {
 # Deprecated: use `envelopes_queue_primary_listen_connection_string` instead
 output "queue_primary_listen_connection_string" {
   sensitive = true
-  value     = module.envelopes-queue.primary_listen_connection_string
+  value     = module.envelopes-queue-premium.primary_listen_connection_string
 }
 
 output "envelopes_queue_primary_listen_connection_string" {
