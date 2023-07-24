@@ -64,7 +64,7 @@ variable "wafFileUploadLimit" {
 variable "aks_subscription_id" {}
 
 variable "zone_redundant_service_bus" {
- default = true
+ default = "true"
 }
 
 variable "sku_service_bus" {
@@ -76,7 +76,7 @@ variable "duplicate_detection_history_time_window_service_bus" {
 }
 
 variable "requires_duplicate_service_bus" {
- default = true
+ default = "true"
 }
 
 # Region names
