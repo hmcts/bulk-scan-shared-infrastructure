@@ -24,4 +24,4 @@ payments_queue_send_resource_name                = "payments-queue-send-connecti
 payments_queue_listen_resource_name              = "payments-queue-listen-connection-string"
 
 # Name of ASB
-azure_service_bus_name = "${var.product}-servicebus-${var.env}"
+azure_service_bus_name = "bulk-scan-servicebus-ithc"
