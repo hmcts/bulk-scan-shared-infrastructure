@@ -124,7 +124,6 @@ resource "azurerm_key_vault_secret" "processed_envelopes_queue_listen_conn_str" 
   key_vault_id = module.vault.key_vault_id
 }
 
-
 resource "azurerm_key_vault_secret" "payments_queue_send_conn_str" {
   name         = var.payments_queue_send_resource_name
   value        = module.payments-queue.primary_send_connection_string
