@@ -1,5 +1,5 @@
 locals {
-  service_bus_name = var.azure_service_bus_name != "" ? var.azure_service_bus_name : "${var.product}-servicebus-${var.env}-premium"
+  service_bus_name = var.azure_service_bus_name
 }
 
 module "queue-namespace" {
