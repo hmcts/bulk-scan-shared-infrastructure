@@ -69,10 +69,20 @@ resource "azurerm_key_vault_secret" "envelopes_queue_send_access_key" {
   key_vault_id = module.vault.key_vault_id
 }
 
+moved {
+  from = azurerm_key_vault_secret.envelopes_queue_listen_access_key_premium
+  to   = azurerm_key_vault_secret.envelopes_queue_listen_access_key
+}
+
 resource "azurerm_key_vault_secret" "envelopes_queue_listen_access_key" {
   name         = var.envelopes_queue_listen_name
   value        = module.envelopes-queue.primary_listen_shared_access_key
   key_vault_id = module.vault.key_vault_id
+}
+
+moved {
+  from = azurerm_key_vault_secret.processed_envelopes_queue_send_access_key_premium
+  to   = azurerm_key_vault_secret.processed_envelopes_queue_send_access_key
 }
 
 resource "azurerm_key_vault_secret" "processed_envelopes_queue_send_access_key" {
