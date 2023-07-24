@@ -87,8 +87,8 @@ resource "azurerm_key_vault_secret" "processed_envelopes_queue_send_access_key" 
 }
 
 moved {
-  from = azurerm_key_vault_secret.processed_envelopes_queue_send_access_key
-  to   = azurerm_key_vault_secret.processed_envelopes_queue_send_access_key_premium
+  from = azurerm_key_vault_secret.processed_envelopes_queue_send_access_key_premium
+  to   = azurerm_key_vault_secret.processed_envelopes_queue_send_access_key
 }
 
 moved {
