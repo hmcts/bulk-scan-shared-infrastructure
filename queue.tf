@@ -36,11 +36,6 @@ module "processed-envelopes-queue-premium" {
   namespace_name      = module.queue-namespace-premium.name
   resource_group_name = azurerm_resource_group.rg.name
   lock_duration       = "PT5M"
-
-  // False in non prod, true in prod
-  requires_duplicate_detection            = var.requires_duplicate_service_bus
-  duplicate_detection_history_time_window = "PT59M"
-  max_delivery_count                      = var.envelope_queue_max_delivery_count
 }
 
 module "payments-queue-premium" {
@@ -80,7 +75,6 @@ resource "azurerm_key_vault_secret" "processed_envelopes_queue_listen_access_key
   value        = module.processed-envelopes-queue-premium.primary_listen_shared_access_key
   key_vault_id = module.vault.key_vault_id
 }
-
 
 resource "azurerm_key_vault_secret" "payments_queue_send_access_key_premium" {
   name         = var.payments_queue_send_name

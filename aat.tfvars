@@ -3,7 +3,7 @@ aks_subscription_id        = "96c274ce-846d-4e48-89a7-d528432298a7"
 
 sku_service_bus                                     = "Basic"
 zone_redundant_service_bus                          = false
-duplicate_detection_history_time_window_service_bus = "PT59M"
+duplicate_detection_history_time_window_service_bus = "PT15M"
 requires_duplicate_service_bus                      = false
 
 # Region names
