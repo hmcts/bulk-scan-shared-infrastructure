@@ -66,4 +66,8 @@ variable "sku_service_bus" {
   default     = "Standard"
 }
 
+variable "zone_redundant_service_bus" {
+  default     = false
+}
+
 variable "aks_subscription_id" {}
