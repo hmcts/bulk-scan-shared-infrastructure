@@ -61,4 +61,9 @@ variable "wafFileUploadLimit" {
   default     = "100"
 }
 
+variable "sku_service_bus" {
+  description = "Basic, Standard or Premium"
+  default     = "Standard"
+}
+
 variable "aks_subscription_id" {}
