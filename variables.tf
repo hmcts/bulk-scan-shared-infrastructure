@@ -66,6 +66,10 @@ variable "sku_service_bus" {
   default     = "Standard"
 }
 
+variable "capacity_service_bus" {
+  default     = 0
+}
+
 variable "zone_redundant_service_bus" {
   default     = false
 }
