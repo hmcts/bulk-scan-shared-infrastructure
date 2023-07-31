@@ -8,9 +8,9 @@ module "queue-namespace-premium" {
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
   env                 = var.env
-  sku                 = "Premium"
+  sku                 = var.sku_service_bus
   capacity            = 1
-  zone_redundant      = true
+  zone_redundant      = var.zone_redundant_service_bus
   common_tags         = var.common_tags
 }
 
