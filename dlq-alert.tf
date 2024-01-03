@@ -2,7 +2,7 @@
 module "bulk-scan-dlq-alert" {
   source            = "git@github.com:hmcts/cnp-module-metric-alert"
   location          = var.appinsights_location
-  app_insights_name = module_application_insights.name
+  app_insights_name = module.application_insights.name
 
   enabled     = var.env == "prod"
   alert_name  = "Bulk_Scan_DLQ_-_BSP"
