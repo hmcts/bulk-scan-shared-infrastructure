@@ -1,7 +1,7 @@
 module "no-new-envelopes-alert" {
   source            = "git@github.com:hmcts/cnp-module-metric-alert"
-  location          = azurerm_application_insights.appinsights.location
-  app_insights_name = azurerm_application_insights.appinsights.name
+  location          = var.appinsights_location
+  app_insights_name = module.application_insights.name
 
   enabled     = var.env == "prod"
   alert_name  = "No_new_envelopes_-_Bulk_Scan_Processor"

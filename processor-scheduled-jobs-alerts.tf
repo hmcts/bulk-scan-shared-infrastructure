@@ -1,7 +1,7 @@
 module "blob-processing-alert" {
   source            = "git@github.com:hmcts/cnp-module-metric-alert"
-  location          = azurerm_application_insights.appinsights.location
-  app_insights_name = azurerm_application_insights.appinsights.name
+  location          = var.appinsights_location
+  app_insights_name = module.application_insights.name
 
   enabled    = var.env == "prod"
   alert_name = "Bulk_Scan_Blob_Processing_-_BSP"
@@ -22,8 +22,8 @@ module "blob-processing-alert" {
 
 module "upload-documents-alert" {
   source            = "git@github.com:hmcts/cnp-module-metric-alert"
-  location          = azurerm_application_insights.appinsights.location
-  app_insights_name = azurerm_application_insights.appinsights.name
+  location          = var.appinsights_location
+  app_insights_name = module.application_insights.name
 
   enabled    = var.env == "prod"
   alert_name = "Bulk_Scan_Upload-Documents_-_BSP"
@@ -44,8 +44,8 @@ module "upload-documents-alert" {
 
 module "delete-rejected-files-alert" {
   source            = "git@github.com:hmcts/cnp-module-metric-alert"
-  location          = azurerm_application_insights.appinsights.location
-  app_insights_name = azurerm_application_insights.appinsights.name
+  location          = var.appinsights_location
+  app_insights_name = module.application_insights.name
   common_tags       = var.common_tags
 
   enabled    = var.env == "prod"
@@ -66,8 +66,8 @@ module "delete-rejected-files-alert" {
 
 module "delete-complete-files-alert" {
   source            = "git@github.com:hmcts/cnp-module-metric-alert"
-  location          = azurerm_application_insights.appinsights.location
-  app_insights_name = azurerm_application_insights.appinsights.name
+  location          = var.appinsights_location
+  app_insights_name = module.application_insights.name
 
   enabled    = var.env == "prod"
   alert_name = "Bulk_Scan_Delete_Completed_Files_-_BSP"
@@ -88,8 +88,8 @@ module "delete-complete-files-alert" {
 
 module "orchestrator-notifications-alert" {
   source            = "git@github.com:hmcts/cnp-module-metric-alert"
-  location          = azurerm_application_insights.appinsights.location
-  app_insights_name = azurerm_application_insights.appinsights.name
+  location          = var.appinsights_location
+  app_insights_name = module.application_insights.name
 
   enabled    = var.env == "prod"
   alert_name = "Bulk_Scan_Send_Orchestrator_Notification_-_BSP"
@@ -110,8 +110,8 @@ module "orchestrator-notifications-alert" {
 
 module "incomplete-envelopes-alert" {
   source            = "git@github.com:hmcts/cnp-module-metric-alert"
-  location          = azurerm_application_insights.appinsights.location
-  app_insights_name = azurerm_application_insights.appinsights.name
+  location          = var.appinsights_location
+  app_insights_name = module.application_insights.name
 
   enabled    = var.env == "prod"
   alert_name = "Bulk_Scan_Incomplete_Envelopes_Jobs_-_BSP"
