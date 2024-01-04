@@ -1,7 +1,7 @@
 module "envelopes-queue-heartbeat-alert" {
   source            = "git@github.com:hmcts/cnp-module-metric-alert"
-  location          = azurerm_application_insights.appinsights.location
-  app_insights_name = azurerm_application_insights.appinsights.name
+  location          = var.appinsights_location
+  app_insights_name = module.application_insights.name
 
   enabled    = var.env == "prod"
   alert_name = "Envelope_Heartbeat_-_BSP"
