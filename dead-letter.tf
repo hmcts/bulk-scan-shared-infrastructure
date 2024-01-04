@@ -1,8 +1,8 @@
 // single alert to minify unnecessary cost because threshold used in here is minimal
 module "bulk-scan-dead-letter-alert" {
   source            = "git@github.com:hmcts/cnp-module-metric-alert"
-  location          = azurerm_application_insights.appinsights.location
-  app_insights_name = azurerm_application_insights.appinsights.name
+  location          = var.appinsights_location
+  app_insights_name = module.application_insights.name
 
   enabled     = var.env == "prod"
   alert_name  = "Bulk_Scan_Dead_Letter_-_BSP"
