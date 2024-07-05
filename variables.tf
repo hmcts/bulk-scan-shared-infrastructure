@@ -67,11 +67,11 @@ variable "sku_service_bus" {
 }
 
 variable "capacity_service_bus" {
-  default     = 0
+  default = 0
 }
 
 variable "zone_redundant_service_bus" {
-  default     = false
+  default = false
 }
 
 variable "aks_subscription_id" {}
