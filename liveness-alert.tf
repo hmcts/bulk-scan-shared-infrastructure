@@ -1,5 +1,5 @@
 module "bulk-scan-processor-liveness-alert" {
-  source            = "git@github.com:hmcts/cnp-module-metric-alert"
+  source            = "git::https://github.com/hmcts/cnp-module-metric-alert.git"
   location          = var.appinsights_location
   app_insights_name = module.application_insights.name
 
