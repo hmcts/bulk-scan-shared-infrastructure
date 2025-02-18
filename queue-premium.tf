@@ -10,7 +10,6 @@ module "queue-namespace-premium" {
   env                 = var.env
   sku                 = var.sku_service_bus
   capacity            = var.capacity_service_bus
-  zone_redundant      = var.zone_redundant_service_bus
   common_tags         = var.common_tags
 }
 
