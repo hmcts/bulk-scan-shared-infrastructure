@@ -3,7 +3,7 @@ locals {
 }
 
 module "envelopes-staging-queue" {
-  source              = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=master"
+  source              = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=4.x"
   name                = "envelopes-staging"
   namespace_name      = module.queue-namespace-premium.name
   resource_group_name = azurerm_resource_group.rg.name
@@ -15,7 +15,7 @@ module "envelopes-staging-queue" {
 }
 
 module "processed-envelopes-staging-queue" {
-  source              = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=master"
+  source              = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=4.x"
   name                = "processed-envelopes-staging"
   namespace_name      = module.queue-namespace-premium.name
   resource_group_name = azurerm_resource_group.rg.name
@@ -23,7 +23,7 @@ module "processed-envelopes-staging-queue" {
 }
 
 module "payments-staging-queue" {
-  source              = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=master"
+  source              = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=4.x"
   name                = "payments-staging"
   namespace_name      = module.queue-namespace-premium.name
   resource_group_name = azurerm_resource_group.rg.name
