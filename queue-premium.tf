@@ -3,19 +3,18 @@ module "queue-namespace-premium" {
     azurerm.private_endpoint = azurerm.aks
   }
 
-  source              = "git@github.com:hmcts/terraform-module-servicebus-namespace?ref=master"
+  source              = "git@github.com:hmcts/terraform-module-servicebus-namespace?ref=4.x"
   name                = "${var.product}-servicebus-${var.env}-premium"
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
   env                 = var.env
   sku                 = var.sku_service_bus
   capacity            = var.capacity_service_bus
-  zone_redundant      = var.zone_redundant_service_bus
   common_tags         = var.common_tags
 }
 
 module "envelopes-queue-premium" {
-  source              = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=master"
+  source              = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=4.x"
   name                = "envelopes"
   namespace_name      = module.queue-namespace-premium.name
   resource_group_name = azurerm_resource_group.rg.name
@@ -27,7 +26,7 @@ module "envelopes-queue-premium" {
 }
 
 module "processed-envelopes-queue-premium" {
-  source              = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=master"
+  source              = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=4.x"
   name                = "processed-envelopes"
   namespace_name      = module.queue-namespace-premium.name
   resource_group_name = azurerm_resource_group.rg.name
@@ -35,7 +34,7 @@ module "processed-envelopes-queue-premium" {
 }
 
 module "payments-queue-premium" {
-  source              = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=master"
+  source              = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=4.x"
   name                = "payments"
   namespace_name      = module.queue-namespace-premium.name
   resource_group_name = azurerm_resource_group.rg.name
