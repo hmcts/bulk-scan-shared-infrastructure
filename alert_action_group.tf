@@ -1,8 +1,8 @@
 data "azurerm_key_vault_secret" "source_bsp_email_secret" {
- name         = "bulk-scan-alert-email"
- key_vault_id = module.vault.key_vault_id
+  name         = "bulk-scan-alert-email"
+  key_vault_id = module.vault.key_vault_id
 }
- 
+
 # module "alert-action-group" {
 #   source   = "git@github.com:hmcts/cnp-module-action-group"
 #   location = "global"
