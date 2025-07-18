@@ -7,9 +7,9 @@ def product = 'bulk-scan'
 env.KEEP_DIR_FOR_DEBUGGING = 'true'
 
 withInfraPipeline(product) {
-  def branchesToSync = ['demo', 'perftest']
+  def branchesToSync = ['demo', 'perftest', 'ithc']
 
   syncBranchesWithMaster(branchesToSync)
-  
+
   enableSlackNotifications('#bsp-build-notices')
 }
