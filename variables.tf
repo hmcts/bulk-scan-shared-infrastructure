@@ -11,7 +11,7 @@ variable "location" {
 // TODO move to UK South as it's available there now
 variable "appinsights_location" {
   type        = string
-  default     = "UK South"
+  default     = "West Europe"
   description = "Location for Application Insights"
 }
 
