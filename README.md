@@ -218,3 +218,4 @@ Click on shared access policies and then select the policy(key for e.g SendShare
  ```bash
   $ docker volume rm <volume name>
   ```
+
