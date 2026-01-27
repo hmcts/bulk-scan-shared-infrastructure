@@ -1,6 +1,6 @@
 module "consume-envelopes-queue-messages-alert" {
   source            = "git@github.com:hmcts/cnp-module-metric-alert"
-  location          = var.appinsights_location
+  location          = var.location
   app_insights_name = module.application_insights.name
 
   enabled    = var.env == "prod"
@@ -22,7 +22,7 @@ module "consume-envelopes-queue-messages-alert" {
 
 module "delete-messages-from-envelopes-dlq-alert" {
   source            = "git@github.com:hmcts/cnp-module-metric-alert"
-  location          = var.appinsights_location
+  location          = var.location
   app_insights_name = module.application_insights.name
 
   enabled    = var.env == "prod"

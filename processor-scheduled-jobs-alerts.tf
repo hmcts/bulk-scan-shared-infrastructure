@@ -1,6 +1,6 @@
 module "blob-processing-alert" {
   source            = "git@github.com:hmcts/cnp-module-metric-alert"
-  location          = var.appinsights_location
+  location          = var.location
   app_insights_name = module.application_insights.name
 
   enabled    = var.env == "prod"
@@ -22,7 +22,7 @@ module "blob-processing-alert" {
 
 module "upload-documents-alert" {
   source            = "git@github.com:hmcts/cnp-module-metric-alert"
-  location          = var.appinsights_location
+  location          = var.location
   app_insights_name = module.application_insights.name
 
   enabled    = var.env == "prod"
@@ -44,7 +44,7 @@ module "upload-documents-alert" {
 
 module "delete-rejected-files-alert" {
   source            = "git@github.com:hmcts/cnp-module-metric-alert"
-  location          = var.appinsights_location
+  location          = var.location
   app_insights_name = module.application_insights.name
   common_tags       = var.common_tags
 
@@ -66,7 +66,7 @@ module "delete-rejected-files-alert" {
 
 module "delete-complete-files-alert" {
   source            = "git@github.com:hmcts/cnp-module-metric-alert"
-  location          = var.appinsights_location
+  location          = var.location
   app_insights_name = module.application_insights.name
 
   enabled    = var.env == "prod"
@@ -88,7 +88,7 @@ module "delete-complete-files-alert" {
 
 module "orchestrator-notifications-alert" {
   source            = "git@github.com:hmcts/cnp-module-metric-alert"
-  location          = var.appinsights_location
+  location          = var.location
   app_insights_name = module.application_insights.name
 
   enabled    = var.env == "prod"
@@ -110,14 +110,14 @@ module "orchestrator-notifications-alert" {
 
 module "incomplete-envelopes-alert" {
   source            = "git@github.com:hmcts/cnp-module-metric-alert"
-  location          = var.appinsights_location
-  app_insights_name = module.application_insights.name
+  location          = var.location
+  app_insights_name = module.insights.name
 
   enabled    = var.env == "prod"
   alert_name = "Bulk_Scan_Incomplete_Envelopes_Jobs_-_BSP"
   alert_desc = "Triggers when no logs from incomplete-envelopes-monitoring job found within timeframe."
 
-  app_insights_query = "traces | where message startswith 'Started incomplete-envelopes-monitoring job'"
+  app_insights_query = "traces | where message starts with 'Started incomplete-envelopes-monitoring job'"
   common_tags        = var.common_tags
 
   frequency_in_minutes       = "120"

@@ -1,13 +1,13 @@
 module "envelopes-queue-heartbeat-alert" {
   source            = "git@github.com:hmcts/cnp-module-metric-alert"
-  location          = var.appinsights_location
+  location          = var.location
   app_insights_name = module.application_insights.name
 
   enabled    = var.env == "prod"
   alert_name = "Envelope_Heartbeat_-_BSP"
-  alert_desc = "Triggers when orchestrator didn't read heatbeat message from the queue in withing timeframe."
+  alert_desc = "Triggers when orchestrator didn't read heartbeat message from the queue in withing timeframe."
 
-  app_insights_query = "traces | where message startswith 'Heartbeat message received'"
+  app_insights_query = "traces | where message starts with 'Heartbeat message received'"
   common_tags        = var.common_tags
 
   frequency_in_minutes       = "25"

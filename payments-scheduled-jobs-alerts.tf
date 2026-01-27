@@ -1,6 +1,6 @@
 module "consume-payments-queue-alert" {
   source            = "git@github.com:hmcts/cnp-module-metric-alert"
-  location          = var.appinsights_location
+  location          = var.location
   app_insights_name = module.application_insights.name
 
   enabled    = var.env == "prod"
