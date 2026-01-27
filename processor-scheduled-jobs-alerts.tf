@@ -111,7 +111,7 @@ module "orchestrator-notifications-alert" {
 module "incomplete-envelopes-alert" {
   source            = "git@github.com:hmcts/cnp-module-metric-alert"
   location          = var.location
-  app_insights_name = module.insights.name
+  app_insights_name = module.application_insights.name
 
   enabled    = var.env == "prod"
   alert_name = "Bulk_Scan_Incomplete_Envelopes_Jobs_-_BSP"
