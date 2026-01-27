@@ -1,7 +1,7 @@
 module "bulk-scan-processor-liveness-alert" {
   source            = "git@github.com:hmcts/cnp-module-metric-alert"
   location          = var.location
-  app_insights_name = module.application_insights.name
+  app_insights_name = module.application_insights_uk.name
 
   enabled     = var.env == "prod"
   alert_name  = "Bulk_Scan_Processor_liveness_-_BSP"
@@ -27,7 +27,7 @@ EOF
 module "bulk-scan-payment-processor-liveness-alert" {
   source            = "git@github.com:hmcts/cnp-module-metric-alert"
   location          = var.location
-  app_insights_name = module.application_insights.name
+  app_insights_name = module.application_insights_uk.name
 
   enabled     = var.env == "prod"
   alert_name  = "Bulk_Scan_Payment_Processor_liveness_-_BSP"
@@ -53,7 +53,7 @@ EOF
 module "bulk-scan-orchestrator-liveness-alert" {
   source            = "git@github.com:hmcts/cnp-module-metric-alert"
   location          = var.location
-  app_insights_name = module.application_insights.name
+  app_insights_name = module.application_insights_uk.name
 
   enabled     = var.env == "prod"
   alert_name  = "Bulk_Scan_Orchestrator_liveness_-_BSP"
