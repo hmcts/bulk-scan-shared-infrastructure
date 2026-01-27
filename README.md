@@ -1,6 +1,6 @@
 # bulk-scan-shared-infrastructure
 
-This module sets up the shared infrastructure for Bulk Scanning.Also provides ability to run CCD locally in docker containers
+This module sets up the shared infrastructure for Bulk Scanning. It also provides the ability to run CCD locally in docker containers.
 
 ## Variables
 
@@ -16,7 +16,6 @@ The following parameters are optional
 
 - `product` The (short) name of the product. Default is "bulk-scan". 
 - `location` The location of the Azure data center. Default is "UK South".
-- `appinsights_location` Location for Application Insights. Default is "West Europe".
 - `application_type` Type of Application Insights (Web/Other). Default is "Web".
 
 ### Output
@@ -54,7 +53,7 @@ After doing any git pull on this repo you should rebuild the containers:
 ```
 
 This will:
-- start ccd and and dependent services locally
+- start ccd and dependent services locally
 - mount database volumes, to which your data will persist between restarts,
 - expose container ports to the host, so all the APIs and databases will be directly accessible. Use `docker ps` or read the [compose file](./docker-compose.yml) to see how the ports are mapped.
 - load the idam user, roles and services required
@@ -76,10 +75,10 @@ User for local development:
 
 ####  CCD definition
 
-In order to upload new definition file, put the definition file at location 
+In order to upload the new definition file, put the definition file at location 
 `docker/ccd-definition-import/data/CCD_Definition_BULK_SCAN.template.xlsx`
 
-Make sure caseworker created in above step is configured in the UserProfile tab of the definition file and has correct roles.
+Make sure the caseworker created in the above step is configured in the UserProfile tab of the definition file and has correct roles.
 
 #### Uploading CCD definition
 
@@ -103,7 +102,7 @@ Open management web page http://localhost:3451 and login with user created above
 
 ##### Start CCD Web script fails on first run
 
-IdAM API takes long time to boot up.
+IdAM API takes a long time to boot up.
 This causes incomplete docker setup.
 Inspect `docker ps -a` idam container, wait for completion, then run `./bin/start-ccd-web.sh` again.
 In all occasions never experienced a failure afterwards
@@ -112,7 +111,7 @@ In all occasions never experienced a failure afterwards
 
 There can be multiple reasons including core breaking changes introduced by services enlisted in `docker-compose config --servives`.
 
-First course of action is to check whether CCD definition got imported successfully as it is creating user profiles which are mandatory for login
+The first course of action is to check whether CCD definition got imported successfully as it is creating user profiles which are mandatory for login
 
 The following are suggestions of possible culprits:
 
@@ -122,7 +121,7 @@ The following are suggestions of possible culprits:
 
 ### Publishing message to Service Bus Queue
 
-Azure does not provide emulator to spin up Service Bus Queue locally, hence you will have to always use an instance deployed on one of the environments(Sandbox, Demo or AAT)
+Azure does not provide emulator to spin up Service Bus Queue locally; hence you will have to always use an instance deployed on one of the environments (Sandbox, Demo or AAT).
 
 To publish message to queue follow below steps.
 
@@ -138,7 +137,7 @@ _**entityPath**_ : name of the queue for e.g envelopes(this will not change with
 
 _**SharedAccessSignature**_ : For details check [Service Bus SAS](https://docs.microsoft.com/en-us/azure/service-bus-messaging/service-bus-sas)
 
-To generate Shared signature locally you can use below code snippet.
+To generate Shared signature locally, you can use the below code snippet.
 
 ```java
 import java.net.URLEncoder;

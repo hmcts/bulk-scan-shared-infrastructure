@@ -8,13 +8,6 @@ variable "location" {
   default = "UK South"
 }
 
-// TODO move to UK South as it's available there now
-variable "appinsights_location" {
-  type        = string
-  default     = "West Europe"
-  description = "Location for Application Insights"
-}
-
 variable "env" {
   type = string
 }
