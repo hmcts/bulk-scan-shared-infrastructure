@@ -3,7 +3,7 @@ module "application_insights_uk" {
 
   env                 = var.env
   product             = var.product
-  name                = "bulk-scan-ai-${var.env}"
+  override_name       = "bulk-scan-ai-${var.env}"
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
   alert_limit_reached = true
