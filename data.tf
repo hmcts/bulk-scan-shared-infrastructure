@@ -48,6 +48,6 @@ data "azurerm_subnet" "app_aks_01_subnet" {
 
 data "azurerm_user_assigned_identity" "jenkins" {
   provider            = azurerm.cft-ptl
-  name                = "jenkins-ptl-intsvc-mi"
+  name                = "jenkins-cftptl-intsvc-mi"
   resource_group_name = "managed-identities-cftptl-intsvc-rg"
 }
