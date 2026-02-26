@@ -1,5 +1,5 @@
 module "vault" {
-  source                  = "git@github.com:hmcts/cnp-module-key-vault?ref=master"
+  source                  = "git@github.com:hmcts/cnp-module-key-vault?ref=DTSPO-29659/env-specific-access-policy"
   name                    = "${var.product}-${var.env}"
   product                 = var.product
   env                     = var.env
