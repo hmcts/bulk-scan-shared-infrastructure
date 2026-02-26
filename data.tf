@@ -45,3 +45,9 @@ data "azurerm_subnet" "app_aks_01_subnet" {
   virtual_network_name = local.app_aks_network_name
   resource_group_name  = local.app_aks_network_rg_name
 }
+
+data "azurerm_user_assigned_identity" "jenkins" {
+  provider            = azurerm.cft-ptl
+  name                = "jenkins-ptl-intsvc-mi"
+  resource_group_name = "managed-identities-cftptl-intsvc-rg"
+}
