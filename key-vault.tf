@@ -11,7 +11,6 @@ module "vault" {
   create_managed_identity = true
   jenkins_object_id       = data.azurerm_user_assigned_identity.jenkins.principal_id
   grant_preview_jenkins_access = var.env == "aat" // cft apps only
-  grant_dev_jenkins_access = var.env == "stg" // sds apps only
 }
 
 output "vaultName" {
