@@ -2,7 +2,7 @@
 import uk.gov.hmcts.contino.Subscription
 
 //noinspection GroovyUnusedAssignment
-@Library("Infrastructure@2.4.3") _
+@Library("Infrastructure@2.4.5") _
 
 //noinspection GroovyAssignabilityCheck
 properties([
