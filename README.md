@@ -1,12 +1,12 @@
 # bulk-scan-shared-infrastructure
 
-This module sets up the shared infrastructure for Bulk Scanning. It also provides the ability to run CCD locally in docker containers.
+This module sets up the shared infrastructure for Bulk Scanning. It also provides the ability to run CCD locally in docker containers..
 
 ## Variables
 
 ### Configuration
 
-The following parameters are required by this module
+The following parameters are required by this module..
 
 - `env` The environment of the deployment, such as "prod" or "sandbox".
 - `tenant_id` The Azure Active Directory tenant ID that should be used for authenticating requests to the key vault.
